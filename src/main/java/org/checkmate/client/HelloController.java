@@ -1,4 +1,4 @@
-package org.checkmate;
+package org.checkmate.client;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
