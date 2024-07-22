@@ -1,0 +1,21 @@
+#LoginTitleLabel {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 48px;
+}
+#LoginSubTitleLabel{
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 14px;
+}
+#LoginIdLabel {
+  -fx-font-family: 'BM EULJIRO';
+}
+#LoginPwLabel {
+  -fx-font-family: 'BM EULJIRO';
+}
+#ForgotPwTitleLabel {
+  -fx-font-family: 'BM EULJIRO';
+}
+.button {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-background-radius: 4;
+}
