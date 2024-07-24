@@ -1,0 +1,9 @@
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+  <entry key="findByLoginIdAndPassword">
+    SELECT MEMBER_ID, LOGIN_ID, PASSWORD, ROLE, DELAY_CNT
+    FROM MEMBERS
+    WHERE LOGIN_ID = ?
+    AND password = ?
+  </entry>
+</properties>
