@@ -3,14 +3,11 @@ package org.checkmate.database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 
 /**
  * Database 연결 관리 목적의 싱글톤 클래스
  * HISTORY1: 최초 설정                              [송헌욱  2024.07.23]
  */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DBConnector {
 
     private static final String URL = "jdbc:oracle:thin:@localhost:1521/xe";
