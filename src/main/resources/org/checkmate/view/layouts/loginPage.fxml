@@ -14,7 +14,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" styleClass="root" stylesheets="@../../view/style/login.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.checkmate.client.LoginPageController">
   <left>
-    <AnchorPane prefHeight="500.0" prefWidth="350.0" style="-fx-background-color: #FFFFFF;" stylesheets="@../style/login.css" BorderPane.alignment="CENTER">
+    <AnchorPane prefHeight="500.0" prefWidth="350.0" style="-fx-background-color: #FFFFFF;" stylesheets="@../style/login.css" BorderPane.alignment="CENTER" >
       <children>
         <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="75.0" layoutY="187.0" pickOnBounds="true" preserveRatio="true">
           <image>
@@ -26,11 +26,12 @@
   <center>
     <AnchorPane prefHeight="500.0" prefWidth="415.0" style="-fx-background-color: #F2F2F2;" BorderPane.alignment="CENTER">
       <children>
-        <TextField fx:id="LoginIdLabel" layoutX="105.0" layoutY="208.0" promptText="Sysone ID Number" style="-fx-background-color: tranparent; -fx-border-width: 0px 0px 2px 0px; -fx-border-color: #05AFF2;" />
-        <PasswordField fx:id="LoginPwLabel" layoutX="105.0" layoutY="264.0" promptText="Password" style="-fx-background-color: transparant; -fx-border-color: #05AFF2; -fx-border-width: 0px 0px 2px 0px;" />
+        <TextField fx:id="loginIdLabel" layoutX="105.0" layoutY="208.0" promptText="Sysone ID Number" style="-fx-background-color: tranparent; -fx-border-width: 0px 0px 2px 0px; -fx-border-color: #05AFF2;" />
+        <PasswordField fx:id="loginPwLabel" layoutX="105.0" layoutY="264.0" promptText="Password" style="-fx-background-color: transparant; -fx-border-color: #05AFF2; -fx-border-width: 0px 0px 2px 0px;" />
         <!--            <FontAwesomeIconView fill="#035aa6" glyphName="USER" layoutX="81.0" layoutY="222.0" size="20" />-->
         <!--            <FontAwesomeIconView fill="#035aa6" glyphName="KEY" layoutX="78.0" layoutY="278.0" size="20" />-->
-        <Button fx:id="LoginBtnLabel" layoutX="106.0" layoutY="318.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="158.0" style="-fx-background-color: #035AA6;" text="Login" textFill="WHITE" />
+        <!--<Button fx:id="loginBtnLabel" layoutX="106.0" layoutY="318.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="158.0" style="-fx-background-color: #035AA6;" text="Login" textFill="WHITE" />-->
+        <Button fx:id="loginBtnLabel" onAction="#loginBtn" layoutX="106.0" layoutY="318.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="158.0" style="-fx-background-color: #035AA6;" text="Login" textFill="WHITE" />
         <Text fx:id="LoginTitleLabel" fill="#035aa6" layoutX="52.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CheckMate">
           <font>
             <Font size="48.0" />
@@ -43,7 +44,7 @@
         </Text>
         <FontAwesomeIconView fill="#05aff2" glyphName="USER" layoutX="86.0" layoutY="226.0" size="15" />
         <FontAwesomeIconView fill="#05aff2" glyphName="LOCK" layoutX="86.0" layoutY="282.0" size="15" />
-        <Button layoutX="311.0" layoutY="3.0" mnemonicParsing="false" onAction="#exit" style="-fx-background-color: transoarent;">
+        <Button onAction="#exit" layoutX="311.0" layoutY="3.0" mnemonicParsing="false"  style="-fx-background-color: transoarent;">
           <graphic>
             <FontAwesomeIconView fill="#05aff2" glyphName="CLOSE" size="20" text="" />
           </graphic>
