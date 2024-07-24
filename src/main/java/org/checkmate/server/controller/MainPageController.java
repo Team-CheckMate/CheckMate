@@ -1,4 +1,4 @@
-package org.checkmate.client;
+package org.checkmate.server.controller;
 
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.transform.Translate;
 import javafx.util.Duration;
 
 
