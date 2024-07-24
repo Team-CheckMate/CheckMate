@@ -23,6 +23,9 @@ public class MemberServiceImpl implements MemberService {
         try {
             Member member = memberMapper.findByLoginIdAndPassword(requestDto.getLoginId(),
                     requestDto.getPassword());
+            if (member == null) {
+                throw new SQLException("조회된 회원이 없습니다.");
+            }
             return new LoginResponseDto(true, member, "Login successful");
         } catch (SQLException e) {
             e.printStackTrace();
