@@ -1,4 +1,4 @@
-package org.checkmate.client;
+package org.checkmate.server.controller;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -50,7 +50,7 @@ public class SceneManager {
             Font.loadFont(getClass().getResourceAsStream("/org/checkmate/fonts/BMEULJIRO.otf"), 4);
             //Parent root = FXMLLoader.load(getClass().getResource("/org/checkmate/view/layouts/loginPage.fxml"));
             Parent root = FXMLLoader.load(
-                    Objects.requireNonNull(getClass().getResource("/org/checkmate/view/layouts/loginPage.fxml")));
+                    Objects.requireNonNull(getClass().getResource("/org/checkmate/view/layouts/comm/loginPage.fxml")));
             scene = new Scene(root);
             scene.getStylesheets().add(Objects.requireNonNull(
                     getClass().getResource("/org/checkmate/view/style/login.css")).toExternalForm());

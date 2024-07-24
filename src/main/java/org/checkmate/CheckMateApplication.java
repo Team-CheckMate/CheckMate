@@ -1,16 +1,11 @@
 package org.checkmate;
 
-import java.util.Objects;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import javafx.stage.StageStyle;
-import org.checkmate.client.SceneManager;
+
+import org.checkmate.server.controller.SceneManager;
 
 public class CheckMateApplication extends Application {
 

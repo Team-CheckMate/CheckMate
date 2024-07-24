@@ -6,6 +6,6 @@ module org.checkmate {
 
     opens org.checkmate to javafx.fxml;
     exports org.checkmate;
-    exports org.checkmate.client;
-    opens org.checkmate.client to javafx.fxml;
+    exports org.checkmate.server.controller;
+    opens org.checkmate.server.controller to javafx.fxml;
 }

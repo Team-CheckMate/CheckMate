@@ -12,13 +12,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" styleClass="root" stylesheets="@../../view/style/login.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.checkmate.client.LoginPageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" styleClass="root" stylesheets="@../../style/login.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.checkmate.server.controller.LoginPageController">
   <left>
-    <AnchorPane prefHeight="500.0" prefWidth="350.0" style="-fx-background-color: #FFFFFF;" stylesheets="@../style/login.css" BorderPane.alignment="CENTER" >
+    <AnchorPane prefHeight="500.0" prefWidth="350.0" style="-fx-background-color: #FFFFFF;" stylesheets="@../../style/login.css" BorderPane.alignment="CENTER" >
       <children>
         <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="75.0" layoutY="187.0" pickOnBounds="true" preserveRatio="true">
           <image>
-            <Image url="@../../images/company_logo.jpg" />
+            <Image url="@../../../images/company_logo.jpg" />
           </image>
         </ImageView>
       </children></AnchorPane>
