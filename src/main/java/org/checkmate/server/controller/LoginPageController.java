@@ -7,15 +7,44 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
+import org.checkmate.server.dto.request.LoginRequestDto;
+import org.checkmate.server.dto.response.LoginResponseDto;
+import org.checkmate.server.service.MemberService;
+import org.checkmate.server.service.MemberServiceImpl;
 
+/**
+ * 로그인 요청 객체
+ * HISTORY1: 최초 생성                              [송헌욱  2024.07.22]
+ * HISTORY2: JavaFX 조작 메서드 생성                  [권혁규  2024.07.24]
+ * HISTORY3: 로그인 기능 생성                         [송헌욱, 이준희  2024.07.24]
+ */
 public class LoginPageController implements Initializable {
-    //@FXML private Button loginBtnLabel;
-    @FXML private TextField loginIdLabel;
-    @FXML private PasswordField loginPwLabel;
-    //final int FIELDLENGTH = 9;
 
+    private final MemberService memberService;
+
+    // 기본 생성자
+    public LoginPageController() {
+        memberService = new MemberServiceImpl();
+    }
+
+    @FXML
+    private Button loginBtnLabel;
+
+    @FXML
+    private TextField loginIdLabel;
+
+    @FXML
+    private PasswordField loginPwLabel;
+
+    @FXML
+    private Text loginTitle;
+
+    @FXML
+    private Text loginSubtitle;
 
     @FXML
     private void exit(ActionEvent event) {
@@ -24,57 +53,17 @@ public class LoginPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //loginBtnLabel.setDisable(true);
-//        loginBtnLabel.setOnAction(e -> {
-//            userAction();
-//        });   //로그인 버튼 클릭 이벤트
-//        loginIdLabel.textProperty().addListener((obs, oldTxt, newTxt) -> {
-//            checkFieldLength();
-//        });
-    }
-
-//    public void checkFieldLength() {
-//        loginBtnLabel.setDisable(false);
-//        if(loginIdLabel.getLength() >= FIELDLENGTH) {
-//            loginIdLabel.setText(loginIdLabel.getText().substring(0, FIELDLENGTH));
-//        }
-//    }
-
-    //로그인 아이디와 패스워드 비교
-    public void userAction() {
-        if(!userField(this.loginIdLabel, this.loginPwLabel))
-            return;
-
-//        String id = this.loginIdLabel.getText();
-//        String pw = this.loginPwLabel.getText();
-//        Stage primaryStage = new Stage();
-//        Parent root = FXMLLoader.load(getClass().getResource("view/layouts/mainPage.fxml"));
-//        Scene scene = new Scene(root);
-//        Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//        primaryStage.setScene(scene);
-//        primaryStage.show();
-
-//        MyDB DB = new MyDB();
-//        if(pw.equals(DB.getPassword(id))) {
-//            Msg("로그인 성공");
-//        } else {
-//            Msg("로그인 실패");
-//            this.loginIdLabel.clear();
-//            this.loginPwLabel.clear();
-//            this.loginIdLabel.requestFocus();
-//        }
 
     }
 
-    //아이디, 비밀번호 입력체크
     public boolean userField(TextField loginIdLabel, PasswordField loginPwLabel) {
-        if(loginIdLabel.getText().isEmpty()) {
+        if (loginIdLabel.getText().isEmpty()) {
             Msg("ID를 입력해주세요.");
             loginIdLabel.requestFocus();
             loginPwLabel.clear();
             return false;
         }
-        if(loginPwLabel.getText().isEmpty()) {
+        if (loginPwLabel.getText().isEmpty()) {
             Msg("비밀번호를 입력해주세요.");
             loginPwLabel.requestFocus();
             return false;
@@ -82,7 +71,6 @@ public class LoginPageController implements Initializable {
         return true;
     }
 
-    //alert 메시지 설정
     public void Msg(String msg) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("경고!");
@@ -93,15 +81,21 @@ public class LoginPageController implements Initializable {
 
     @FXML
     public void loginBtn(ActionEvent actionEvent) {
-        if(!userField(this.loginIdLabel, this.loginPwLabel))
+        if (!userField(this.loginIdLabel, this.loginPwLabel)) {
             return;
+        }
 
         String id = this.loginIdLabel.getText();
         String pw = this.loginPwLabel.getText();
-        SceneManager sm = SceneManager.getInstance();
 
-        sm.moveScene("/org/checkmate/view/layouts/user/mainPage.fxml");
+        LoginRequestDto requestDto = new LoginRequestDto(id, pw);
+        LoginResponseDto responseDto = memberService.login(requestDto);
 
+        if (responseDto.isSuccess()) {
+            SceneManager sm = SceneManager.getInstance();
+            sm.moveScene("/org/checkmate/view/layouts/user/mainPage.fxml");
+        } else {
+            Msg("로그인 실패: " + responseDto.getMessage());
+        }
     }
-
 }
