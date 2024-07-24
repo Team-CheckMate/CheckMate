@@ -1,6 +1,7 @@
 package org.checkmate.server.controller;
 
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -15,12 +16,15 @@ import org.checkmate.server.dto.request.LoginRequestDto;
 import org.checkmate.server.dto.response.LoginResponseDto;
 import org.checkmate.server.service.MemberService;
 import org.checkmate.server.service.MemberServiceImpl;
+import org.checkmate.server.entity.MRole;
+import org.checkmate.server.util.PasswordEncoder;
+
 
 /**
  * 로그인 요청 객체
  * HISTORY1: 최초 생성                              [송헌욱  2024.07.22]
  * HISTORY2: JavaFX 조작 메서드 생성                  [권혁규  2024.07.24]
- * HISTORY3: 로그인 기능 생성                         [송헌욱, 이준희  2024.07.24]
+ * HISTORY3: 로그인, pw 암호화 기능 생성               [송헌욱, 이준희  2024.07.24]
  */
 public class LoginPageController implements Initializable {
 
@@ -53,7 +57,7 @@ public class LoginPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        // 필요 시 초기화 논리 추가
     }
 
     public boolean userField(TextField loginIdLabel, PasswordField loginPwLabel) {
@@ -80,20 +84,32 @@ public class LoginPageController implements Initializable {
     }
 
     @FXML
-    public void loginBtn(ActionEvent actionEvent) {
+    public void loginBtn(ActionEvent actionEvent) throws NoSuchAlgorithmException {
         if (!userField(this.loginIdLabel, this.loginPwLabel)) {
             return;
         }
 
         String id = this.loginIdLabel.getText();
-        String pw = this.loginPwLabel.getText();
+        System.out.println("[1] id = " + id);
+        String pw = PasswordEncoder.encrypt(this.loginPwLabel.getText());
+
+        System.out.println("[2] pw = " + pw);
 
         LoginRequestDto requestDto = new LoginRequestDto(id, pw);
+        System.out.println("requestDto = " + requestDto.toString());
         LoginResponseDto responseDto = memberService.login(requestDto);
+        System.out.println("responseDto = " + responseDto.toString());
 
         if (responseDto.isSuccess()) {
-            SceneManager sm = SceneManager.getInstance();
-            sm.moveScene("/org/checkmate/view/layouts/user/mainPage.fxml");
+            if(responseDto.getmRole()== MRole.ADMIN){
+                System.out.println("관리자로그인");
+                SceneManager sm = SceneManager.getInstance();
+                sm.moveScene("/org/checkmate/view/layouts/user/mainPage.fxml");
+            }else{
+                System.out.println("유저로그인");
+                SceneManager sm = SceneManager.getInstance();
+                sm.moveScene("/org/checkmate/view/layouts/user/mainPage.fxml");
+            }
         } else {
             Msg("로그인 실패: " + responseDto.getMessage());
         }
