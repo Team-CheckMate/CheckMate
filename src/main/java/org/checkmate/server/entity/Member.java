@@ -5,6 +5,7 @@ import java.util.Objects;
 /**
  * 서비스 이용자 객체
  * HISTORY1: 최초 생성                              [송헌욱  2024.07.24]
+ * HISTORY2: ROLE get메서드 추가                     [이준희  2024.07.24]
  */
 public class Member {
 
@@ -20,6 +21,10 @@ public class Member {
         this.password = password;
         this.role = role;
         this.delayCnt = delayCnt;
+    }
+
+    public MRole getRole() {
+        return role;
     }
 
     @Override

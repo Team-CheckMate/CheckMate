@@ -3,6 +3,7 @@ package org.checkmate.server.service;
 import java.sql.SQLException;
 import org.checkmate.server.dto.request.LoginRequestDto;
 import org.checkmate.server.dto.response.LoginResponseDto;
+import org.checkmate.server.entity.MRole;
 import org.checkmate.server.entity.Member;
 import org.checkmate.server.mapper.MemberMapper;
 
@@ -26,7 +27,8 @@ public class MemberServiceImpl implements MemberService {
             if (member == null) {
                 throw new SQLException("조회된 회원이 없습니다.");
             }
-            return new LoginResponseDto(true, member, "Login successful");
+            MRole mRole = member.getRole();
+            return new LoginResponseDto(true, member, mRole,"Login successful");
         } catch (SQLException e) {
             e.printStackTrace();
             return new LoginResponseDto(false, null, "An error occurred during login");
