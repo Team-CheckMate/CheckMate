@@ -1,127 +1,133 @@
-
-
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
+  <entry key="findByLoginIdAndPassword">
+    SELECT MEMBER_ID, LOGIN_ID, PASSWORD, E_NAME, ROLE, DELAY_CNT
+    FROM MEMBERS
+    WHERE LOGIN_ID = ?
+    AND password = ?
+  </entry>
+  <entry key="updateMemberPassword">
+    { call update_member_password(?,?) }
+  </entry>
 
-<!--  로그인 회원 찾기 -->
-<entry key="findByLoginIdAndPassword">
-  SELECT MEMBER_ID, LOGIN_ID, PASSWORD, ROLE, DELAY_CNT
-  FROM MEMBERS
-  WHERE LOGIN_ID = ?
-  AND password = ?
-</entry>
+<!--&lt;!&ndash;  로그인 회원 찾기 &ndash;&gt;-->
+<!--<entry key="findByLoginIdAndPassword">-->
+<!--  SELECT MEMBER_ID, LOGIN_ID, PASSWORD, ROLE, DELAY_CNT-->
+<!--  FROM MEMBERS-->
+<!--  WHERE LOGIN_ID = ?-->
+<!--  AND password = ?-->
+<!--</entry>-->
 
-<!-- 도서 대여 파트-->
+<!--&lt;!&ndash; 도서 대여 파트&ndash;&gt;-->
 
-<!--    도서 대여를 위한 전체 책 목록 검색-->
-<entry key="도서목록">
-  SELECT b.b_name,b.author,b.publisher,b.l_status,bln.return_pre_date+1
-  FROM books b left outer join  book_loan_records bln
-  on b.book_id = bln.book_id;
-</entry>
+<!--&lt;!&ndash;    도서 대여를 위한 전체 책 목록 검색&ndash;&gt;-->
+<!--<entry key="도서목록">-->
+<!--  SELECT b.b_name,b.author,b.publisher,b.l_status,bln.return_pre_date+1-->
+<!--  FROM books b left outer join  book_loan_records bln-->
+<!--  on b.book_id = bln.book_id;-->
+<!--</entry>-->
 
-<!--    책이름으로 책 검색 시 필터링 된 책 목록-->
-<!--    ? = 검색된 책이름-->
-<entry key="도서검색">
-  SELECT b.b_name,b.author,b.publisher,b.l_status,bln.return_pre_date +1
-  FROM books b left outer join  book_loan_records bln
-  on b.book_id = bln.book_id
-  where b_name like %?%
-</entry>
-<!--대여하기 버튼 클릭시 book_loan에 데이터 삽입-->
-<entry key="대출 데이터 삽입">
-  {call add_book_loan_record (?, ?)}
-</entry>
+<!--&lt;!&ndash;    책이름으로 책 검색 시 필터링 된 책 목록&ndash;&gt;-->
+<!--&lt;!&ndash;    ? = 검색된 책이름&ndash;&gt;-->
+<!--<entry key="도서검색">-->
+<!--  SELECT b.b_name,b.author,b.publisher,b.l_status,bln.return_pre_date +1-->
+<!--  FROM books b left outer join  book_loan_records bln-->
+<!--  on b.book_id = bln.book_id-->
+<!--  where b_name like %?%-->
+<!--</entry>-->
+<!--&lt;!&ndash;대여하기 버튼 클릭시 book_loan에 데이터 삽입&ndash;&gt;-->
+<!--<entry key="대출 데이터 삽입">-->
+<!--  {call add_book_loan_record (?, ?)}-->
+<!--</entry>-->
 
-<!--사용자가 책 대여를 하면 member 대여 상태를 1로 변경 -->
-<!--   ? = 빌린 책 id -->
-<entry key="대여상태 변경">
-  {call update_book_status  (?)}
+<!--&lt;!&ndash;사용자가 책 대여를 하면 member 대여 상태를 1로 변경 &ndash;&gt;-->
+<!--&lt;!&ndash;   ? = 빌린 책 id &ndash;&gt;-->
+<!--<entry key="대여상태 변경">-->
+<!--  {call update_book_status  (?)}-->
 
-</entry>
+<!--</entry>-->
 
-<!-- 대여 정보 파트 -->
+<!--&lt;!&ndash; 대여 정보 파트 &ndash;&gt;-->
 
-<!--    자신이 빌린 책 대여 정보-->
-<!--   ? =  내 member id-->
-<entry key="책 대여 정보">
-  SELECT b.b_name,b.author,b.publisher,bln.loan_date,bln.return_pre_date
-  FROM books b left outer join  book_loan_records bln
-  on b.book_id = bln.book_id
-  where bln.member_id = ?
-</entry>
+<!--&lt;!&ndash;    자신이 빌린 책 대여 정보&ndash;&gt;-->
+<!--&lt;!&ndash;   ? =  내 member id&ndash;&gt;-->
+<!--<entry key="책 대여 정보">-->
+<!--  SELECT b.b_name,b.author,b.publisher,bln.loan_date,bln.return_pre_date-->
+<!--  FROM books b left outer join  book_loan_records bln-->
+<!--  on b.book_id = bln.book_id-->
+<!--  where bln.member_id = ?-->
+<!--</entry>-->
 
-<!--    마이페이지에 자신이 빌린 책 개수-->
-<entry key="빌린 책 개수">
-  select count(*)
-  from (
-  SELECT *
-  FROM  book_loan_records bln
-  where bln.member_id = '사원번호'
-  and return_date IS NULL
-  );
-</entry>
-
-
-<!--    마이페이지에 마감기한 지난  책 개수-->
-<entry key="마감기한 지난 책 개수">
-  select count(*)
-  from (
-  SELECT *
-  FROM  book_loan_records bln
-  where bln.member_id = 3
-  and return_pre_date < SYSDATE
-                        and return_date IS NULL
-  );
-</entry>
-
-<!--    반납하기-->
-<!--book 테이블 반납 상태 변경--><!-- book_loan_records 테이블 반납 상태 변경-->
-<!-- ? = 반납하는 책 id -->
-<entry key="반납상태 변경">
-  {call return_book   (?)}
-
-</entry>
+<!--&lt;!&ndash;    마이페이지에 자신이 빌린 책 개수&ndash;&gt;-->
+<!--<entry key="빌린 책 개수">-->
+<!--  select count(*)-->
+<!--  from (-->
+<!--  SELECT *-->
+<!--  FROM  book_loan_records bln-->
+<!--  where bln.member_id = '사원번호'-->
+<!--  and return_date IS NULL-->
+<!--  );-->
+<!--</entry>-->
 
 
+<!--&lt;!&ndash;    마이페이지에 마감기한 지난  책 개수&ndash;&gt;-->
+<!--<entry key="마감기한 지난 책 개수">-->
+<!--  select count(*)-->
+<!--  from (-->
+<!--  SELECT *-->
+<!--  FROM  book_loan_records bln-->
+<!--  where bln.member_id = 3-->
+<!--  and return_pre_date < SYSDATE-->
+<!--                        and return_date IS NULL-->
+<!--  );-->
+<!--</entry>-->
 
-<!--마이페이지 파트 -->
+<!--&lt;!&ndash;    반납하기&ndash;&gt;-->
+<!--&lt;!&ndash;book 테이블 반납 상태 변경&ndash;&gt;&lt;!&ndash; book_loan_records 테이블 반납 상태 변경&ndash;&gt;-->
+<!--&lt;!&ndash; ? = 반납하는 책 id &ndash;&gt;-->
+<!--<entry key="반납상태 변경">-->
+<!--  {call return_book   (?)}-->
 
-<!--    내정보 불러오기-->
-<!-- ? =  내 팀넘버
-    ? = 내 회원 정보-->
-<entry key ="내정보 불러오기">
-  select emp_no , t_name from sysone.employees e join sysone.teams t
-  on e.team_no = ?
-  where e.emp_no = ?;
-</entry>
-
-
-<!--    정보 수정-->
-<!-- ? = 비밀번호
-   ? = 사원번호-->
-<entry key ="정보 수정">
-  {call update_member_password (?,?)}
-
-</entry>
-
-
-<!-- 도서 신청 파트 -->
-
-<!-- 전체 도서 신청 조회 -->
-<entry key =" 도서 신청 내역 불러오기">
-  select * from book_requests;
-  select b.member_id , m.e_name,b.b_name ,b.publisher,b.author
-  from book_requests b join members m
-  on b.member_id = m.login_id;
-</entry>
-
-<!--    도서신청하기-->
-<entry key =" 도서신청하기">
-  {call add_book_request (?,?,?,?)}
+<!--</entry>-->
 
 
-</entry>
+
+<!--&lt;!&ndash;마이페이지 파트 &ndash;&gt;-->
+
+<!--&lt;!&ndash;    내정보 불러오기&ndash;&gt;-->
+<!--&lt;!&ndash; ? =  내 팀넘버-->
+<!--    ? = 내 회원 정보&ndash;&gt;-->
+<!--<entry key ="내정보 불러오기">-->
+<!--  select emp_no , t_name from sysone.employees e join sysone.teams t-->
+<!--  on e.team_no = ?-->
+<!--  where e.emp_no = ?;-->
+<!--</entry>-->
+
+
+<!--&lt;!&ndash;    정보 수정&ndash;&gt;-->
+<!--&lt;!&ndash; ? = 비밀번호-->
+<!--   ? = 사원번호&ndash;&gt;-->
+<!--<entry key ="정보 수정">-->
+<!--  {call update_member_password (?,?)}-->
+
+<!--</entry>-->
+
+
+<!--&lt;!&ndash; 도서 신청 파트 &ndash;&gt;-->
+
+<!--&lt;!&ndash; 전체 도서 신청 조회 &ndash;&gt;-->
+<!--<entry key =" 도서 신청 내역 불러오기">-->
+<!--  select * from book_requests;-->
+<!--  select b.member_id , m.e_name,b.b_name ,b.publisher,b.author-->
+<!--  from book_requests b join members m-->
+<!--  on b.member_id = m.login_id;-->
+<!--</entry>-->
+
+<!--&lt;!&ndash;    도서신청하기&ndash;&gt;-->
+<!--<entry key =" 도서신청하기">-->
+<!--  {call add_book_request (?,?,?,?)}-->
+
+
+<!--</entry>-->
 
 </properties>
-
