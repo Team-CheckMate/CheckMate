@@ -1,7 +1,8 @@
 package org.checkmate.server.service;
 
+import java.sql.SQLException;
 import org.checkmate.server.dto.request.LoginRequestDto;
-import org.checkmate.server.dto.response.LoginResponseDto;
+import org.checkmate.server.dto.response.MemberInfoResponseDto;
 
 /**
  * 회원 서비스 인터페이스
@@ -9,6 +10,6 @@ import org.checkmate.server.dto.response.LoginResponseDto;
  */
 public interface MemberService {
 
-    LoginResponseDto login(LoginRequestDto requestDto);
+    MemberInfoResponseDto login(LoginRequestDto requestDto) throws SQLException;
 
 }
