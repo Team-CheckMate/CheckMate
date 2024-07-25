@@ -101,7 +101,7 @@ public class LoginPageController implements Initializable {
         if (memberInfo.getRole() == MRole.ADMIN) {
             System.out.println("관리자 로그인");
             SceneManager sm = SceneManager.getInstance();
-            sm.moveScene("/org/checkmate/view/layouts/user/mainPage.fxml");
+            sm.moveScene("/org/checkmate/view/layouts/admin/mainPage.fxml");
             assert instance != null;
             System.out.println(instance.getMemberInfo().toString());
         } else {
