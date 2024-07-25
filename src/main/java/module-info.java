@@ -3,6 +3,8 @@ module org.checkmate {
     requires javafx.fxml;
     requires java.sql;
     requires static lombok;
+    requires com.jfoenix;
+    requires java.desktop;
 
     opens org.checkmate to javafx.fxml;
     exports org.checkmate;

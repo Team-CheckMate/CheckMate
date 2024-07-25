@@ -1,5 +1,6 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
+
   <!--  로그인 회원 조회 -->
   <entry key="findByLoginIdAndPassword">
     SELECT MEMBER_ID, LOGIN_ID, PASSWORD, ROLE, DELAY_CNT
@@ -8,6 +9,28 @@
     AND password = ?
   </entry>
 
+  <entry key="updateMemberPassword">
+    { call update_member_password(?,?) }
+  </entry>
+
+<!--&lt;!&ndash;  로그인 회원 찾기 &ndash;&gt;-->
+<!--<entry key="findByLoginIdAndPassword">-->
+<!--  SELECT MEMBER_ID, LOGIN_ID, PASSWORD, ROLE, DELAY_CNT-->
+<!--  FROM MEMBERS-->
+<!--  WHERE LOGIN_ID = ?-->
+<!--  AND password = ?-->
+<!--</entry>-->
+
+<!--&lt;!&ndash; 도서 대여 파트&ndash;&gt;-->
+
+<!--&lt;!&ndash;    도서 대여를 위한 전체 책 목록 검색&ndash;&gt;-->
+<!--<entry key="도서목록">-->
+<!--  SELECT b.b_name,b.author,b.publisher,b.l_status,bln.return_pre_date+1-->
+<!--  FROM books b left outer join  book_loan_records bln-->
+<!--  on b.book_id = bln.book_id;-->
+<!--</entry>-->
+
+
   <!-- 도서 대여 파트 -->
   <!-- 도서 대여를 위한 전체 책 목록 조회 -->
   <entry key="findAllBookLoanStatus">
@@ -15,6 +38,7 @@
     FROM BOOKS B LEFT OUTER JOIN BOOK_LOAN_RECORDS BLN
     ON B.BOOK_ID = BLN.BOOK_ID;
   </entry>
+
 
 <!--&lt;!&ndash;    책이름으로 책 검색 시 필터링 된 책 목록&ndash;&gt;-->
 <!--&lt;!&ndash;    ? = 검색된 책이름&ndash;&gt;-->
@@ -118,6 +142,7 @@
 
 
 <!--</entry>-->
+
 
 </properties>
 
