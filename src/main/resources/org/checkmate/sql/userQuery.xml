@@ -2,6 +2,7 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
+
 <!--  로그인 회원 찾기 -->
 <entry key="findByLoginIdAndPassword">
   SELECT MEMBER_ID, LOGIN_ID, PASSWORD, ROLE, DELAY_CNT
@@ -123,5 +124,4 @@
 </entry>
 
 </properties>
-
 
