@@ -7,6 +7,7 @@ import java.sql.SQLException;
 /**
  * Database 연결 관리 목적의 싱글톤 클래스
  * HISTORY1: 최초 설정                              [송헌욱  2024.07.23]
+ * HISTORY2: autoCommit false 설정                  [이준희  2024.07.23]
  */
 public class DBConnector {
 
@@ -28,7 +29,9 @@ public class DBConnector {
     }
 
     public Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        connection.setAutoCommit(false);
+        return connection;
     }
 
 }
