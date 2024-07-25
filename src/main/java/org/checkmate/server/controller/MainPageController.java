@@ -11,6 +11,8 @@ import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import org.checkmate.server.dto.response.MemberInfoResponseDto;
+import org.checkmate.server.util.MemberSession;
 
 public class MainPageController implements Initializable  {
 
@@ -26,7 +28,11 @@ public class MainPageController implements Initializable  {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        MemberSession memberSession = MemberSession.getInstance();
+        initializePage(memberSession.getMemberInfo());
+    }
 
+    private void initializePage(MemberInfoResponseDto responseDto) {
         slider.setTranslateX(-176);
 
         Menu.setOnMouseClicked(event -> {
@@ -60,7 +66,5 @@ public class MainPageController implements Initializable  {
                 MenuBack.setVisible(false);
             });
         });
-
-
     }
 }
