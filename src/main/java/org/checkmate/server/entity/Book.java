@@ -1,5 +1,6 @@
 package org.checkmate.server.entity;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -22,10 +23,11 @@ public class Book {
     private String publisher; // 출판사
     private Long categoryId; // 책 분류 식별자(FK)
     private Integer lStatus; // 대출 가능 상태(0 = false, 1 = true)
+    private LocalDateTime addDate; // 도서 등록 날자
 
     @Builder
     public Book(Long bookId, String ISBN, String bName, String author, String translator,
-            String publisher, Long categoryId, Integer lStatus) {
+            String publisher, Long categoryId, Integer lStatus, LocalDateTime addDate) {
         this.bookId = bookId;
         this.ISBN = ISBN;
         this.bName = bName;
@@ -34,6 +36,7 @@ public class Book {
         this.publisher = publisher;
         this.categoryId = categoryId;
         this.lStatus = lStatus;
+        this.addDate = addDate;
     }
 
     @Override

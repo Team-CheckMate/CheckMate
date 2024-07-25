@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import org.checkmate.database.DBConnector;
-import org.checkmate.server.entity.Book;
+import org.checkmate.server.entity.BookLoanStatus;
+import org.checkmate.server.util.TypeFormatter;
 
 /**
  * SQL Query mapper 클래스
@@ -36,26 +37,24 @@ public class BookMapper {
      * @return List<Book> 책 정보를 담은 리스트 컬랙션
      * @throws SQLException SQL 서버 에러
      */
-    public List<Book> findAllBookTable() throws SQLException {
-        List<Book> books = new ArrayList<>();
-        String query = "select * from book";
+    public List<BookLoanStatus> findAllBookLoanStatus() throws SQLException {
+        List<BookLoanStatus> books = new ArrayList<>();
+        String query = prop.getProperty("findAllBookLoanStatus");
         try (
                 Connection connection = DBConnector.getInstance().getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 ResultSet resultSet = preparedStatement.executeQuery()) {
 
             while (resultSet.next()) {
-                Book book = Book.builder()
-                        .bookId(resultSet.getLong("bookId"))
+                BookLoanStatus book = BookLoanStatus.builder()
+                        .bookId(resultSet.getLong("b.book_id"))
                         .ISBN(resultSet.getString("ISBN"))
-                        .bName(resultSet.getString("bName"))
+                        .bName(resultSet.getString("b_name"))
                         .author(resultSet.getString("author"))
-                        .translator(resultSet.getString("translator"))
                         .publisher(resultSet.getString("publisher"))
-                        .categoryId(resultSet.getLong("categoryId"))
-                        .lStatus(resultSet.getInt("lStatus"))
+                        .lStatus(TypeFormatter.IntegerToBoolean(resultSet.getInt("l_status")))
+                        .returnPreDate(resultSet.getDate("return_pre_date"))
                         .build();
-
                 books.add(book);
             }
         }
