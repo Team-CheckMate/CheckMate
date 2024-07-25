@@ -1,6 +1,7 @@
 package org.checkmate.server.dto.response;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 import org.checkmate.server.entity.MRole;
@@ -14,10 +15,11 @@ import org.checkmate.server.entity.Member;
  */
 @Getter
 @ToString
+@Builder
 @AllArgsConstructor
 public class MemberInfoResponseDto {
 
-    private long memberId;    // 고유 식별자
+    private Long memberId;    // 고유 식별자
     private String loginId;   // 로그인ID(사원 번호)
     private String password;  // 비밀번호
     private String eName;      // 사원 이름
@@ -25,14 +27,13 @@ public class MemberInfoResponseDto {
     private int delayCnt;     // 도서 연체 횟수
 
     public static MemberInfoResponseDto from(Member member) {
-        return new MemberInfoResponseDto(
-                member.getMemberId(),
-                member.getLoginId(),
-                null,
-                member.getEName(),
-                member.getRole(),
-                member.getDelayCnt()
-        );
+        return MemberInfoResponseDto.builder()
+                .memberId(member.getMemberId())
+                .loginId(member.getLoginId())
+                .eName(member.getEName())
+                .role(member.getRole())
+                .delayCnt(member.getDelayCnt())
+                .build();
     }
 
 }
