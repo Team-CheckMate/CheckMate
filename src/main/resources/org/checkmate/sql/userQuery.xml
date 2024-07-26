@@ -9,17 +9,20 @@
     AND password = ?
   </entry>
 
+  <!--  회원 비밀번호 수정 -->
   <entry key="updateMemberPassword">
     { call update_member_password(?,?) }
   </entry>
 
-<!--&lt;!&ndash;  로그인 회원 찾기 &ndash;&gt;-->
-<!--<entry key="findByLoginIdAndPassword">-->
-<!--  SELECT MEMBER_ID, LOGIN_ID, PASSWORD, ROLE, DELAY_CNT-->
-<!--  FROM MEMBERS-->
-<!--  WHERE LOGIN_ID = ?-->
-<!--  AND password = ?-->
-<!--</entry>-->
+  <!--  회원 마이페이지 정보 조회 -->
+  <!-- ? =  내 팀넘버
+      ? = 내 회원 정보-->
+  <entry key ="findMyPageInfo">
+    select emp_no , t_name from sysone.employees e join sysone.teams t
+    on e.team_no = t.team_no
+    where e.emp_no = ?;
+  </entry>
+
 
 <!--&lt;!&ndash; 도서 대여 파트&ndash;&gt;-->
 
@@ -33,11 +36,11 @@
 
   <!-- 도서 대여 파트 -->
   <!-- 도서 대여를 위한 전체 책 목록 조회 -->
-  <entry key="findAllBookLoanStatus">
-    SELECT B.BOOK_ID, B.ISBN, B.B_NAME, B.AUTHOR, B.PUBLISHER, B.L_STATUS, (BLN.RETURN_PRE_DATE + 1) AS RETURN_PRE_DATE
-    FROM BOOKS B LEFT OUTER JOIN BOOK_LOAN_RECORDS BLN
-    ON B.BOOK_ID = BLN.BOOK_ID;
-  </entry>
+<!--  <entry key="findAllBookLoanStatus">-->
+<!--    SELECT B.BOOK_ID, B.ISBN, B.B_NAME, B.AUTHOR, B.PUBLISHER, B.L_STATUS, (BLN.RETURN_PRE_DATE + 1) AS RETURN_PRE_DATE-->
+<!--    FROM BOOKS B LEFT OUTER JOIN BOOK_LOAN_RECORDS BLN-->
+<!--    ON B.BOOK_ID = BLN.BOOK_ID;-->
+<!--  </entry>-->
 
 
 <!--&lt;!&ndash;    책이름으로 책 검색 시 필터링 된 책 목록&ndash;&gt;-->
@@ -107,14 +110,6 @@
 
 <!--&lt;!&ndash;마이페이지 파트 &ndash;&gt;-->
 
-<!--&lt;!&ndash;    내정보 불러오기&ndash;&gt;-->
-<!--&lt;!&ndash; ? =  내 팀넘버-->
-<!--    ? = 내 회원 정보&ndash;&gt;-->
-<!--<entry key ="내정보 불러오기">-->
-<!--  select emp_no , t_name from sysone.employees e join sysone.teams t-->
-<!--  on e.team_no = ?-->
-<!--  where e.emp_no = ?;-->
-<!--</entry>-->
 
 
 <!--&lt;!&ndash;    정보 수정&ndash;&gt;-->
