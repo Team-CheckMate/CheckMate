@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.checkmate.server.controller.admin_bookAddController">
+    <children>
+        <BorderPane layoutX="67.0" layoutY="57.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <top>
+                <AnchorPane prefHeight="65.0" prefWidth="200.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+                    <children>
+                        <Pane layoutX="72.0" layoutY="20.0" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #032d4d;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <Label fx:id="Menu" layoutX="20.0" layoutY="36.0" text="MENU" textFill="#b7b7b7">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="MenuBack" layoutX="20.0" layoutY="36.0" text="MENU" textFill="#b7b7b7">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </AnchorPane>
+            </top>
+            <left>
+                <AnchorPane fx:id="slider" prefHeight="362.0" prefWidth="130.0" style="-fx-background-color: #0A4969;" BorderPane.alignment="CENTER">
+                    <children>
+                        <VBox layoutX="38.0" layoutY="67.0" prefHeight="282.0" prefWidth="70.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="53.0">
+                            <children>
+                                <JFXButton alignment="BASELINE_LEFT" prefHeight="38.0" prefWidth="176.0" text="도서관리" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="15.0" />
+                                    </font>
+                                </JFXButton>
+                                <JFXButton alignment="BASELINE_LEFT" prefHeight="38.0" prefWidth="176.0" text="대여현황" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="15.0" />
+                                    </font>
+                                </JFXButton>
+                                <JFXButton alignment="BASELINE_LEFT" prefHeight="38.0" prefWidth="176.0" text="사원관리" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="15.0" />
+                                    </font>
+                                </JFXButton>
+                                <JFXButton alignment="BASELINE_LEFT" prefHeight="38.0" prefWidth="176.0" text="신청현황" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="15.0" />
+                                    </font>
+                                </JFXButton>
+                            </children></VBox>
+                    </children>
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets></AnchorPane>
+            </left>
+            <center>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Pane layoutY="28.0" prefHeight="5.0" prefWidth="200.0" style="-fx-background-color: black;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                        <Text layoutX="48.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="도서등록">
+                            <font>
+                                <Font name="Bodoni MT" size="14.0" />
+                            </font>
+                        </Text>
+                        <JFXButton fx:id="register" layoutX="382.0" layoutY="255.0" onAction="#register" style="-fx-border-color: #000000; -fx-border-radius: 3px;" text="등록하기" />
+                  <ChoiceBox fx:id="categories" layoutX="342.0" layoutY="195.0" prefHeight="22.0" prefWidth="107.0">
+                      <items>
+                          <FXCollections fx:factory="observableArrayList">
+                              <String fx:value="1. 보이스케어팀" />
+                              <String fx:value="2. 복합인증통제팀" />
+                              <String fx:value="3. 공항사업팀" />
+                              <String fx:value="4. 출입국사업팀" />
+                              <String fx:value="5. 공공/조달팀" />
+                              <String fx:value="6. 보안사업팀" />
+                              <String fx:value="7. 공개SW기술지원 서비스팀" />
+                              <String fx:value="8. 시스템통합유지관리 서비스팀" />
+                              <String fx:value="9. MSP인프라 지원팀" />
+                              <String fx:value="10. 시스템통합유지관리 서비스팀" />
+                              <String fx:value="11. 스토리지 사업팀" />
+                              <String fx:value="12. AI/플랫폼팀" />
+                              <String fx:value="13. 연구개발팀" />
+                          </FXCollections>
+                      </items>
+                  </ChoiceBox>
+                  <Text layoutX="348.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="도서 종류" />
+                  <Text layoutX="192.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="옮긴이" />
+                  <Text layoutX="55.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="저자" />
+                  <Text layoutX="58.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="도서명" />
+                  <Text layoutX="192.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="출판사" />
+                  <Text layoutX="339.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ISBN" />
+                  <TextField fx:id="bookTitle" layoutX="55.0" layoutY="119.0" prefHeight="22.0" prefWidth="110.0" />
+                  <TextField fx:id="publisher" layoutX="198.0" layoutY="119.0" prefHeight="22.0" prefWidth="110.0" />
+                  <TextField fx:id="isbn" layoutX="339.0" layoutY="119.0" prefHeight="22.0" prefWidth="110.0" />
+                  <TextField fx:id="author" layoutX="55.0" layoutY="195.0" prefHeight="22.0" prefWidth="110.0" />
+                  <TextField fx:id="translator" layoutX="198.0" layoutY="195.0" prefHeight="22.0" prefWidth="110.0" />
+                        <!--                    <JFXTextField layoutX="494.0" layoutY="57.0">-->
+
+                        <!--                    </JFXTextField>>-->
+                        <!--                        <ImageView fitHeight="28.0" fitWidth="34.0" layoutX="494.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true">-->
+                        <!--                            <image>-->
+                        <!--                                <Image url="@../../../images/search.png" />-->
+                        <!--                            </image>-->
+                        <!--                        </ImageView>-->
+                    </children>
+                </AnchorPane>
+            </center>
+        </BorderPane>
+    </children>
+</AnchorPane>
