@@ -23,6 +23,10 @@
 
 
 <!--    도서등록-->
+    <entry key="addBook">
+        {call add_book (?,?,?,?,?,?)}
+    </entry>
+
     <entry key="도서 신청 승인">
         {call insert_book_from_request  (?,?,?)}
 
