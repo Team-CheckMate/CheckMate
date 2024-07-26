@@ -51,8 +51,6 @@ public class changePwPageController implements Initializable {
         MemberSession memberSession = MemberSession.getInstance();
     }
 
-
-
     public boolean userField(TextField nowPw, PasswordField changePw, PasswordField checkChangePw) {
         if (nowPw.getText().isEmpty()) {
             Msg("현재 PW를 입력해주세요.");
@@ -87,7 +85,7 @@ public class changePwPageController implements Initializable {
     }
 
     @FXML
-    public void applyBtn(javafx.event.ActionEvent actionEvent) throws NoSuchAlgorithmException {
+    public void applyBtn(javafx.event.ActionEvent actionEvent) throws NoSuchAlgorithmException, SQLException {
         System.out.println("버튼실행됨");
         if(!userField(nowPw,changePw,checkChangePw)){
             return;
@@ -99,7 +97,9 @@ public class changePwPageController implements Initializable {
 
         ChangePwResponseDto changeResult = memberService.changePw(ChangePwRequestDto.of(memberId,nowPw,changePw));
         if(changeResult.isSuccess()){
-            // TODO : 성공 모달창 띄운 후 기존화면으로 전환
+            // TODO : 성공 모달창 띄우기
+            SceneManager sm = SceneManager.getInstance();
+            sm.moveScene("/org/checkmate/view/layouts/user/mainPage.fxml");
             System.out.println(changeResult.getMessage());
         }else{
             // TODO : 실패 모달창 띄운 후 기존화면으로 전환

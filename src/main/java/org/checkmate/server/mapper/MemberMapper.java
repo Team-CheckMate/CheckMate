@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.Properties;
 import org.checkmate.database.DBConnector;
+import org.checkmate.server.dto.response.MyPageResponsedto;
 import org.checkmate.server.entity.MRole;
 import org.checkmate.server.entity.Member;
 
@@ -18,6 +19,7 @@ import org.checkmate.server.entity.Member;
  * HISTORY1: 최초 생성                              [송헌욱  2024.07.24]
  * HISTORY2: Optional 타입 선언                     [송헌욱  2024.07.25]
  * HISTORY3: 패스워드 Update 매핑 추가                [이준희  2024.07.25]
+ * HISTORY4: MyPage 조회 정보 매핑 추가               [이준희  2024.07.25]
  */
 public class MemberMapper {
 
@@ -55,6 +57,30 @@ public class MemberMapper {
                             resultSet.getString("e_name"),
                             MRole.valueOf(resultSet.getString("role")),
                             resultSet.getInt("delay_cnt")
+                    ));
+                }
+            }
+        }
+        return Optional.empty();
+    }
+
+    /**
+     * SQL에 접근하여 이용자의 사원번호와 소속 TEAM을 조회하는 기능
+     * @param loginId 로그인 아이디 = 사원번호
+     * @return MyPageResponsedto 객체
+     * @throws SQLException SQL 서버 에러
+     */
+    public Optional<MyPageResponsedto> getMyPageInfo_findByLoginId (String loginId) throws SQLException {
+        String query = prop.getProperty("findMyPageInfo");
+        try (Connection connection = DBConnector.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, loginId);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return Optional.of(new MyPageResponsedto(
+                            resultSet.getString("emp_no"),
+                            resultSet.getString("t_name")
                     ));
                 }
             }
