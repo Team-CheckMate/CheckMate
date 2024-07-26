@@ -4,9 +4,11 @@ import org.checkmate.server.dto.request.ChangePwRequestDto;
 import org.checkmate.server.dto.request.LoginRequestDto;
 import org.checkmate.server.dto.response.ChangePwResponseDto;
 import org.checkmate.server.dto.response.MemberInfoResponseDto;
+import org.checkmate.server.dto.response.MyPageResponsedto;
 import org.checkmate.server.entity.Member;
 import org.checkmate.server.mapper.MemberMapper;
 import java.sql.SQLException;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 /**
@@ -14,6 +16,7 @@ import java.util.Optional;
  * HISTORY1: 최초 생성                              [송헌욱  2024.07.24]
  * HISTORY2: Optional 타입 선언                     [송헌욱  2024.07.25]
  * HISTORY3: pw update 기능 추가                    [이준희  2024.07.25]
+ * HISTORY4: MyPage 정보조회 기능 추가               [이준희  2024.07.26]
  */
 public class MemberServiceImpl implements MemberService {
 
@@ -39,7 +42,14 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public ChangePwResponseDto changePw(ChangePwRequestDto changePwRequestDto) {
+    public MyPageResponsedto getMypageInfo(String loginId) throws SQLException {
+            Optional<MyPageResponsedto> myPageResponsedto = memberMapper.getMyPageInfo_findByLoginId(loginId);
+        MyPageResponsedto myPageInfo = myPageResponsedto.orElseThrow(() -> new NoSuchElementException("조회된 정보가 없습니다."));
+        return myPageInfo;
+    }
+
+    @Override
+    public ChangePwResponseDto changePw(ChangePwRequestDto changePwRequestDto) throws SQLException{
         try{
             System.out.println(changePwRequestDto.toString());
            int result = memberMapper.updateMemberPassword(changePwRequestDto.getMemberId(),changePwRequestDto.getChangePw());
