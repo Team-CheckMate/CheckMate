@@ -3,7 +3,7 @@
 
   <!--  로그인 회원 조회 -->
   <entry key="findByLoginIdAndPassword">
-    SELECT MEMBER_ID, LOGIN_ID, PASSWORD, ROLE, DELAY_CNT
+    SELECT MEMBER_ID, LOGIN_ID, PASSWORD, E_NAME, ROLE, DELAY_CNT
     FROM MEMBERS
     WHERE LOGIN_ID = ?
     AND password = ?
