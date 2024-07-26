@@ -1,7 +1,10 @@
 package org.checkmate.server.service;
 
 import java.sql.SQLException;
-import java.util.List;
+
+import javafx.collections.ObservableList;
+import org.checkmate.server.dto.request.BookRentRequestDto;
+import org.checkmate.server.dto.response.BookRentResponseDto;
 import org.checkmate.server.entity.BookLoanStatus;
 import org.checkmate.server.mapper.BookMapper;
 
@@ -23,7 +26,21 @@ public class BookServiceImpl implements BookService {
      * @throws SQLException DataBase 에러
      */
     @Override
-    public List<BookLoanStatus> findAllBooks() throws SQLException {
+    public ObservableList<BookLoanStatus> findAllBooks() throws SQLException {
         return bookMapper.findAllBookLoanStatus();
     }
+
+    @Override
+    public BookRentResponseDto bookRent(BookRentRequestDto bookRentRequestDto) {
+        long memberId = bookRentRequestDto.getMemberId();
+        ObservableList<BookLoanStatus> bookList = bookRentRequestDto.getBookList();
+
+
+
+        int result = bookMapper.addBookLoanRecord(memberId, bookList);
+
+        return new BookRentResponseDto("");
+    }
+
+
 }

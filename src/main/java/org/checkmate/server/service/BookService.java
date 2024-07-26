@@ -1,11 +1,14 @@
 package org.checkmate.server.service;
 
 import java.sql.SQLException;
-import java.util.List;
+
+import javafx.collections.ObservableList;
+import org.checkmate.server.dto.request.BookRentRequestDto;
+import org.checkmate.server.dto.response.BookRentResponseDto;
 import org.checkmate.server.entity.BookLoanStatus;
 
 public interface BookService {
 
-    List<BookLoanStatus> findAllBooks() throws SQLException;
-
+    ObservableList<BookLoanStatus> findAllBooks() throws SQLException;
+    BookRentResponseDto bookRent(BookRentRequestDto bookRentRequestDto);
 }
