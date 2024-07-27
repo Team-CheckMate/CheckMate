@@ -21,7 +21,7 @@
   <entry key ="findMyPageInfo">
     select emp_no , t_name from sysone.employees e join sysone.teams t
     on e.team_no = t.team_no
-    where e.emp_no = ?;
+    where e.emp_no = ?
   </entry>
 
 
@@ -31,7 +31,7 @@
 <!--<entry key="도서목록">-->
 <!--  SELECT b.b_name,b.author,b.publisher,b.l_status,bln.return_pre_date+1-->
 <!--  FROM books b left outer join  book_loan_records bln-->
-<!--  on b.book_id = bln.book_id;-->
+<!--  on b.book_id = bln.book_id-->
 <!--</entry>-->
 
 
@@ -40,7 +40,7 @@
 <entry key="findAllBookLoanStatus">
   SELECT B.BOOK_ID, B.ISBN, B.B_NAME, B.AUTHOR, B.PUBLISHER, B.L_STATUS, (BLN.RETURN_PRE_DATE + 1) AS RETURN_PRE_DATE
   FROM BOOKS B LEFT OUTER JOIN BOOK_LOAN_RECORDS BLN
-  ON B.BOOK_ID = BLN.BOOK_ID;
+  ON B.BOOK_ID = BLN.BOOK_ID
 </entry>
 
 
@@ -130,7 +130,7 @@
 <!--  select * from book_requests;-->
 <!--  select b.member_id , m.e_name,b.b_name ,b.publisher,b.author-->
 <!--  from book_requests b join members m-->
-<!--  on b.member_id = m.login_id;-->
+<!--  on b.member_id = m.login_id-->
 <!--</entry>-->
 
 <!--&lt;!&ndash;    도서신청하기&ndash;&gt;-->
