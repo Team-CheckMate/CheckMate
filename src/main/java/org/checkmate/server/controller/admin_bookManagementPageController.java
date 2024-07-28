@@ -5,15 +5,28 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.util.Duration;
+import org.checkmate.server.dto.response.FindAllBooksAdminResponseDto;
 import org.checkmate.server.entity.Book;
 import org.checkmate.server.entity.BookLoanStatus;
 import org.checkmate.server.mapper.BookMapper;
+import org.checkmate.server.service.BookService;
+import org.checkmate.server.service.BookServiceImpl;
+import org.checkmate.server.service.MemberService;
+import org.checkmate.server.service.MemberServiceImpl;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Date;
@@ -25,6 +38,13 @@ import java.util.ResourceBundle;
  */
 public class admin_bookManagementPageController implements Initializable  {
 
+    private final BookService bookService;
+
+    // 기본 생성자
+    public admin_bookManagementPageController() {
+        bookService = new BookServiceImpl();
+    }
+
     @FXML
     private Label Menu;
 
@@ -35,27 +55,37 @@ public class admin_bookManagementPageController implements Initializable  {
     private AnchorPane slider;
 
     @FXML
-    private TableView<BookLoanStatus> table_book;
+    private TableView<FindAllBooksAdminResponseDto> table_book;
 
     @FXML
-    private TableColumn<BookLoanStatus, String> bName;
+    private TableColumn<FindAllBooksAdminResponseDto, Long> bookId;
 
     @FXML
-    private TableColumn<BookLoanStatus, String> publisher;
+    private TableColumn<FindAllBooksAdminResponseDto, String> bName;
 
     @FXML
-    private TableColumn<BookLoanStatus, String> author;
+    private TableColumn<FindAllBooksAdminResponseDto, String> ISBN;
 
     @FXML
-    private TableColumn<BookLoanStatus, Boolean> lStatus;
+    private TableColumn<FindAllBooksAdminResponseDto, String> publisher;
 
     @FXML
-    private TableColumn<BookLoanStatus, Date> date;
+    private TableColumn<FindAllBooksAdminResponseDto, String> author;
 
     @FXML
-    private TableColumn<BookLoanStatus, CheckBox> select;
+    private TableColumn<FindAllBooksAdminResponseDto, Boolean> lStatus;
 
-    ObservableList<BookLoanStatus> bookList;
+    @FXML
+    private TableColumn<FindAllBooksAdminResponseDto, String> eName;
+
+    @FXML
+    private TableColumn<FindAllBooksAdminResponseDto, Date> date;
+
+    @FXML
+    private TableColumn<FindAllBooksAdminResponseDto, Void> manage;
+
+
+    ObservableList<FindAllBooksAdminResponseDto> bookList;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -100,16 +130,93 @@ public class admin_bookManagementPageController implements Initializable  {
         });
     }
 
+    public void Msg(String msg,String function) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("도서 관리");
+        alert.setHeaderText(function);
+        alert.setContentText(msg);
+        alert.show();
+    }
+
+
     private void loadDate() throws SQLException {
-        select.setCellValueFactory(new PropertyValueFactory<BookLoanStatus, CheckBox>("select"));
-        bName.setCellValueFactory(new PropertyValueFactory<BookLoanStatus, String>("bName"));
-        publisher.setCellValueFactory(new PropertyValueFactory<BookLoanStatus, String>("publisher"));
-        author.setCellValueFactory(new PropertyValueFactory<BookLoanStatus, String>("author"));
-        lStatus.setCellValueFactory(new PropertyValueFactory<BookLoanStatus, Boolean>("lStatus"));
-        date.setCellValueFactory(new PropertyValueFactory<BookLoanStatus, Date>("returnPreDate"));
-        BookMapper bm = new BookMapper();
-        //bookList = bm.findAllBookLoanStatus();
+        bookId.setCellValueFactory(new PropertyValueFactory<FindAllBooksAdminResponseDto,Long>("bookId"));
+        bName.setCellValueFactory(new PropertyValueFactory<FindAllBooksAdminResponseDto, String>("bName"));
+        ISBN.setCellValueFactory(new PropertyValueFactory<FindAllBooksAdminResponseDto, String>("ISBN"));
+        author.setCellValueFactory(new PropertyValueFactory<FindAllBooksAdminResponseDto, String>("author"));
+        publisher.setCellValueFactory(new PropertyValueFactory<FindAllBooksAdminResponseDto, String>("publisher"));
+        lStatus.setCellValueFactory(new PropertyValueFactory<FindAllBooksAdminResponseDto, Boolean>("lStatus"));
+        date.setCellValueFactory(new PropertyValueFactory<FindAllBooksAdminResponseDto, Date>("addDate"));
+        eName.setCellValueFactory(new PropertyValueFactory<FindAllBooksAdminResponseDto,String>("eName"));
+        bookList = bookService.findAllBooksAdmin();
         table_book.setItems(bookList);
+        addButtonToTable();
+    }
+
+    private void addButtonToTable() {
+        Callback<TableColumn<FindAllBooksAdminResponseDto, Void>, TableCell<FindAllBooksAdminResponseDto, Void>> cellFactory = new Callback<>() {
+            @Override
+            public TableCell<FindAllBooksAdminResponseDto, Void> call(final TableColumn<FindAllBooksAdminResponseDto, Void> param) {
+                final TableCell<FindAllBooksAdminResponseDto, Void> cell = new TableCell<>() {
+
+                    private final Button modifyBtn = new Button("수정");
+                    private final Button deleteBtn = new Button("삭제");
+
+                    {
+                        modifyBtn.setOnAction((event) -> {
+                            FindAllBooksAdminResponseDto data = getTableView().getItems().get(getIndex());
+                            System.out.println("Selected Data: " + data);
+                            admin_bookModifyController controller = new admin_bookModifyController(data.getBookId());
+                            // 파라미터 설정
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/checkmate/view/layouts/admin/bookModifyPage.fxml"));
+                            loader.setController(controller);
+                            Parent root = null;
+                            try {
+                                root = loader.load();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                            Scene scene = new Scene(root);
+                            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                            stage.setScene(scene);
+                            stage.show();
+                        });
+
+                        deleteBtn.setOnAction((event) -> {
+                            FindAllBooksAdminResponseDto data = getTableView().getItems().get(getIndex());
+                            System.out.println("Selected Data: " + data);
+                            boolean result = false;
+                            try {
+                                result = bookService.deleteSelectedBook(data.getBookId());
+                            } catch (SQLException e) {
+                                throw new RuntimeException(e);
+                            }
+                            String msg = result ? "삭제되었습니다" : "삭제 실패하였습니다";
+                            Msg(data.getBName()+msg,"삭제");
+                            System.out.println(result);
+                            SceneManager sm = SceneManager.getInstance();
+                            sm.moveScene("/org/checkmate/view/layouts/admin/bookManagementPage.fxml");
+                        });
+                    }
+
+                    @Override
+                    public void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            // 버튼들을 HBox에 추가
+                            HBox hBox = new HBox(10); // 버튼 사이의 간격 설정
+                            hBox.getChildren().addAll(modifyBtn, deleteBtn);
+                            setGraphic(hBox);
+                        }
+                    }
+                };
+                return cell;
+            }
+        };
+
+        manage.setCellFactory(cellFactory);
     }
 
     @FXML
