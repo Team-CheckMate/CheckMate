@@ -12,7 +12,7 @@
 <!--    도서 관리 파트-->
     <!--  전체 책 목록 검색-->
     <entry key="도서목록">
-        select b_name,author,publisher,add_date from BOOKS;
+        select b_name,author,publisher,add_date from BOOKS
 
     </entry>
     <!-- 도서 관리 위한 전체 책 목록 조회 -->
@@ -83,15 +83,15 @@
     </entry>
 
     <!--    사원등록 -->
-    <entry key="사원등록">
+    <entry key="userRegister">
 
         {call insert_member   (?,?)}
     </entry>
 
     <!-- 사원삭제 -->
-    <entry key="사원등록">
+    <entry key="userDelete">
 
-        {call delete_member  (?,)}
+        {call delete_member  (?)}
     </entry>
 
 
@@ -106,8 +106,16 @@ select b.member_id,m.e_name,b.b_name,b.publisher,b.author
 from book_requests b join members m
 on b.member_id = m.member_id
 and req_con_date is null
-and return_date is null;
+and return_date is null
 </entry>
 
-
+<!-- 사용자 조회    -->
+ <entry key="findByMember">
+     select m.login_id as login_id ,sys.e_name as e_name ,sys.t_name as t_name ,sys.d_name as d_name
+     from members m join (select emp_no , e_name , t_name, d_name  from
+     (select team_no,t_name,d_name from sysone.teams t join sysone.departments d
+     on t.dept_no = d.dept_no) td join sysone.employees e
+     on td.team_no = e.team_no) sys
+     on m.login_id = sys.emp_no
+ </entry>
 </properties>
