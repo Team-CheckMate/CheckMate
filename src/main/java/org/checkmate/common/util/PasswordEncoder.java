@@ -1,4 +1,4 @@
-package org.checkmate.server.util;
+package org.checkmate.common.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

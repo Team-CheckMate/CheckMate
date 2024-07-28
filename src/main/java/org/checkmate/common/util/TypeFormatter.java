@@ -1,4 +1,4 @@
-package org.checkmate.server.util;
+package org.checkmate.common.util;
 
 /**
  * Boolean, Integer 타입 포맷팅 클래스

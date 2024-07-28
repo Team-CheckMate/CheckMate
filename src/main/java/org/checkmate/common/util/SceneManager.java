@@ -1,4 +1,4 @@
-package org.checkmate.server.controller;
+package org.checkmate.common.util;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -53,7 +53,7 @@ public class SceneManager {
                     Objects.requireNonNull(getClass().getResource("/org/checkmate/view/layouts/comm/loginPage.fxml")));
             scene = new Scene(root);
             scene.getStylesheets().add(Objects.requireNonNull(
-                    getClass().getResource("/org/checkmate/view/style/login.css")).toExternalForm());
+                    getClass().getResource("/org/checkmate/view/style/common/loginPage.css")).toExternalForm());
             stage.initStyle(StageStyle.UNDECORATED);
 
             root.setOnMousePressed(event -> {
