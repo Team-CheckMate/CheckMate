@@ -15,6 +15,7 @@ import org.checkmate.server.service.BookService;
 import org.checkmate.server.service.BookServiceImpl;
 import org.checkmate.server.service.MemberService;
 import org.checkmate.server.service.MemberServiceImpl;
+import org.checkmate.server.util.StringSplit;
 
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
@@ -151,10 +152,10 @@ public class admin_bookAddController implements Initializable {
         String translator = this.translator.getText();
         String publisher = this.publisher.getText();
         System.out.println(publisher);
-        String category_num = this.categories.getItems().toString();
+        String category= (String) this.categories.getValue();
+        int category_num = StringSplit.getCategoryNum(category,".");
         System.out.println(category_num);
-
-        AddBookResponseDto changeResult = bookService.addBook(AddBookRequestDto.of(bookTitle,isbn,author,translator,publisher,1));
+        AddBookResponseDto changeResult = bookService.addBook(AddBookRequestDto.of(bookTitle,isbn,author,translator,publisher,category_num));
     }
 
 }
