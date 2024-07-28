@@ -1,4 +1,4 @@
-package org.checkmate.server.dto.response;
+package org.checkmate.admin.dto.response;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
  */
 @Getter
 @RequiredArgsConstructor
-public class EditBookResponseDto {
+public class BookUpdateResponseDto {
     private final boolean success;
     private final String message;
 }

@@ -1,4 +1,4 @@
-package org.checkmate.server.dto.request;
+package org.checkmate.admin.dto.request;
 
 import lombok.*;
 
@@ -10,7 +10,7 @@ import lombok.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class EditBookRequestDto {
+public class BookUpdateRequestDto {
     Long bookId;
     String bookTitle;
     String isbn;
@@ -21,7 +21,7 @@ public class EditBookRequestDto {
     int l_status;
 
 
-    public static EditBookRequestDto of(Long bookId,String bookTitle, String isbn, String author, String translator, String publisher, int category_num,int l_status){
-        return new EditBookRequestDto(bookId,bookTitle,isbn,author,translator,publisher,category_num,l_status);
+    public static BookUpdateRequestDto of(Long bookId,String bookTitle, String isbn, String author, String translator, String publisher, int category_num,int l_status){
+        return new BookUpdateRequestDto(bookId,bookTitle,isbn,author,translator,publisher,category_num,l_status);
     }
 }

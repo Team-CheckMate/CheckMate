@@ -1,4 +1,4 @@
-package org.checkmate.server.dto.response;
+package org.checkmate.admin.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -13,7 +13,7 @@ import java.util.Date;
 @Getter
 @ToString
 @Builder
-public class FindAllBooksAdminResponseDto {
+public class BookReadLoanStatusResponseDto {
     private Long bookId; // 고유 식별자
     private String bName; // 책이름
     private String ISBN; // ISBN

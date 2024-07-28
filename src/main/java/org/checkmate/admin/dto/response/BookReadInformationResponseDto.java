@@ -1,4 +1,4 @@
-package org.checkmate.server.dto.response;
+package org.checkmate.admin.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -12,7 +12,7 @@ import lombok.ToString;
 @Getter
 @ToString
 @Builder
-public class FindSelectedBookAdminResponseDto {
+public class BookReadInformationResponseDto {
     private String bName; // 책이름
     private String publisher; // 출판사
     private String isbn; // ISBN
