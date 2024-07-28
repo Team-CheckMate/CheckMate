@@ -32,23 +32,23 @@ public class LoginPageController {
         loginService = new LoginServiceImpl();
     }
 
-    @FXML private TextField loginIdLabel;
-    @FXML private PasswordField loginPwLabel;
+    @FXML private TextField loginIdField;
+    @FXML private PasswordField loginPwField;
 
     @FXML private void exit(ActionEvent event) {
         Platform.exit();
     }
 
-    public boolean userField(TextField loginIdLabel, PasswordField loginPwLabel) {
-        if (loginIdLabel.getText().isEmpty()) {
+    public boolean userField(TextField loginIdField, PasswordField loginPwField) {
+        if (loginIdField.getText().isEmpty()) {
             Msg("ID를 입력해주세요.");
-            loginIdLabel.requestFocus();
-            loginPwLabel.clear();
+            loginIdField.requestFocus();
+            loginPwField.clear();
             return false;
         }
-        if (loginPwLabel.getText().isEmpty()) {
+        if (loginPwField.getText().isEmpty()) {
             Msg("비밀번호를 입력해주세요.");
-            loginPwLabel.requestFocus();
+            loginPwField.requestFocus();
             return false;
         }
         return true;
@@ -63,13 +63,13 @@ public class LoginPageController {
     }
 
     @FXML
-    public void loginBtn(ActionEvent actionEvent) throws SQLException, NoSuchAlgorithmException {
-        if (!userField(loginIdLabel, loginPwLabel)) {
+    public void loginBtnClick(ActionEvent actionEvent) throws SQLException, NoSuchAlgorithmException {
+        if (!userField(loginIdField, loginPwField)) {
             return;
         }
 
-        String id = this.loginIdLabel.getText();
-        String pw = PasswordEncoder.encrypt(this.loginPwLabel.getText());
+        String id = this.loginIdField.getText();
+        String pw = PasswordEncoder.encrypt(this.loginPwField.getText());
 
         LoginResponseDto memberInfo = loginService.login(LoginRequestDto.of(id, pw));
 
@@ -83,7 +83,7 @@ public class LoginPageController {
         } else {
             System.out.println("유저 로그인");
             SceneManager sm = SceneManager.getInstance();
-            sm.moveScene("/org/checkmate/view/layouts/user/mainPage.fxml");
+            sm.moveScene("/org/checkmate/view/layouts/user/sidebarSamplePage.fxml");
             assert instance != null;
             System.out.println(instance.getMemberInfo().toString());
         }

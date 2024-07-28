@@ -9,48 +9,48 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" styleClass="root" stylesheets="@../../style/common/loginPage.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="org.checkmate.common.controller.view.LoginPageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+  prefHeight="500.0" prefWidth="700.0" styleClass="root"
+  stylesheets="@../../style/common/loginPage.css" xmlns="http://javafx.com/javafx/17"
+  xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="org.checkmate.common.controller.view.LoginPageController">
   <left>
-    <AnchorPane prefHeight="500.0" prefWidth="350.0" style="-fx-background-color: #FFFFFF;" stylesheets="@../../style/common/loginPage.css" BorderPane.alignment="CENTER" >
-      <children>
-        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="75.0" layoutY="187.0" pickOnBounds="true" preserveRatio="true">
-          <image>
-            <Image url="@../../../images/company_logo.jpg" />
-          </image>
-        </ImageView>
-      </children></AnchorPane>
+    <AnchorPane prefHeight="500.0" prefWidth="350.0" styleClass="left-pane"
+      BorderPane.alignment="CENTER">
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="75.0" layoutY="187.0"
+        pickOnBounds="true" preserveRatio="true">
+        <Image url="@../../../images/company_logo.jpg"/>
+      </ImageView>
+    </AnchorPane>
   </left>
   <center>
-    <AnchorPane prefHeight="500.0" prefWidth="415.0" style="-fx-background-color: #F2F2F2;" BorderPane.alignment="CENTER">
-      <children>
-        <TextField fx:id="loginIdLabel" layoutX="105.0" layoutY="208.0" promptText="Sysone ID Number" style="-fx-background-color: tranparent; -fx-border-width: 0px 0px 2px 0px; -fx-border-color: #05AFF2;" />
-        <PasswordField fx:id="loginPwLabel" layoutX="105.0" layoutY="264.0" promptText="Password" style="-fx-background-color: transparant; -fx-border-color: #05AFF2; -fx-border-width: 0px 0px 2px 0px;" />
-        <!--            <FontAwesomeIconView fill="#035aa6" glyphName="USER" layoutX="81.0" layoutY="222.0" size="20" />-->
-        <!--            <FontAwesomeIconView fill="#035aa6" glyphName="KEY" layoutX="78.0" layoutY="278.0" size="20" />-->
-        <!--<Button fx:id="loginBtnLabel" layoutX="106.0" layoutY="318.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="158.0" style="-fx-background-color: #035AA6;" text="Login" textFill="WHITE" />-->
-        <Button fx:id="loginBtnLabel" onAction="#loginBtn" layoutX="106.0" layoutY="318.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="158.0" style="-fx-background-color: #035AA6;" text="Login" textFill="WHITE" />
-        <Text fx:id="LoginTitleLabel" fill="#035aa6" layoutX="52.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CheckMate">
-          <font>
-            <Font size="48.0" />
-          </font>
-        </Text>
-        <Text fx:id="LoginSubTitleLabel" fill="#05aff2" layoutX="154.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="책과 함께하는 친구 같은 공간">
-          <font>
-            <Font size="14.0" />
-          </font>
-        </Text>
-        <FontAwesomeIconView fill="#05aff2" glyphName="USER" layoutX="86.0" layoutY="226.0" size="15" />
-        <FontAwesomeIconView fill="#05aff2" glyphName="LOCK" layoutX="86.0" layoutY="282.0" size="15" />
-        <Button onAction="#exit" layoutX="311.0" layoutY="3.0" mnemonicParsing="false"  style="-fx-background-color: transoarent;">
-          <graphic>
-            <FontAwesomeIconView fill="#05aff2" glyphName="CLOSE" size="20" text="" />
-          </graphic>
-        </Button>
-        <Hyperlink fx:id="ForgotPwTitleLabel" layoutX="107.0" layoutY="455.0" text="혹시 비밀번호를 잊으셨나요?" textAlignment="CENTER" />
-      </children>
+    <AnchorPane prefHeight="500.0" prefWidth="415.0" styleClass="center-pane"
+      BorderPane.alignment="CENTER">
+      <TextField fx:id="loginIdField" layoutX="105.0" layoutY="208.0" promptText="Sysone ID Number"
+        styleClass="login-field"/>
+      <PasswordField fx:id="loginPwField" layoutX="105.0" layoutY="264.0" promptText="Password"
+        styleClass="password-field"/>
+      <Button layoutX="106.0" layoutY="318.0" mnemonicParsing="false" onAction="#loginBtnClick"
+        prefHeight="27.0" prefWidth="158.0" styleClass="login-button" text="Login"
+        textFill="WHITE"/>
+      <Text fx:id="title" layoutX="52.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0"
+        text="CheckMate"/>
+      <Text fx:id="subTitle" layoutX="154.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0"
+        text="책과 함께하는 친구 같은 공간"/>
+      <FontAwesomeIconView fill="#05aff2" glyphName="USER" layoutX="86.0" layoutY="226.0"
+        size="15"/>
+      <FontAwesomeIconView fill="#05aff2" glyphName="LOCK" layoutX="86.0" layoutY="282.0"
+        size="15"/>
+      <Button layoutX="311.0" layoutY="3.0" mnemonicParsing="false" onAction="#exit"
+        styleClass="exit-button">
+        <graphic>
+          <FontAwesomeIconView fill="#05aff2" glyphName="CLOSE" size="20" text=""/>
+        </graphic>
+      </Button>
+      <Hyperlink fx:id="forgotPwLink" layoutX="107.0" layoutY="455.0" text="혹시 비밀번호를 잊으셨나요?"
+        textAlignment="CENTER"/>
     </AnchorPane>
   </center>
 </BorderPane>
