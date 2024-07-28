@@ -1,17 +1,15 @@
-package org.checkmate.server.controller;
+package org.checkmate.user.controller.view;
 
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-import org.checkmate.server.dto.response.MyPageResponsedto;
-import org.checkmate.server.service.MemberService;
-import org.checkmate.server.service.MemberServiceImpl;
-import org.checkmate.server.util.MemberSession;
+import org.checkmate.common.util.SceneManager;
+import org.checkmate.user.dto.response.ReadMyInformationResponseDto;
+import org.checkmate.common.service.LoginService;
+import org.checkmate.common.service.LoginServiceImpl;
+import org.checkmate.common.util.LoginSession;
 
-import java.awt.*;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -21,11 +19,12 @@ import java.util.ResourceBundle;
  * HISTORY1: 최초 생성                              [이준희  2024.07.26]
 */
 
-public class MyPageController implements Initializable {
+public class ReadMyInformationPageController implements Initializable {
 
-    private final MemberService memberService;
+    private final LoginService loginService;
 
-    public MyPageController() {memberService = new MemberServiceImpl();}
+    public ReadMyInformationPageController() {
+        loginService = new LoginServiceImpl();}
 
     @FXML
     private Text welcomeMent;
@@ -37,11 +36,12 @@ public class MyPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        MemberSession memberSession = MemberSession.getInstance();
+        LoginSession loginSession = LoginSession.getInstance();
         try {
-            MyPageResponsedto myPageInfo = memberService.getMypageInfo(memberSession.getMemberInfo().getLoginId());
+            ReadMyInformationResponseDto myPageInfo = loginService.getMypageInfo(
+                    loginSession.getMemberInfo().getLoginId());
             System.out.println(myPageInfo.getTeamName()+""+myPageInfo.getLoginId());
-            welcomeMent.setText( memberSession.getMemberInfo().getEName()+"님 환영합니다!");
+            welcomeMent.setText( loginSession.getMemberInfo().getEName()+"님 환영합니다!");
             empNo.setText(myPageInfo.getLoginId());
             teamName.setText(myPageInfo.getTeamName());
         } catch (SQLException e) {
@@ -57,6 +57,6 @@ public class MyPageController implements Initializable {
     @FXML
     public void changePw_btn(javafx.event.ActionEvent actionEvent) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/user/changePwPage.fxml");
+        sm.moveScene("/org/checkmate/view/layouts/user/updatePasswordPage.fxml");
     }
 }

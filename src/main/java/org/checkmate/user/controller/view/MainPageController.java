@@ -1,4 +1,4 @@
-package org.checkmate.server.controller;
+package org.checkmate.user.controller.view;
 
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
@@ -8,13 +8,12 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
-
 import java.net.URL;
 import java.util.ResourceBundle;
-import org.checkmate.server.dto.response.MemberInfoResponseDto;
-import org.checkmate.server.util.MemberSession;
+import org.checkmate.common.dto.response.LoginResponseDto;
+import org.checkmate.common.util.LoginSession;
 
-public class MainPageController implements Initializable  {
+public class MainPageController implements Initializable {
 
     @FXML
     private Label Menu;
@@ -28,11 +27,11 @@ public class MainPageController implements Initializable  {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        MemberSession memberSession = MemberSession.getInstance();
-        initializePage(memberSession.getMemberInfo());
+        LoginSession loginSession = LoginSession.getInstance();
+        initializePage(loginSession.getMemberInfo());
     }
 
-    private void initializePage(MemberInfoResponseDto responseDto) {
+    private void initializePage(LoginResponseDto responseDto) {
         slider.setTranslateX(-176);
 
         Menu.setOnMouseClicked(event -> {
@@ -45,7 +44,7 @@ public class MainPageController implements Initializable  {
 
             slider.setTranslateX(-176);
 
-            slide.setOnFinished((ActionEvent e)->{
+            slide.setOnFinished((ActionEvent e) -> {
                 Menu.setVisible(false);
                 MenuBack.setVisible(true);
             });
@@ -61,7 +60,7 @@ public class MainPageController implements Initializable  {
 
             slider.setTranslateX(0);
 
-            slide.setOnFinished((ActionEvent e)->{
+            slide.setOnFinished((ActionEvent e) -> {
                 Menu.setVisible(true);
                 MenuBack.setVisible(false);
             });

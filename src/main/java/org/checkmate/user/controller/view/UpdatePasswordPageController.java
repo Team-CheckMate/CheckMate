@@ -1,45 +1,35 @@
-package org.checkmate.server.controller;
+package org.checkmate.user.controller.view;
 
-import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import org.checkmate.server.dto.request.ChangePwRequestDto;
-import org.checkmate.server.dto.response.ChangePwResponseDto;
-import org.checkmate.server.service.MemberService;
-import org.checkmate.server.service.MemberServiceImpl;
-import org.checkmate.server.util.MemberSession;
-import org.checkmate.server.util.PasswordEncoder;
+import org.checkmate.common.util.SceneManager;
+import org.checkmate.user.dto.request.UpdatePasswordRequestDto;
+import org.checkmate.user.dto.response.UpdatePasswordResponseDto;
+import org.checkmate.common.service.LoginService;
+import org.checkmate.common.service.LoginServiceImpl;
+import org.checkmate.common.util.LoginSession;
+import org.checkmate.common.util.PasswordEncoder;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class changePwPageController implements Initializable {
+public class UpdatePasswordPageController implements Initializable {
 
-    private final MemberService memberService;
+    private final LoginService loginService;
 
-    public changePwPageController() {
-        memberService = new MemberServiceImpl();
+    public UpdatePasswordPageController() {
+        loginService = new LoginServiceImpl();
     }
 
-    @FXML
-    private TextField nowPw;
-
-    @FXML
-    private PasswordField changePw;
-
-    @FXML
-    private PasswordField checkChangePw;
-
-//    @FXML
-//    private JFXButton apply;
+    @FXML private TextField nowPw;
+    @FXML private PasswordField changePw;
+    @FXML private PasswordField checkChangePw;
 
     @FXML
     private void exit(javafx.event.ActionEvent event) {
@@ -48,7 +38,7 @@ public class changePwPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        MemberSession memberSession = MemberSession.getInstance();
+        LoginSession loginSession = LoginSession.getInstance();
     }
 
     public boolean userField(TextField nowPw, PasswordField changePw, PasswordField checkChangePw) {
@@ -91,11 +81,12 @@ public class changePwPageController implements Initializable {
             return;
         }
 
-        long memberId= MemberSession.getInstance().getMemberInfo().getMemberId();
+        long memberId= LoginSession.getInstance().getMemberInfo().getMemberId();
         String nowPw =  PasswordEncoder.encrypt(this.nowPw.getText());
         String changePw = PasswordEncoder.encrypt(this.changePw.getText());
 
-        ChangePwResponseDto changeResult = memberService.changePw(ChangePwRequestDto.of(memberId,nowPw,changePw));
+        UpdatePasswordResponseDto changeResult = loginService.changePw(
+                UpdatePasswordRequestDto.of(memberId,nowPw,changePw));
         if(changeResult.isSuccess()){
             // TODO : 성공 모달창 띄우기
             SceneManager sm = SceneManager.getInstance();
@@ -106,4 +97,5 @@ public class changePwPageController implements Initializable {
             System.out.println(changeResult.getMessage());
         }
     }
+
 }
