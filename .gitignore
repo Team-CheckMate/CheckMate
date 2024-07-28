@@ -234,3 +234,4 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/maven,macos,eclipse,intellij+all,windows
+/checkmate.iml

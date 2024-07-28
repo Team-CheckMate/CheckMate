@@ -121,7 +121,7 @@ public class BookMapper {
                         .build();
                 books.add(book);
                 System.out.println(book.toString());
-            }1
+            }
         }
         return books;
     }
