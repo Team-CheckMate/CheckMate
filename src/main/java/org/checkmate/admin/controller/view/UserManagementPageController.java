@@ -1,4 +1,4 @@
-package org.checkmate.server.controller;
+package org.checkmate.admin.controller.view;
 
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
@@ -16,11 +16,9 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import org.checkmate.server.entity.AdminMember;
 import org.checkmate.server.mapper.AdminMemberMapper;
-import org.checkmate.server.service.AdminMemberService;
 
 
-
-public class adminUserPageController implements Initializable {
+public class UserManagementPageController implements Initializable {
     @FXML
     private Label Menu;
 

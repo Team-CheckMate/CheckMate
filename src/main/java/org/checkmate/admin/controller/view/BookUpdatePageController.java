@@ -1,5 +1,6 @@
-package org.checkmate.server.controller;
+package org.checkmate.admin.controller.view;
 
+import java.io.IOException;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,13 +11,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
-import org.checkmate.server.dto.request.AddBookRequestDto;
-import org.checkmate.server.dto.request.EditBookRequestDto;
-import org.checkmate.server.dto.response.AddBookResponseDto;
-import org.checkmate.server.dto.response.EditBookResponseDto;
-import org.checkmate.server.dto.response.FindSelectedBookAdminResponseDto;
-import org.checkmate.server.service.BookService;
-import org.checkmate.server.service.BookServiceImpl;
+import org.checkmate.admin.dto.request.BookUpdateRequestDto;
+import org.checkmate.admin.dto.response.BookReadInformationResponseDto;
+import org.checkmate.admin.service.BookManagementService;
+import org.checkmate.admin.service.BookManagementServiceImpl;
+import org.checkmate.server.util.SceneManager;
+import org.checkmate.admin.dto.response.BookUpdateResponseDto;
 import org.checkmate.server.util.StringSplit;
 import org.checkmate.server.util.TypeFormatter;
 
@@ -29,13 +29,13 @@ import java.util.ResourceBundle;
  * 관리자 도서 수정
  * HISTORY1: 최초 생성                              [이준희  2024.07.27]
  */
-public class admin_bookModifyController implements Initializable {
+public class BookUpdatePageController implements Initializable {
 
     private Long bookId;
-    private final BookService bookService;
+    private final BookManagementService bookService;
 
-    public admin_bookModifyController(Long bookId) {
-        bookService = new BookServiceImpl();
+    public BookUpdatePageController(Long bookId) {
+        bookService = new BookManagementServiceImpl();
         this.bookId = bookId;
     }
 
@@ -72,7 +72,7 @@ public class admin_bookModifyController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println(bookId);
         try {
-            FindSelectedBookAdminResponseDto responseDto = bookService.findBook(bookId);
+            BookReadInformationResponseDto responseDto = bookService.findBook(bookId);
             bookTitle.setText(responseDto.getBName());
             publisher.setText(responseDto.getPublisher());
             isbn.setText(responseDto.getIsbn());
@@ -188,7 +188,8 @@ public class admin_bookModifyController implements Initializable {
         String category= (String) this.categories.getValue();
         int category_num = StringSplit.getCategoryNum(category,".");
         System.out.println(category_num);
-        EditBookResponseDto responseDto = bookService.editBook(EditBookRequestDto.of(bookId,bookTitle,isbn,author,translator,publisher,category_num,lStatusInt));
+        BookUpdateResponseDto responseDto = bookService.editBook(
+                BookUpdateRequestDto.of(bookId,bookTitle,isbn,author,translator,publisher,category_num,lStatusInt));
         Msg("알림",responseDto.getMessage());
         SceneManager sm = SceneManager.getInstance();
         sm.moveScene("/org/checkmate/view/layouts/admin/bookManagementPage.fxml");

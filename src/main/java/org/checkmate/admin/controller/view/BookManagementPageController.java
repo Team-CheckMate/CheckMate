@@ -1,7 +1,6 @@
-package org.checkmate.server.controller;
+package org.checkmate.admin.controller.view;
 
 import javafx.animation.TranslateTransition;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,14 +16,10 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.Duration;
-import org.checkmate.server.dto.response.FindAllBooksAdminResponseDto;
-import org.checkmate.server.entity.Book;
-import org.checkmate.server.entity.BookLoanStatus;
-import org.checkmate.server.mapper.BookMapper;
-import org.checkmate.server.service.BookService;
-import org.checkmate.server.service.BookServiceImpl;
-import org.checkmate.server.service.MemberService;
-import org.checkmate.server.service.MemberServiceImpl;
+import org.checkmate.admin.dto.response.BookReadLoanStatusResponseDto;
+import org.checkmate.admin.service.BookManagementService;
+import org.checkmate.admin.service.BookManagementServiceImpl;
+import org.checkmate.server.util.SceneManager;
 
 import java.io.IOException;
 import java.net.URL;
@@ -36,13 +31,13 @@ import java.util.ResourceBundle;
  * 도서 관리
  * HISTORY1: 최초 생성                              [이준희  2024.07.26]
  */
-public class admin_bookManagementPageController implements Initializable  {
+public class BookManagementPageController implements Initializable  {
 
-    private final BookService bookService;
+    private final BookManagementService bookService;
 
     // 기본 생성자
-    public admin_bookManagementPageController() {
-        bookService = new BookServiceImpl();
+    public BookManagementPageController() throws IOException {
+        bookService = new BookManagementServiceImpl();
     }
 
     @FXML
@@ -55,37 +50,37 @@ public class admin_bookManagementPageController implements Initializable  {
     private AnchorPane slider;
 
     @FXML
-    private TableView<FindAllBooksAdminResponseDto> table_book;
+    private TableView<BookReadLoanStatusResponseDto> table_book;
 
     @FXML
-    private TableColumn<FindAllBooksAdminResponseDto, Long> bookId;
+    private TableColumn<BookReadLoanStatusResponseDto, Long> bookId;
 
     @FXML
-    private TableColumn<FindAllBooksAdminResponseDto, String> bName;
+    private TableColumn<BookReadLoanStatusResponseDto, String> bName;
 
     @FXML
-    private TableColumn<FindAllBooksAdminResponseDto, String> ISBN;
+    private TableColumn<BookReadLoanStatusResponseDto, String> ISBN;
 
     @FXML
-    private TableColumn<FindAllBooksAdminResponseDto, String> publisher;
+    private TableColumn<BookReadLoanStatusResponseDto, String> publisher;
 
     @FXML
-    private TableColumn<FindAllBooksAdminResponseDto, String> author;
+    private TableColumn<BookReadLoanStatusResponseDto, String> author;
 
     @FXML
-    private TableColumn<FindAllBooksAdminResponseDto, Boolean> lStatus;
+    private TableColumn<BookReadLoanStatusResponseDto, Boolean> lStatus;
 
     @FXML
-    private TableColumn<FindAllBooksAdminResponseDto, String> eName;
+    private TableColumn<BookReadLoanStatusResponseDto, String> eName;
 
     @FXML
-    private TableColumn<FindAllBooksAdminResponseDto, Date> date;
+    private TableColumn<BookReadLoanStatusResponseDto, Date> date;
 
     @FXML
-    private TableColumn<FindAllBooksAdminResponseDto, Void> manage;
+    private TableColumn<BookReadLoanStatusResponseDto, Void> manage;
 
 
-    ObservableList<FindAllBooksAdminResponseDto> bookList;
+    ObservableList<BookReadLoanStatusResponseDto> bookList;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -140,35 +135,36 @@ public class admin_bookManagementPageController implements Initializable  {
 
 
     private void loadDate() throws SQLException {
-        bookId.setCellValueFactory(new PropertyValueFactory<FindAllBooksAdminResponseDto,Long>("bookId"));
-        bName.setCellValueFactory(new PropertyValueFactory<FindAllBooksAdminResponseDto, String>("bName"));
-        ISBN.setCellValueFactory(new PropertyValueFactory<FindAllBooksAdminResponseDto, String>("ISBN"));
-        author.setCellValueFactory(new PropertyValueFactory<FindAllBooksAdminResponseDto, String>("author"));
-        publisher.setCellValueFactory(new PropertyValueFactory<FindAllBooksAdminResponseDto, String>("publisher"));
-        lStatus.setCellValueFactory(new PropertyValueFactory<FindAllBooksAdminResponseDto, Boolean>("lStatus"));
-        date.setCellValueFactory(new PropertyValueFactory<FindAllBooksAdminResponseDto, Date>("addDate"));
-        eName.setCellValueFactory(new PropertyValueFactory<FindAllBooksAdminResponseDto,String>("eName"));
+        bookId.setCellValueFactory(new PropertyValueFactory<>("bookId"));
+        bName.setCellValueFactory(new PropertyValueFactory<>("bName"));
+        ISBN.setCellValueFactory(new PropertyValueFactory<>("ISBN"));
+        author.setCellValueFactory(new PropertyValueFactory<>("author"));
+        publisher.setCellValueFactory(new PropertyValueFactory<>("publisher"));
+        lStatus.setCellValueFactory(new PropertyValueFactory<>("lStatus"));
+        date.setCellValueFactory(new PropertyValueFactory<>("addDate"));
+        eName.setCellValueFactory(new PropertyValueFactory<>("eName"));
         bookList = bookService.findAllBooksAdmin();
         table_book.setItems(bookList);
         addButtonToTable();
     }
 
     private void addButtonToTable() {
-        Callback<TableColumn<FindAllBooksAdminResponseDto, Void>, TableCell<FindAllBooksAdminResponseDto, Void>> cellFactory = new Callback<>() {
+        Callback<TableColumn<BookReadLoanStatusResponseDto, Void>, TableCell<BookReadLoanStatusResponseDto, Void>> cellFactory = new Callback<>() {
             @Override
-            public TableCell<FindAllBooksAdminResponseDto, Void> call(final TableColumn<FindAllBooksAdminResponseDto, Void> param) {
-                final TableCell<FindAllBooksAdminResponseDto, Void> cell = new TableCell<>() {
+            public TableCell<BookReadLoanStatusResponseDto, Void> call(final TableColumn<BookReadLoanStatusResponseDto, Void> param) {
+                final TableCell<BookReadLoanStatusResponseDto, Void> cell = new TableCell<>() {
 
                     private final Button modifyBtn = new Button("수정");
                     private final Button deleteBtn = new Button("삭제");
 
                     {
                         modifyBtn.setOnAction((event) -> {
-                            FindAllBooksAdminResponseDto data = getTableView().getItems().get(getIndex());
+                            BookReadLoanStatusResponseDto data = getTableView().getItems().get(getIndex());
                             System.out.println("Selected Data: " + data);
-                            admin_bookModifyController controller = new admin_bookModifyController(data.getBookId());
+                            BookUpdatePageController controller = new BookUpdatePageController(data.getBookId());
                             // 파라미터 설정
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/checkmate/view/layouts/admin/bookModifyPage.fxml"));
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                                    "/org/checkmate/view/layouts/admin/bookUpdatePage.fxml"));
                             loader.setController(controller);
                             Parent root = null;
                             try {
@@ -183,7 +179,7 @@ public class admin_bookManagementPageController implements Initializable  {
                         });
 
                         deleteBtn.setOnAction((event) -> {
-                            FindAllBooksAdminResponseDto data = getTableView().getItems().get(getIndex());
+                            BookReadLoanStatusResponseDto data = getTableView().getItems().get(getIndex());
                             System.out.println("Selected Data: " + data);
                             boolean result = false;
                             try {
@@ -222,6 +218,6 @@ public class admin_bookManagementPageController implements Initializable  {
     @FXML
     public void moveToAddBook(ActionEvent actionEvent) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/admin/bookAddPage.fxml");
+        sm.moveScene("/org/checkmate/view/layouts/admin/bookCreatePage.fxml");
     }
 }

@@ -1,4 +1,4 @@
-package org.checkmate.server.controller;
+package org.checkmate.admin.controller.view;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -8,8 +8,9 @@ import javafx.scene.control.Button;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import org.checkmate.server.util.SceneManager;
 
-public class admin_MainController implements Initializable  {
+public class ManagementPageController implements Initializable  {
 
     @FXML
     private Button books_manage;
