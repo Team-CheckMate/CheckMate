@@ -1,4 +1,4 @@
-package org.checkmate.server.dto.response;
+package org.checkmate.user.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class MyPageResponsedto {
+public class ReadMyInformationResponseDto {
     private final String loginId;
     private final String TeamName;
 }

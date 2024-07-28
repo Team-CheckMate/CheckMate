@@ -1,4 +1,4 @@
-package org.checkmate.server.entity;
+package org.checkmate.user.dto.response;
 
 import java.util.Date;
 import java.util.Objects;
@@ -10,13 +10,13 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * [Users] 도서 대여 정보 응답 객체
+ * 도서 대여 정보 응답 객체
  * HISTORY1: 최초 생성                                         [송헌욱  2024.07.25]
  */
 @Getter
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class BookLoanStatus {
+public class ReadLoanStatusResponseDto {
 
     private Long bookId; // 고유 식별자
     private String ISBN; // ISBN
@@ -28,7 +28,7 @@ public class BookLoanStatus {
     private CheckBox select;
 
     @Builder
-    public BookLoanStatus(Long bookId, String ISBN, String bName, String author, String publisher,
+    public ReadLoanStatusResponseDto(Long bookId, String ISBN, String bName, String author, String publisher,
             Boolean lStatus, Date returnPreDate, CheckBox select) {
         this.bookId = bookId;
         this.ISBN = ISBN;
@@ -48,7 +48,7 @@ public class BookLoanStatus {
         if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        BookLoanStatus that = (BookLoanStatus) object;
+        ReadLoanStatusResponseDto that = (ReadLoanStatusResponseDto) object;
         return Objects.equals(bookId, that.bookId) && Objects.equals(ISBN,
                 that.ISBN) && Objects.equals(bName, that.bName) && Objects.equals(
                 author, that.author) && Objects.equals(publisher, that.publisher)

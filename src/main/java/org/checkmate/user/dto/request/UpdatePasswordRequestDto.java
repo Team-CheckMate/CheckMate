@@ -1,4 +1,4 @@
-package org.checkmate.server.dto.request;
+package org.checkmate.user.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,13 +13,14 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChangePwRequestDto {
+public class UpdatePasswordRequestDto {
+
     private long memberId;
     private String nowPw;
     private String changePw;
 
-    public static ChangePwRequestDto of(long memberId,String nowPw,String changePw) {
-        return  new ChangePwRequestDto(memberId,nowPw,changePw);
+    public static UpdatePasswordRequestDto of(long memberId, String nowPw, String changePw) {
+        return new UpdatePasswordRequestDto(memberId, nowPw, changePw);
     }
 
 }
