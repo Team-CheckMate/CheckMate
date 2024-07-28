@@ -1,13 +1,12 @@
-package org.checkmate.server.dto.response;
+package org.checkmate.admin.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;
-import org.checkmate.server.entity.AdminMember;
 
 @Getter
 @Builder
 public class AdminMemberResponseDto {
-
+    // TODO: 필요한 클래스인지 확인 필요
 
     private String login_id; // 로그인 아이디
     private String e_name; // 사용자 이름

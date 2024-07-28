@@ -1,6 +1,5 @@
 package org.checkmate.admin.controller.view;
 
-import java.io.IOException;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,10 +14,10 @@ import org.checkmate.admin.dto.request.BookUpdateRequestDto;
 import org.checkmate.admin.dto.response.BookReadInformationResponseDto;
 import org.checkmate.admin.service.BookManagementService;
 import org.checkmate.admin.service.BookManagementServiceImpl;
-import org.checkmate.server.util.SceneManager;
+import org.checkmate.common.util.SceneManager;
 import org.checkmate.admin.dto.response.BookUpdateResponseDto;
-import org.checkmate.server.util.StringSplit;
-import org.checkmate.server.util.TypeFormatter;
+import org.checkmate.common.util.StringSplit;
+import org.checkmate.common.util.TypeFormatter;
 
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;

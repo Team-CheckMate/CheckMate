@@ -12,7 +12,7 @@ import javafx.util.Duration;
 import org.checkmate.admin.controller.server.BookController;
 import org.checkmate.admin.dto.request.BookCreateRequestDto;
 import org.checkmate.common.exception.ValidationException;
-import org.checkmate.server.util.StringSplit;
+import org.checkmate.common.util.StringSplit;
 
 import java.net.URL;
 import java.sql.SQLException;

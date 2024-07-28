@@ -14,7 +14,7 @@ import javafx.util.Duration;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import org.checkmate.server.entity.AdminMember;
+import org.checkmate.admin.dto.response.AdminMember;
 import org.checkmate.admin.mapper.UserManagementMapper;
 
 

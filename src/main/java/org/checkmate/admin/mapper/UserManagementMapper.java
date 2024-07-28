@@ -12,8 +12,8 @@ import java.util.Properties;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.CheckBox;
-import org.checkmate.database.DBConnector;
-import org.checkmate.server.entity.AdminMember;
+import org.checkmate.common.database.DBConnector;
+import org.checkmate.admin.dto.response.AdminMember;
 
 
 /**

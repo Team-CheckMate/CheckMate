@@ -17,8 +17,8 @@ import org.checkmate.admin.dto.response.BookCreateResponseDto;
 import org.checkmate.admin.dto.response.BookReadInformationResponseDto;
 import org.checkmate.admin.dto.response.BookReadLoanStatusResponseDto;
 import org.checkmate.admin.dto.response.BookUpdateResponseDto;
-import org.checkmate.database.DBConnector;
-import org.checkmate.server.util.TypeFormatter;
+import org.checkmate.common.database.DBConnector;
+import org.checkmate.common.util.TypeFormatter;
 
 public class BookManagementMapper {
 
@@ -36,7 +36,7 @@ public class BookManagementMapper {
 
     /**
      * 관리자가 SQL에 접근하여 도서테이블의 책 정보를 모두 조회하는 기능
-     * @return ObservableList<BookReadLoanStatusResponseDto> 응답 책 정보를 담은 리스트 컬랙션
+     * @return ObservableList<ReadLoanStatusResponseDto> 응답 책 정보를 담은 리스트 컬랙션
      * @throws SQLException
      */
     public ObservableList<BookReadLoanStatusResponseDto> findAllBookAdmin() throws SQLException {

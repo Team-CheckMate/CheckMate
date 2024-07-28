@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import org.checkmate.server.util.SceneManager;
+import org.checkmate.common.util.SceneManager;
 
 public class ManagementPageController implements Initializable  {
 

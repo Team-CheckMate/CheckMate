@@ -1,4 +1,4 @@
-package org.checkmate.server.entity;
+package org.checkmate.admin.dto.response;
 import java.util.Objects;
 
 import javafx.scene.control.Button;
@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class AdminMember {
+    // TODO: 필요한 클래스인지 확인 필요
     private CheckBox select; //checkbox
     private String login_id; // 로그인 아이디
     private String e_name; // 사용자 이름
