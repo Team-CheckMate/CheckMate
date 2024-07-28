@@ -2,6 +2,7 @@ package org.checkmate.common.util;
 
 import lombok.Getter;
 import org.checkmate.common.dto.response.LoginResponseDto;
+import org.checkmate.common.exception.ValidationException;
 
 /**
  * 로그인 회원의 상태를 저장할 세션 생성
@@ -25,6 +26,13 @@ public class LoginSession {
             return instance;
         }
         return null;
+    }
+
+    public static synchronized LoginSession getInstance() {
+        if (instance == null) {
+            throw new IllegalStateException("세션이 초기화 되지 않았습니다.");
+        }
+        return instance;
     }
 
     public void clearSession() {

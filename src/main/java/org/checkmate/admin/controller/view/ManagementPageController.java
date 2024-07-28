@@ -31,25 +31,25 @@ public class ManagementPageController implements Initializable  {
     @FXML
     public void books_manager_btn(ActionEvent actionEvent) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/user/mainPage.fxml");
+        sm.moveScene("/org/checkmate/view/layouts/user/sidebarSamplePage.fxml");
     }
 
     // 대여현황
     public void rental_status_btn(ActionEvent actionEvent) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/user/mainPage.fxml");
+        sm.moveScene("/org/checkmate/view/layouts/user/sidebarSamplePage.fxml");
     }
 
     // 사원관리
     public void user_manager_btn(ActionEvent actionEvent) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/user/mainPage.fxml");
+        sm.moveScene("/org/checkmate/view/layouts/user/sidebarSamplePage.fxml");
     }
 
     // 사원현황
     public void user_status_btn(ActionEvent actionEvent) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/user/mainPage.fxml");
+        sm.moveScene("/org/checkmate/view/layouts/user/sidebarSamplePage.fxml");
     }
 
 }

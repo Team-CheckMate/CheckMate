@@ -90,7 +90,7 @@ public class UpdatePasswordPageController implements Initializable {
         if(changeResult.isSuccess()){
             // TODO : 성공 모달창 띄우기
             SceneManager sm = SceneManager.getInstance();
-            sm.moveScene("/org/checkmate/view/layouts/user/mainPage.fxml");
+            sm.moveScene("/org/checkmate/view/layouts/user/sidebarSamplePage.fxml");
             System.out.println(changeResult.getMessage());
         }else{
             // TODO : 실패 모달창 띄운 후 기존화면으로 전환

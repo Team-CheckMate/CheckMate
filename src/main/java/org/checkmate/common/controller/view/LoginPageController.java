@@ -1,5 +1,8 @@
 package org.checkmate.common.controller.view;
 
+import static org.checkmate.admin.util.FilePath.*;
+import static org.checkmate.user.util.FilePath.MAIN_FX;
+
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import javafx.application.Platform;
@@ -15,6 +18,7 @@ import org.checkmate.common.service.LoginServiceImpl;
 import org.checkmate.common.entity.MRole;
 import org.checkmate.common.util.LoginSession;
 import org.checkmate.common.util.PasswordEncoder;
+import org.checkmate.user.util.FilePath;
 
 
 /**
@@ -77,13 +81,13 @@ public class LoginPageController {
         if (memberInfo.getRole() == MRole.ADMIN) {
             System.out.println("관리자 로그인");
             SceneManager sm = SceneManager.getInstance();
-            sm.moveScene("/org/checkmate/view/layouts/admin/managementPage.fxml");
+            sm.moveScene(MANAGEMENT_FX.getFilePath());
             assert instance != null;
             System.out.println(instance.getMemberInfo().toString());
         } else {
             System.out.println("유저 로그인");
             SceneManager sm = SceneManager.getInstance();
-            sm.moveScene("/org/checkmate/view/layouts/user/sidebarSamplePage.fxml");
+            sm.moveScene(MAIN_FX.getFilePath());
             assert instance != null;
             System.out.println(instance.getMemberInfo().toString());
         }

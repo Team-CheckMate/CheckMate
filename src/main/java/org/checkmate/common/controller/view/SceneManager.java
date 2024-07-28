@@ -2,7 +2,6 @@ package org.checkmate.common.controller.view;
 
 import static org.checkmate.common.util.FilePath.*;
 
-import java.net.URL;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -36,7 +35,7 @@ public class SceneManager {
     public void init() {
         try {
             Font.loadFont(getClass().getResourceAsStream(EXTERNAL_FT.getFilePath()), 10);
-            moveScene(LOGIN_FX.getFilePath(), LOGIN_ST.getFilePath());
+            moveScene(LOGIN_FX.getFilePath());
             stage.initStyle(StageStyle.UNDECORATED);
             stage.show();
         } catch (Exception e) {
@@ -60,20 +59,6 @@ public class SceneManager {
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlPath)));
             scene = new Scene(root);
-            enableMouseDrag(root);
-            stage.setScene(scene);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void moveScene(String fxmlPath, String cssPath) {
-        try {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlPath)));
-            scene = new Scene(root);
-            scene.getStylesheets().add(Objects
-                    .requireNonNull(getClass().getResource(cssPath))
-                    .toExternalForm());
             enableMouseDrag(root);
             stage.setScene(scene);
         } catch (IOException e) {
