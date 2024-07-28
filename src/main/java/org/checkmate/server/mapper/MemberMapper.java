@@ -19,16 +19,21 @@ import org.checkmate.server.entity.Member;
  * HISTORY1: 최초 생성                              [송헌욱  2024.07.24]
  * HISTORY2: Optional 타입 선언                     [송헌욱  2024.07.25]
  * HISTORY3: 패스워드 Update 매핑 추가                [이준희  2024.07.25]
- * HISTORY4: MyPage 조회 정보 매핑 추가               [이준희  2024.07.25]
+ * HISTORY4: MyPage 조회 정보 매핑 추가,admin prop 추가 [이준희  2024.07.25]
  */
 public class MemberMapper {
 
     private final Properties prop = new Properties();
+    private final Properties admin_prop = new Properties();
 
     public MemberMapper() {
         try {
             InputStream input = new FileInputStream("target/classes/org/checkmate/sql/userQuery.xml");
             prop.loadFromXML(input);
+
+            InputStream adminInput = new FileInputStream(
+                    "target/classes/org/checkmate/sql/adminQuery.xml");
+            admin_prop.loadFromXML(adminInput);
         } catch (IOException e) {
             e.printStackTrace();
         }
