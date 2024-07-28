@@ -15,7 +15,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import org.checkmate.server.entity.AdminMember;
-import org.checkmate.server.mapper.AdminMemberMapper;
+import org.checkmate.admin.mapper.UserManagementMapper;
 
 
 public class UserManagementPageController implements Initializable {
@@ -118,7 +118,7 @@ public class UserManagementPageController implements Initializable {
         e_name.setCellValueFactory(new PropertyValueFactory<>("e_name"));
         t_name.setCellValueFactory(new PropertyValueFactory<>("t_name"));
         d_name.setCellValueFactory(new PropertyValueFactory<>("d_name"));
-        AdminMemberMapper bm = new AdminMemberMapper();
+        UserManagementMapper bm = new UserManagementMapper();
         memberList = bm.findByMember();
         table_admin_user.setItems(memberList);
         addButtonToTable();
@@ -133,7 +133,7 @@ public class UserManagementPageController implements Initializable {
                     private final Button deleteBtn = new Button("삭제");
 
                     {
-                        AdminMemberMapper bm = new AdminMemberMapper();
+                        UserManagementMapper bm = new UserManagementMapper();
                         deleteBtn.setOnAction((event) -> {
                             AdminMember data = getTableView().getItems().get(getIndex());
 
