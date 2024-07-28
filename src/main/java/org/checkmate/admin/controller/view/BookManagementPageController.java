@@ -19,7 +19,7 @@ import javafx.util.Duration;
 import org.checkmate.admin.dto.response.BookReadLoanStatusResponseDto;
 import org.checkmate.admin.service.BookManagementService;
 import org.checkmate.admin.service.BookManagementServiceImpl;
-import org.checkmate.common.util.SceneManager;
+import org.checkmate.common.controller.view.SceneManager;
 
 import java.io.IOException;
 import java.net.URL;

@@ -4,7 +4,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.text.Text;
-import org.checkmate.common.util.SceneManager;
+import org.checkmate.common.controller.view.SceneManager;
 import org.checkmate.user.dto.response.ReadMyInformationResponseDto;
 import org.checkmate.common.service.LoginService;
 import org.checkmate.common.service.LoginServiceImpl;

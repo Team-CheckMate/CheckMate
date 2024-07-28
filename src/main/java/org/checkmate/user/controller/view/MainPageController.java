@@ -15,15 +15,9 @@ import org.checkmate.common.util.LoginSession;
 
 public class MainPageController implements Initializable {
 
-    @FXML
-    private Label Menu;
-
-    @FXML
-    private Label MenuBack;
-
-    @FXML
-    private AnchorPane slider;
-
+    @FXML private Label Menu;
+    @FXML private Label MenuBack;
+    @FXML private AnchorPane slider;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

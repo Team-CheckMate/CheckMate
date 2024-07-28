@@ -6,7 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import org.checkmate.common.util.SceneManager;
+import org.checkmate.common.controller.view.SceneManager;
 import org.checkmate.user.dto.request.UpdatePasswordRequestDto;
 import org.checkmate.user.dto.response.UpdatePasswordResponseDto;
 import org.checkmate.common.service.LoginService;

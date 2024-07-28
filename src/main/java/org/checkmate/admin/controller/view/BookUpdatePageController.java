@@ -14,8 +14,9 @@ import org.checkmate.admin.dto.request.BookUpdateRequestDto;
 import org.checkmate.admin.dto.response.BookReadInformationResponseDto;
 import org.checkmate.admin.service.BookManagementService;
 import org.checkmate.admin.service.BookManagementServiceImpl;
-import org.checkmate.common.util.SceneManager;
+//import org.checkmate.common.controller.view.SceneManager;
 import org.checkmate.admin.dto.response.BookUpdateResponseDto;
+import org.checkmate.common.controller.view.SceneManager;
 import org.checkmate.common.util.StringSplit;
 import org.checkmate.common.util.TypeFormatter;
 

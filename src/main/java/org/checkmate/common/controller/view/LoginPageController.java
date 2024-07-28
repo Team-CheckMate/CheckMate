@@ -6,11 +6,8 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
-import org.checkmate.common.util.SceneManager;
 import org.checkmate.common.dto.request.LoginRequestDto;
 import org.checkmate.common.dto.response.LoginResponseDto;
 import org.checkmate.common.service.LoginService;
@@ -35,11 +32,8 @@ public class LoginPageController {
         loginService = new LoginServiceImpl();
     }
 
-    @FXML private Button loginBtnLabel;
     @FXML private TextField loginIdLabel;
     @FXML private PasswordField loginPwLabel;
-    @FXML private Text loginTitle;
-    @FXML private Text loginSubtitle;
 
     @FXML private void exit(ActionEvent event) {
         Platform.exit();
