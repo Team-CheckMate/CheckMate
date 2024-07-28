@@ -1,20 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import java.lang.String?>
-<?import javafx.collections.FXCollections?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.checkmate.server.controller.admin_bookAddController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.checkmate.server.controller.admin_bookAddController">
     <children>
         <BorderPane layoutX="67.0" layoutY="57.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <top>
@@ -78,19 +72,24 @@
                   <ChoiceBox fx:id="categories" layoutX="342.0" layoutY="195.0" prefHeight="22.0" prefWidth="107.0">
                       <items>
                           <FXCollections fx:factory="observableArrayList">
-                              <String fx:value="1. 보이스케어팀" />
-                              <String fx:value="2. 복합인증통제팀" />
-                              <String fx:value="3. 공항사업팀" />
-                              <String fx:value="4. 출입국사업팀" />
-                              <String fx:value="5. 공공/조달팀" />
-                              <String fx:value="6. 보안사업팀" />
-                              <String fx:value="7. 공개SW기술지원 서비스팀" />
-                              <String fx:value="8. 시스템통합유지관리 서비스팀" />
-                              <String fx:value="9. MSP인프라 지원팀" />
-                              <String fx:value="10. 시스템통합유지관리 서비스팀" />
-                              <String fx:value="11. 스토리지 사업팀" />
-                              <String fx:value="12. AI/플랫폼팀" />
-                              <String fx:value="13. 연구개발팀" />
+                              <String fx:value="1. 인문" />
+                              <String fx:value="2. 취미/실용/스포츠/여행" />
+                              <String fx:value="3. 경제/경영" />
+                              <String fx:value="4. 문학" />
+                              <String fx:value="5. 생활/요리/건강" />
+                              <String fx:value="6. 인문학일반" />
+                              <String fx:value="7. 심리학" />
+                              <String fx:value="8. 교육학" />
+                              <String fx:value="9. 문학이론/역사/비평" />
+                              <String fx:value="10. 소설" />
+                              <String fx:value="11. 시" />
+                              <String fx:value="12. 가정과 생활" />
+                              <String fx:value="13. 요리" />
+                              <String fx:value="14.	스포츠" />
+                              <String fx:value="18.	자기계발"/>
+                              <String fx:value="19.	컴퓨터/IT" />
+                              <String fx:value="20.	자기계발서" />
+                              <String fx:value="21.	재태크/투자" />
                           </FXCollections>
                       </items>
                   </ChoiceBox>
