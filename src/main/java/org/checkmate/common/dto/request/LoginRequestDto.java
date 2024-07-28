@@ -1,4 +1,4 @@
-package org.checkmate.server.dto.request;
+package org.checkmate.common.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

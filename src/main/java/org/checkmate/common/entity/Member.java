@@ -1,4 +1,4 @@
-package org.checkmate.server.entity;
+package org.checkmate.common.entity;
 
 import java.util.Objects;
 import lombok.AccessLevel;

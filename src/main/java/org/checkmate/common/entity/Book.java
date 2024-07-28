@@ -1,4 +1,4 @@
-package org.checkmate.server.entity;
+package org.checkmate.common.entity;
 
 import java.time.LocalDateTime;
 import java.util.Objects;

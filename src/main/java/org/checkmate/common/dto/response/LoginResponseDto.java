@@ -1,11 +1,11 @@
-package org.checkmate.server.dto.response;
+package org.checkmate.common.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
-import org.checkmate.server.entity.MRole;
-import org.checkmate.server.entity.Member;
+import org.checkmate.common.entity.MRole;
+import org.checkmate.common.entity.Member;
 
 /**
  * 로그인 응답 객체
@@ -17,7 +17,7 @@ import org.checkmate.server.entity.Member;
 @ToString
 @Builder
 @AllArgsConstructor
-public class MemberInfoResponseDto {
+public class LoginResponseDto {
 
     private Long memberId;    // 고유 식별자
     private String loginId;   // 로그인ID(사원 번호)
@@ -26,8 +26,8 @@ public class MemberInfoResponseDto {
     private MRole role;       // 권한 (예: ADMIN - 관리자, BASIC - 일반 사원)
     private int delayCnt;     // 도서 연체 횟수
 
-    public static MemberInfoResponseDto from(Member member) {
-        return MemberInfoResponseDto.builder()
+    public static LoginResponseDto from(Member member) {
+        return LoginResponseDto.builder()
                 .memberId(member.getMemberId())
                 .loginId(member.getLoginId())
                 .eName(member.getEName())

@@ -1,4 +1,4 @@
-package org.checkmate.server.entity;
+package org.checkmate.common.entity;
 
 /**
  * 사용자 권한 관리

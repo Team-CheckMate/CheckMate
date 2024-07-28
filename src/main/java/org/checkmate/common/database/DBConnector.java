@@ -1,4 +1,4 @@
-package org.checkmate.database;
+package org.checkmate.common.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
