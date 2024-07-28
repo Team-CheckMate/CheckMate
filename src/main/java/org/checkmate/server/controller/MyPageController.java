@@ -17,7 +17,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 /**
- * MyPage 정보 요청 객체
+ * MyPage 컨트롤러
  * HISTORY1: 최초 생성                              [이준희  2024.07.26]
 */
 
@@ -38,14 +38,11 @@ public class MyPageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         MemberSession memberSession = MemberSession.getInstance();
-        System.out.println("empNo: " + empNo); // null이면 FXML 파일과 매핑되지 않은 것임
-        System.out.println("teamName: " + teamName);
-        System.out.println("ho");
         try {
             MyPageResponsedto myPageInfo = memberService.getMypageInfo(memberSession.getMemberInfo().getLoginId());
             System.out.println(myPageInfo.getTeamName()+""+myPageInfo.getLoginId());
             welcomeMent.setText( memberSession.getMemberInfo().getEName()+"님 환영합니다!");
-                        empNo.setText(myPageInfo.getLoginId());
+            empNo.setText(myPageInfo.getLoginId());
             teamName.setText(myPageInfo.getTeamName());
         } catch (SQLException e) {
             throw new RuntimeException(e);
