@@ -27,7 +27,7 @@
       </Pane>
         <BorderPane layoutX="67.0" layoutY="84.0" prefHeight="191.0" prefWidth="600.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="125.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="84.0">
          <right>
-                <AnchorPane prefHeight="0.0" prefWidth="600.0" style="-fx-background-color: #FFFFFF;" styleClass="button" stylesheets="@../../style/login.css" BorderPane.alignment="CENTER">
+                <AnchorPane prefHeight="0.0" prefWidth="600.0" style="-fx-background-color: #FFFFFF;" styleClass="button" stylesheets="@../../style/common/loginPage.css" BorderPane.alignment="CENTER">
                     <children>
                         <Text fill="#2a2c2d" layoutX="179.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="책과 함께하는 친구 같은 공간">
                             <font>
