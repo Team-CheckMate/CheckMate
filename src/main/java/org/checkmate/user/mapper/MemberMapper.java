@@ -1,4 +1,4 @@
-package org.checkmate.server.mapper;
+package org.checkmate.user.mapper;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -9,10 +9,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.Properties;
-import org.checkmate.database.DBConnector;
-import org.checkmate.server.dto.response.MyPageResponsedto;
-import org.checkmate.server.entity.MRole;
-import org.checkmate.server.entity.Member;
+import org.checkmate.common.database.DBConnector;
+import org.checkmate.user.dto.response.ReadMyInformationResponseDto;
+import org.checkmate.common.entity.MRole;
+import org.checkmate.common.entity.Member;
 
 /**
  * SQL Query mapper 클래스
@@ -72,10 +72,10 @@ public class MemberMapper {
     /**
      * SQL에 접근하여 이용자의 사원번호와 소속 TEAM을 조회하는 기능
      * @param loginId 로그인 아이디 = 사원번호
-     * @return MyPageResponsedto 객체
+     * @return ReadMyInformationResponseDto 객체
      * @throws SQLException SQL 서버 에러
      */
-    public Optional<MyPageResponsedto> getMyPageInfo_findByLoginId (String loginId) throws SQLException {
+    public Optional<ReadMyInformationResponseDto> getMyPageInfo_findByLoginId (String loginId) throws SQLException {
         String query = prop.getProperty("findMyPageInfo");
         try (Connection connection = DBConnector.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -83,7 +83,7 @@ public class MemberMapper {
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    return Optional.of(new MyPageResponsedto(
+                    return Optional.of(new ReadMyInformationResponseDto(
                             resultSet.getString("emp_no"),
                             resultSet.getString("t_name")
                     ));
