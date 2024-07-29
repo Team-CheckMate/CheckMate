@@ -5,7 +5,7 @@ import org.checkmate.common.dto.request.LoginRequestDto;
 import org.checkmate.user.dto.response.UpdatePasswordResponseDto;
 import org.checkmate.common.dto.response.LoginResponseDto;
 import org.checkmate.user.dto.response.ReadMyInformationResponseDto;
-import org.checkmate.common.entity.Member;
+import org.checkmate.user.entity.Member;
 import org.checkmate.user.mapper.MemberMapper;
 import java.sql.SQLException;
 import java.util.NoSuchElementException;

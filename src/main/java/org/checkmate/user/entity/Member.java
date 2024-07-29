@@ -1,4 +1,4 @@
-package org.checkmate.common.entity;
+package org.checkmate.user.entity;
 
 import java.util.Objects;
 import lombok.AccessLevel;
@@ -19,11 +19,11 @@ public class Member {
     private String loginId;   // 로그인ID(사원 번호)
     private String password;  // 비밀번호
     private String eName;      // 사원 이름
-    private MRole role;       // 권한 (예: ADMIN - 관리자, BASIC - 일반 사원)
+    private String role;       // 권한 (예: ADMIN - 관리자, BASIC - 일반 사원)
     private int delayCnt;     // 도서 연체 횟수
 
     @Builder
-    public Member( String loginId, String password, String eName, MRole role, int delayCnt) {
+    public Member( String loginId, String password, String eName, String role, int delayCnt) {
         this.loginId = loginId;
         this.password = password;
         this.eName = eName;

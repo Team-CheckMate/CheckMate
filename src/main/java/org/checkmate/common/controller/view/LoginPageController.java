@@ -5,6 +5,7 @@ import static org.checkmate.user.util.FilePath.MAIN_FX;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.Objects;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,10 +16,8 @@ import org.checkmate.common.dto.request.LoginRequestDto;
 import org.checkmate.common.dto.response.LoginResponseDto;
 import org.checkmate.common.service.LoginService;
 import org.checkmate.common.service.LoginServiceImpl;
-import org.checkmate.common.entity.MRole;
 import org.checkmate.common.util.LoginSession;
 import org.checkmate.common.util.PasswordEncoder;
-import org.checkmate.user.util.FilePath;
 
 
 /**
@@ -78,7 +77,7 @@ public class LoginPageController {
         LoginResponseDto memberInfo = loginService.login(LoginRequestDto.of(id, pw));
 
         LoginSession instance = LoginSession.getInstance(memberInfo);
-        if (memberInfo.getRole() == MRole.ADMIN) {
+        if (Objects.equals(memberInfo.getRole(), "ADMIN")) {
             System.out.println("관리자 로그인");
             SceneManager sm = SceneManager.getInstance();
             sm.moveScene(MANAGEMENT_FX.getFilePath());

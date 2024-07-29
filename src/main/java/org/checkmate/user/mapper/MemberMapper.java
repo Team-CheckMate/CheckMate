@@ -11,8 +11,7 @@ import java.util.Optional;
 import java.util.Properties;
 import org.checkmate.common.database.DBConnector;
 import org.checkmate.user.dto.response.ReadMyInformationResponseDto;
-import org.checkmate.common.entity.MRole;
-import org.checkmate.common.entity.Member;
+import org.checkmate.user.entity.Member;
 
 /**
  * SQL Query mapper 클래스
@@ -59,7 +58,7 @@ public class MemberMapper {
                             resultSet.getString("login_id"),
                             resultSet.getString("password"),
                             resultSet.getString("e_name"),
-                            MRole.valueOf(resultSet.getString("role")),
+                            resultSet.getString("role"),
                             resultSet.getInt("delay_cnt")
                     ));
                 }
