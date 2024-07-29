@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
+
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
@@ -14,7 +15,7 @@
 <?import javafx.scene.text.Text?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-<AnchorPane prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.checkmate.server.controller.adminUserPageController">
+<AnchorPane prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.checkmate.admin.controller.view.UserManagementPageController">
     <children>
         <BorderPane layoutY="-3.2" prefHeight="390.0" prefWidth="700.0" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-3.0">
             <top>
@@ -72,31 +73,31 @@
             </left>
             <center>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                <children>
-                    <TableView fx:id="table_admin_user" layoutX="22.0" layoutY="62.0" prefHeight="234.0" prefWidth="446.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="56.39999999999998" AnchorPane.topAnchor="62.0">
-                        <columns>
-                            <TableColumn fx:id="select" prefWidth="75.0" style="-fx-alignment: center;" text="선택" />
-                            <TableColumn fx:id="login_id" prefWidth="75.0" style="-fx-alignment: center;" text="사원번호" />
-                            <TableColumn fx:id="e_name" prefWidth="75.0" style="-fx-alignment: center;" text="이름" />
-                        <TableColumn fx:id="t_name" prefWidth="75.0" style="-fx-alignment: center;" text="팀이름" />
-                        <TableColumn fx:id="d_name" prefWidth="75.0" style="-fx-alignment: center;" text="부서이름" />
-                            <TableColumn fx:id="deletebtn" prefWidth="75.0" style="-fx-alignment: center;" text="삭제" />
+                    <children>
+                        <TableView fx:id="table_admin_user" layoutX="22.0" layoutY="62.0" prefHeight="234.0" prefWidth="446.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="56.39999999999998" AnchorPane.topAnchor="62.0">
+                            <columns>
+<!--                                <TableColumn fx:id="select" prefWidth="75.0" style="-fx-alignment: center;" text="선택" />-->
+                                <TableColumn fx:id="loginId" prefWidth="75.0" style="-fx-alignment: center;" text="사원번호" />
+                                <TableColumn fx:id="eName" prefWidth="75.0" style="-fx-alignment: center;" text="이름" />
+                                <TableColumn fx:id="tName" prefWidth="75.0" style="-fx-alignment: center;" text="팀이름" />
+                                <TableColumn fx:id="dName" prefWidth="75.0" style="-fx-alignment: center;" text="부서이름" />
+                                <TableColumn fx:id="delete" prefWidth="75.0" style="-fx-alignment: center;" text="삭제" />
 
 
-                        </columns>
+                            </columns>
 
-                    </TableView>
-                    <Pane layoutY="28.0" prefHeight="5.0" prefWidth="200.0" style="-fx-background-color: black;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                    <Text layoutX="48.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="사원관리">
-                        <font>
-                            <Font name="Bodoni MT" size="14.0" />
-                        </font>
-                    </Text>
-                  <JFXButton onAction="#userRegisterbtn" layoutX="446.0" layoutY="313.0" style="-fx-background-color: #0A4969;" text="사원등록" textFill="WHITE" />
-<!--                    <JFXButton layoutX="556.0" layoutY="356.0" onAction="#rentBookBtn" text="대여하기" />-->
+                        </TableView>
+                        <Pane layoutY="28.0" prefHeight="5.0" prefWidth="200.0" style="-fx-background-color: black;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                        <Text layoutX="48.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="사원관리">
+                            <font>
+                                <Font name="Bodoni MT" size="14.0" />
+                            </font>
+                        </Text>
+                        <JFXButton onAction="#createUserBtn" layoutX="446.0" layoutY="313.0" style="-fx-background-color: #0A4969;" text="사원등록" textFill="WHITE" />
+                        <!--                    <JFXButton layoutX="556.0" layoutY="356.0" onAction="#rentBookBtn" text="대여하기" />-->
 
 
-                </children>
+                    </children>
                 </AnchorPane>
             </center>
         </BorderPane>
