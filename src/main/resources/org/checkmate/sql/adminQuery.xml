@@ -83,13 +83,13 @@
     </entry>
 
     <!--    사원등록 -->
-    <entry key="userRegister">
+    <entry key="createUser">
 
         {call insert_member   (?,?)}
     </entry>
 
     <!-- 사원삭제 -->
-    <entry key="userDelete">
+    <entry key="deleteUser">
 
         {call delete_member  (?)}
     </entry>
