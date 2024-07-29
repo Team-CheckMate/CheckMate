@@ -35,7 +35,7 @@
         </font>
       </Text>
       <Line endX="56.5" endY="-5.8359375" layoutX="334.0" layoutY="132.0" startX="9.5" startY="-5.8359375" stroke="#05aff2" strokeWidth="2.0" />
-      <Text fx:id="text2" layoutX="399.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="사원님 환영합니다.">
+      <Text fx:id="welcome" layoutX="399.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="사원님 환영합니다.">
         <font>
           <Font size="15.0" />
         </font>

@@ -59,4 +59,5 @@ public class ReadMyInformationPageController implements Initializable {
         SceneManager sm = SceneManager.getInstance();
         sm.moveScene(UPDATE_PW_FX.getFilePath());
     }
+
 }
