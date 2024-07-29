@@ -44,7 +44,7 @@ public class BookController {
     }
 
     public ObservableList<BookReadLoanStatusResponseDto> ReadBooksByBookName(String bookName) throws SQLException{
-        return bookService.ReadBooksByBookName(bookName);
+        return bookService.readBooksByBookName(bookName);
     }
 
 
