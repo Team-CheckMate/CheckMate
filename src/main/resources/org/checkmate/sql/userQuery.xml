@@ -45,12 +45,12 @@
 
 <!--    책이름으로 책 검색 시 필터링 된 책 목록-->
 <!--    ? = 검색된 책이름-->
-<entry key="도서검색">
-  SELECT b.b_name,b.author,b.publisher,b.l_status,bln.return_pre_date +1
-  FROM books b left outer join  book_loan_records bln
-  on b.book_id = bln.book_id
-  where b_name like %?%
-</entry>
+<!--<entry key="도서검색">-->
+<!--  SELECT b.b_name,b.author,b.publisher,b.l_status,bln.return_pre_date +1-->
+<!--  FROM books b left outer join  book_loan_records bln-->
+<!--  on b.book_id = bln.book_id-->
+<!--  where b_name like %?%-->
+<!--</entry>-->
 <!--대여하기 버튼 클릭시 book_loan에 데이터 삽입-->
 <entry key="대출 데이터 삽입">
   {call add_book_loan_record (?, ?)}
@@ -75,28 +75,28 @@
 </entry>
 
 <!--    마이페이지에 자신이 빌린 책 개수-->
-<entry key="빌린 책 개수">
-  select count(*)
-  from (
-  SELECT *
-  FROM  book_loan_records bln
-  where bln.login_id = '사원번호'
-  and return_date IS NULL
-  );
-</entry>
+<!--<entry key="빌린 책 개수">-->
+<!--  select count(*)-->
+<!--  from (-->
+<!--  SELECT *-->
+<!--  FROM  book_loan_records bln-->
+<!--  where bln.login_id = '사원번호'-->
+<!--  and return_date IS NULL-->
+<!--  );-->
+<!--</entry>-->
 
 
 <!--    마이페이지에 마감기한 지난  책 개수-->
-<entry key="마감기한 지난 책 개수">
-  select count(*)
-  from (
-  SELECT *
-  FROM  book_loan_records bln
-  where bln.login_id = ?
-  and return_pre_date < SYSDATE
-                        and return_date IS NULL
-  );
-</entry>
+<!--<entry key="마감기한 지난 책 개수">-->
+<!--  select count(*)-->
+<!--  from (-->
+<!--  SELECT *-->
+<!--  FROM  book_loan_records bln-->
+<!--  where bln.login_id = ?-->
+<!--  and return_pre_date < SYSDATE-->
+<!--                        and return_date IS NULL-->
+<!--  );-->
+<!--</entry>-->
 
 <!--    반납하기-->
 <!--book 테이블 반납 상태 변경--><!-- book_loan_records 테이블 반납 상태 변경-->
