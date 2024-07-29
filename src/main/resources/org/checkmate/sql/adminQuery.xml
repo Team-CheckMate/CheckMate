@@ -31,7 +31,7 @@
         LEFT JOIN
         BOOK_LOAN_RECORDS L ON B.BOOK_ID = L.BOOK_ID
         LEFT JOIN
-        MEMBERS M ON L.MEMBER_ID = M.MEMBER_ID
+        MEMBERS M ON L.login_id = M.login_id
     </entry>
 
     <!-- 도서 수정 위한 선택된 책 정보 조회 -->

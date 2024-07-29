@@ -15,12 +15,12 @@ import lombok.ToString;
 @AllArgsConstructor
 public class UpdatePasswordRequestDto {
 
-    private long memberId;
+    private String loginId;
     private String nowPw;
     private String changePw;
 
-    public static UpdatePasswordRequestDto of(long memberId, String nowPw, String changePw) {
-        return new UpdatePasswordRequestDto(memberId, nowPw, changePw);
+    public static UpdatePasswordRequestDto of(String loginId, String nowPw, String changePw) {
+        return new UpdatePasswordRequestDto(loginId, nowPw, changePw);
     }
 
 }

@@ -56,7 +56,6 @@ public class MemberMapper {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     return Optional.of(new Member(
-                            resultSet.getLong("member_id"),
                             resultSet.getString("login_id"),
                             resultSet.getString("password"),
                             resultSet.getString("e_name"),
@@ -95,16 +94,16 @@ public class MemberMapper {
 
     /**
      * SQL에 접근하여 이용자의 패스워드를 입력받은 값으로 UPDATE 하는 기능
-     * @param memberId 로그인 pk
+     * @param login_id 로그인 pk
      * @param changePassword 새로운 비밀 번호
      * @return updateRows 변경된 쿼리 개수
      * @throws SQLException SQL 서버 에러
      */
-    public int updateMemberPassword  (long memberId, String changePassword) throws SQLException {
+    public int updateMemberPassword  (String login_id, String changePassword) throws SQLException {
         String query = prop.getProperty("updateMemberPassword");
         try (Connection connection = DBConnector.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setLong(1, memberId);
+            preparedStatement.setString(1, login_id);
             preparedStatement.setString(2, changePassword);
             return preparedStatement.executeUpdate();
         }

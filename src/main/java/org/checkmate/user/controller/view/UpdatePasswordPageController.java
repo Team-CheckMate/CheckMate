@@ -81,12 +81,12 @@ public class UpdatePasswordPageController implements Initializable {
             return;
         }
 
-        long memberId= LoginSession.getInstance().getMemberInfo().getMemberId();
+        String loginId= LoginSession.getInstance().getMemberInfo().getLoginId();
         String nowPw =  PasswordEncoder.encrypt(this.nowPw.getText());
         String changePw = PasswordEncoder.encrypt(this.changePw.getText());
 
         UpdatePasswordResponseDto changeResult = loginService.changePw(
-                UpdatePasswordRequestDto.of(memberId,nowPw,changePw));
+                UpdatePasswordRequestDto.of(loginId,nowPw,changePw));
         if(changeResult.isSuccess()){
             // TODO : 성공 모달창 띄우기
             SceneManager sm = SceneManager.getInstance();

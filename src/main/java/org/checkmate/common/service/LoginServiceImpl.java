@@ -52,7 +52,7 @@ public class LoginServiceImpl implements LoginService {
     public UpdatePasswordResponseDto changePw(UpdatePasswordRequestDto updatePasswordRequestDto) throws SQLException{
         try{
             System.out.println(updatePasswordRequestDto.toString());
-           int result = memberMapper.updateMemberPassword(updatePasswordRequestDto.getMemberId(),
+           int result = memberMapper.updateMemberPassword(updatePasswordRequestDto.getLoginId(),
                    updatePasswordRequestDto.getChangePw());
            if(result>0){
                System.out.println("비번 변경 성공");

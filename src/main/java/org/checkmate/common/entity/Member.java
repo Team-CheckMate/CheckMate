@@ -16,7 +16,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
 
-    private Long memberId;    // 고유 식별자
     private String loginId;   // 로그인ID(사원 번호)
     private String password;  // 비밀번호
     private String eName;      // 사원 이름
@@ -24,8 +23,7 @@ public class Member {
     private int delayCnt;     // 도서 연체 횟수
 
     @Builder
-    public Member(Long memberId, String loginId, String password, String eName, MRole role, int delayCnt) {
-        this.memberId = memberId;
+    public Member( String loginId, String password, String eName, MRole role, int delayCnt) {
         this.loginId = loginId;
         this.password = password;
         this.eName = eName;
@@ -42,7 +40,7 @@ public class Member {
             return false;
         }
         Member member = (Member) object;
-        return delayCnt == member.delayCnt && Objects.equals(memberId, member.memberId)
+        return delayCnt == member.delayCnt
                 && Objects.equals(loginId, member.loginId) && Objects.equals(
                 password, member.password) && Objects.equals(eName, member.eName)
                 && role == member.role;
@@ -50,6 +48,6 @@ public class Member {
 
     @Override
     public int hashCode() {
-        return Objects.hash(memberId, loginId, password, eName, role, delayCnt);
+        return Objects.hash( loginId, password, eName, role, delayCnt);
     }
 }

@@ -19,7 +19,6 @@ import org.checkmate.common.entity.Member;
 @AllArgsConstructor
 public class LoginResponseDto {
 
-    private Long memberId;    // 고유 식별자
     private String loginId;   // 로그인ID(사원 번호)
     private String password;  // 비밀번호
     private String eName;      // 사원 이름
@@ -28,7 +27,6 @@ public class LoginResponseDto {
 
     public static LoginResponseDto from(Member member) {
         return LoginResponseDto.builder()
-                .memberId(member.getMemberId())
                 .loginId(member.getLoginId())
                 .eName(member.getEName())
                 .role(member.getRole())
