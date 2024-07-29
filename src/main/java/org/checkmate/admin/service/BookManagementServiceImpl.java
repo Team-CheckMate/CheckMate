@@ -40,8 +40,8 @@ public class BookManagementServiceImpl implements BookManagementService {
      * @throws SQLException DataBase 에러
      */
     @Override
-    public ObservableList<BookReadLoanStatusResponseDto> findAllBooksAdmin() throws SQLException {
-        return bookMapper.findAllBookAdmin();
+    public ObservableList<BookReadLoanStatusResponseDto> readAllBooks() throws SQLException {
+        return bookMapper.readAllBooks();
     }
 
     /**
@@ -52,8 +52,8 @@ public class BookManagementServiceImpl implements BookManagementService {
      * @throws SQLException DataBase 에러
      */
     @Override
-    public BookReadInformationResponseDto findBook(Long bookId) throws SQLException {
-        return bookMapper.findBook(bookId);
+    public BookReadInformationResponseDto readBook(Long bookId) throws SQLException {
+        return bookMapper.readBook(bookId);
     }
 
     /**
@@ -63,8 +63,19 @@ public class BookManagementServiceImpl implements BookManagementService {
      * @throws SQLException DataBase 에러
      */
     @Override
-    public BookUpdateResponseDto editBook(BookUpdateRequestDto requestDto) throws SQLException {
-        return bookMapper.editBook(requestDto);
+    public BookUpdateResponseDto updateBook(BookUpdateRequestDto requestDto) throws SQLException {
+        return bookMapper.updateBook(requestDto);
+    }
+
+    /**
+     * [Read] 관리자가 도서명을 입력했을때 해당 도서의 정보를 받아오는 기능
+     * @Param bookName 해당 도서명
+     * @return BookReadLoanStatusResponseDto 등록된 도서 정보 결과
+     * @throws SQLException DataBase 에러
+     */
+    @Override
+    public ObservableList<BookReadLoanStatusResponseDto> ReadBooksByBookName(String bookName) throws SQLException {
+        return bookMapper.ReadBooksByBookName(bookName);
     }
 
     /**
@@ -75,7 +86,7 @@ public class BookManagementServiceImpl implements BookManagementService {
      * @throws SQLException DataBase 에러
      */
     @Override
-    public boolean deleteSelectedBook(Long bookId) throws SQLException {
+    public String deleteSelectedBook(Long bookId) throws SQLException {
         return bookMapper.deleteSelectedBook(bookId);
     }
 }
