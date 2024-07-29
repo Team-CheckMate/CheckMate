@@ -19,37 +19,19 @@ import org.checkmate.admin.mapper.UserManagementMapper;
 
 
 public class UserManagementPageController implements Initializable {
-    @FXML
-    private Label Menu;
 
-    @FXML
-    private Label MenuBack;
+    @FXML private Label Menu;
+    @FXML private Label MenuBack;
+    @FXML private AnchorPane slider;
+    @FXML private TableView<AdminMember> table_admin_user;
+    @FXML private TableColumn<AdminMember, String> login_id;
+    @FXML private TableColumn<AdminMember, String> e_name;
+    @FXML private TableColumn<AdminMember, String> t_name;
+    @FXML private TableColumn<AdminMember, String> d_name;
+    @FXML private TableColumn<AdminMember, CheckBox> select;
+    @FXML private TableColumn<AdminMember, Void> deletebtn;
 
-    @FXML
-    private AnchorPane slider;
-
-    @FXML
-    private TableView<AdminMember> table_admin_user;
-
-    @FXML
-    private TableColumn<AdminMember, String> login_id;
-
-    @FXML
-    private TableColumn<AdminMember, String> e_name;
-
-    @FXML
-    private TableColumn<AdminMember, String> t_name;
-
-    @FXML
-    private TableColumn<AdminMember, String> d_name;
-
-    @FXML
-    private TableColumn<AdminMember, CheckBox> select;
-    @FXML
-    private TableColumn<AdminMember, Void> deletebtn;
-
-    @FXML
-    private void exit(ActionEvent event) {
+    @FXML private void exit(ActionEvent event) {
         Platform.exit();
     }
 

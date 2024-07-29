@@ -8,6 +8,7 @@ import lombok.*;
  */
 @Getter
 @ToString
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class BookUpdateRequestDto {
@@ -19,9 +20,4 @@ public class BookUpdateRequestDto {
     String publisher;
     int category_num;
     int l_status;
-
-
-    public static BookUpdateRequestDto of(Long bookId,String bookTitle, String isbn, String author, String translator, String publisher, int category_num,int l_status){
-        return new BookUpdateRequestDto(bookId,bookTitle,isbn,author,translator,publisher,category_num,l_status);
-    }
 }

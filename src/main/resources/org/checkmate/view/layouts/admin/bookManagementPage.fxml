@@ -80,6 +80,9 @@
                             </font>
                         </Text>
                         <JFXButton layoutX="556.0" layoutY="356.0" onAction="#moveToAddBook" text="등록하기" />
+                        <Text fx:id="countMessage" layoutX="40.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="110.48828125" />
+                        <TextField fx:id="bookSearch" layoutX="431.0" layoutY="70.0" />
+                        <Button fx:id="search" layoutX="589.0" layoutY="70.0" onAction="#search" mnemonicParsing="false" text="검색" />
                         <!--                    <JFXTextField layoutX="494.0" layoutY="57.0">-->
 
                         <!--                    </JFXTextField>>-->
