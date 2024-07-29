@@ -3,7 +3,7 @@
     <!--  로그인 회원 찾기 -->
 
     <entry key="findByLoginIdAndPassword">
-        SELECT MEMBER_ID, LOGIN_ID, PASSWORD, ROLE, DELAY_CNT
+        SELECT LOGIN_ID, PASSWORD, ROLE, DELAY_CNT
         FROM MEMBERS
         WHERE LOGIN_ID = ?
         AND password = ?
@@ -102,9 +102,9 @@
         <!--신청내역 조회 이미 신청과 반려 된 것들은 제외 -->
 <entry key="신청 내역 조회">
 
-select b.member_id,m.e_name,b.b_name,b.publisher,b.author
+select b.login_id,m.e_name,b.b_name,b.publisher,b.author
 from book_requests b join members m
-on b.member_id = m.member_id
+on b.login_id = m.login_id
 and req_con_date is null
 and return_date is null
 </entry>
