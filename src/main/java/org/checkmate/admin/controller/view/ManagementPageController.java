@@ -43,7 +43,7 @@ public class ManagementPageController implements Initializable  {
     // 사원관리
     public void user_manager_btn(ActionEvent actionEvent) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/user/sidebarSamplePage.fxml");
+        sm.moveScene("/org/checkmate/view/layouts/admin/userManagementPage.fxml");
     }
 
     // 사원현황
