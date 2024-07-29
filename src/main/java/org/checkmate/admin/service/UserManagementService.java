@@ -6,6 +6,6 @@ import java.sql.SQLException;
 
 public interface UserManagementService {
 
-    // ObservableList<AdminMember> userDelete(String login_id) throws SQLException;
+    // ObservableList<Admin> userDelete(String login_id) throws SQLException;
     AdminMemberResponseDto userDelete(String loginId) throws SQLException;
 }
