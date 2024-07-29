@@ -13,7 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.CheckBox;
 import org.checkmate.common.database.DBConnector;
-import org.checkmate.admin.dto.response.AdminMember;
+import org.checkmate.admin.dto.response.AdminMemberResponseDto;
 
 
 /**
@@ -41,8 +41,8 @@ public class UserManagementMapper {
      * @return List<Member>  사용자 정보를 담은 리스트 컬렉션
      * @throws SQLException SQL 서버 에러
      */
-    public ObservableList<AdminMember> findByMember() throws SQLException {
-        ObservableList<AdminMember> members = FXCollections.observableArrayList();
+    public ObservableList<AdminMemberResponseDto> findByMember() throws SQLException {
+        ObservableList<AdminMemberResponseDto> members = FXCollections.observableArrayList();
         String query = prop.getProperty("findByMember");
         CheckBox ch ;
 
@@ -52,28 +52,43 @@ public class UserManagementMapper {
                 ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
                 ch = new CheckBox();
-                AdminMember member = AdminMember.builder()
-                        .select(ch)
-                        .login_id(resultSet.getString("login_id"))
-                        .e_name(resultSet.getString("e_name"))
-                        .t_name(resultSet.getString("t_name"))
-                        .d_name(resultSet.getString("d_name"))
+                AdminMemberResponseDto member = AdminMemberResponseDto.builder()
+                        .loginId(resultSet.getString("login_id"))
+                        .eName(resultSet.getString("e_name"))
+                        .tName(resultSet.getString("t_name"))
+                        .dName(resultSet.getString("d_name"))
                         .build();
+        System.out.println(member.toString());
                 members.add(member);
             }
         }
-
         return members;
     }
 
-    public int userDelete(String loginId) throws SQLException {
-        String query = prop.getProperty("userDelete");
+    public int deleteUser(String loginId) throws SQLException {
+        String query = prop.getProperty("deleteUser");
 
         try (
                 Connection connection = DBConnector.getInstance().getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(query))
         {
                 preparedStatement.setString(1,loginId);
+            return preparedStatement.executeUpdate();
+        }
+        catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public int createUser(String loginId,String eName){
+        String query = prop.getProperty("createUser");
+        try (
+                Connection connection = DBConnector.getInstance().getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(query))
+        {
+            preparedStatement.setString(1,loginId);
+            preparedStatement.setString(2,eName);
             return preparedStatement.executeUpdate();
         }
         catch (SQLException e){
