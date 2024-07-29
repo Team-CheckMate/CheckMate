@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import org.checkmate.common.controller.view.SceneManager;
 import org.checkmate.user.dto.request.UpdatePasswordRequestDto;
 import org.checkmate.user.dto.response.UpdatePasswordResponseDto;
@@ -27,6 +28,7 @@ public class UpdatePasswordPageController implements Initializable {
         loginService = new LoginServiceImpl();
     }
 
+    @FXML private Text username;
     @FXML private TextField nowPw;
     @FXML private PasswordField changePw;
     @FXML private PasswordField checkChangePw;
@@ -38,7 +40,9 @@ public class UpdatePasswordPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        LoginSession loginSession = LoginSession.getInstance();
+        var session = LoginSession.getInstance();
+        var memberInfo = session.getMemberInfo();
+        username.setText(memberInfo.getEName());
     }
 
     public boolean userField(TextField nowPw, PasswordField changePw, PasswordField checkChangePw) {
@@ -75,7 +79,7 @@ public class UpdatePasswordPageController implements Initializable {
     }
 
     @FXML
-    public void applyBtn(javafx.event.ActionEvent actionEvent) throws NoSuchAlgorithmException, SQLException {
+    public void changePw_btn(javafx.event.ActionEvent actionEvent) throws NoSuchAlgorithmException, SQLException {
         System.out.println("버튼실행됨");
         if(!userField(nowPw,changePw,checkChangePw)){
             return;

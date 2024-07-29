@@ -1,0 +1,53 @@
+.root {
+  -fx-font-family: 'BM EULJIRO';
+}
+
+#title {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 48px;
+  -fx-fill: #035aa6;
+}
+
+#subTitle {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 14px;
+  -fx-fill: #05aff2;
+}
+
+#username {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 15px;
+}
+
+#welcome {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 15px;
+  -fx-fill: #035aa6;
+}
+
+#text1 {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 24px;
+  -fx-fill: #035aa6;
+}
+
+#text2 {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 24px;
+  -fx-fill: #035aa6;
+}
+#empNo {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 18px;
+}
+
+#tName {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 18px;
+}
+
+.update-button {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-background-color: #035AA6;
+  -fx-text-fill: WHITE;
+}

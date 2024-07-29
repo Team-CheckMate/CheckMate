@@ -1,13 +1,5 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <!--  로그인 회원 찾기 -->
-
-    <entry key="findByLoginIdAndPassword">
-        SELECT LOGIN_ID, PASSWORD, ROLE, DELAY_CNT
-        FROM MEMBERS
-        WHERE LOGIN_ID = ?
-        AND password = ?
-    </entry>
 
 <!--    도서 관리 파트-->
     <!--  전체 책 목록 검색-->
