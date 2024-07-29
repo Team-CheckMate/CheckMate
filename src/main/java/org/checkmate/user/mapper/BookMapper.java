@@ -8,7 +8,9 @@ import java.util.Properties;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.CheckBox;
 import org.checkmate.common.database.DBConnector;
+import org.checkmate.user.dto.request.CreateBookLoanRequestDto;
 import org.checkmate.user.dto.response.ReadLoanStatusResponseDto;
 import org.checkmate.common.util.TypeFormatter;
 
@@ -18,6 +20,7 @@ import org.checkmate.common.util.TypeFormatter;
  * HISTORY2: findAllBookLoanStatus 메서드 수정      [권혁규  2024.07.26]
  * HISTORY2: admin파일 연결, 신규 책 등록 메서드 추가   [이준희  2024.07.26]
  * HISTORY3: 관리자 도서 전체조회, 선택 조회, 수정, 삭제 메서드 추가   [이준희  2024.07.27]
+ * HISTORY4: 사용자 도서 전체조회, 검색 조회, 도서등록 메서드 추가   [권혁규  2024.07.29]
  */
 public class BookMapper {
 
@@ -42,11 +45,13 @@ public class BookMapper {
     public ObservableList<ReadLoanStatusResponseDto> findAllBookLoanStatus() throws SQLException {
         ObservableList<ReadLoanStatusResponseDto> books = FXCollections.observableArrayList();
         String query = prop.getProperty("findAllBookLoanStatus");
+        CheckBox ch = null;
         try (
                 Connection connection = DBConnector.getInstance().getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
+                ch = new CheckBox();
                 ReadLoanStatusResponseDto book = ReadLoanStatusResponseDto.builder()
                         .bookId(resultSet.getLong("book_id"))
                         .ISBN(resultSet.getString("ISBN"))
@@ -55,6 +60,7 @@ public class BookMapper {
                         .publisher(resultSet.getString("publisher"))
                         .lStatus(TypeFormatter.IntegerToBoolean(resultSet.getInt("l_status")))
                         .returnPreDate(resultSet.getDate("return_pre_date"))
+                        .select(ch)
                         .build();
                 books.add(book);
             }
@@ -63,17 +69,51 @@ public class BookMapper {
         return books;
     }
 
-    public int addBookLoanRecord(long memberId, ObservableList<ReadLoanStatusResponseDto> bookList) {
+    public void createLoanBook(CreateBookLoanRequestDto requestDto) {
         String query = prop.getProperty("addBookLoanRecord");
         try(Connection connection = DBConnector.getInstance().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            CallableStatement callableStatement = connection.prepareCall(query);
             ) {
-            preparedStatement.setLong(1,memberId);
-            preparedStatement.setString(2, bookList.toString());
-            return preparedStatement.executeUpdate();
+            for(ReadLoanStatusResponseDto bean : requestDto.getBookList()) {
+                callableStatement.setLong(1, bean.getBookId());
+                callableStatement.setString(2, requestDto.getLoginId());
+                callableStatement.execute();
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public ObservableList<ReadLoanStatusResponseDto> findByBookName(String searchName) throws SQLException {
+        ObservableList<ReadLoanStatusResponseDto> books = FXCollections.observableArrayList();
+        String query = prop.getProperty("findByBookName");
+        CheckBox ch = null;
+
+        try (
+                Connection connection = DBConnector.getInstance().getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(query)
+        ) {
+            preparedStatement.setString(1, "%" + searchName + "%");
+            try(ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    ch = new CheckBox();
+                    ReadLoanStatusResponseDto book = ReadLoanStatusResponseDto.builder()
+                            .bookId(resultSet.getLong("book_id"))
+                            .ISBN(resultSet.getString("ISBN"))
+                            .bName(resultSet.getString("b_name"))
+                            .author(resultSet.getString("author"))
+                            .publisher(resultSet.getString("publisher"))
+                            .lStatus(TypeFormatter.IntegerToBoolean(resultSet.getInt("l_status")))
+                            .returnPreDate(resultSet.getDate("return_pre_date"))
+                            .select(ch)
+                            .build();
+                    books.add(book);
+                }
+            }
+
+        }
+
+        return books;
     }
 
 }
