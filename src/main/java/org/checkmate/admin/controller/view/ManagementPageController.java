@@ -31,7 +31,7 @@ public class ManagementPageController implements Initializable  {
     @FXML
     public void books_manager_btn(ActionEvent actionEvent) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/user/sidebarSamplePage.fxml");
+        sm.moveScene("/org/checkmate/view/layouts/admin/bookManagementPage.fxml");
     }
 
     // 대여현황
