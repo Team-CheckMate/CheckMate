@@ -2,7 +2,6 @@ package org.checkmate.server.entity;
 
 import java.util.Date;
 import java.util.Objects;
-
 import javafx.scene.control.CheckBox;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -13,7 +12,6 @@ import lombok.ToString;
 /**
  * [Users] 도서 대여 정보 응답 객체
  * HISTORY1: 최초 생성                                         [송헌욱  2024.07.25]
- * HISTORY2: CheckBox Field 생성                              [권혁규  2024.07.26]
  */
 @Getter
 @ToString
@@ -27,7 +25,7 @@ public class BookLoanStatus {
     private String publisher; // 출판사
     private Boolean lStatus; // 대출 가능 상태
     private Date returnPreDate; // 반납 예정 날짜
-    private CheckBox select; //checkbox
+    private CheckBox select;
 
     @Builder
     public BookLoanStatus(Long bookId, String ISBN, String bName, String author, String publisher,

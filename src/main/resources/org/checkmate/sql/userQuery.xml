@@ -43,8 +43,6 @@
   ON B.BOOK_ID = BLN.BOOK_ID
 </entry>
 
-
-
 <!--    책이름으로 책 검색 시 필터링 된 책 목록-->
 <!--    ? = 검색된 책이름-->
 <entry key="도서검색">

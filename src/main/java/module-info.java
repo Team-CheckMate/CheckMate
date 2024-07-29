@@ -11,4 +11,5 @@ module org.checkmate {
     exports org.checkmate.server.controller;
     opens org.checkmate.server.controller to javafx.fxml;
     opens org.checkmate.server.entity;
+    opens org.checkmate.server.dto.response to javafx.base;
 }
