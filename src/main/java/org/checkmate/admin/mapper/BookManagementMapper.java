@@ -13,10 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.checkmate.admin.dto.request.BookCreateRequestDto;
 import org.checkmate.admin.dto.request.BookUpdateRequestDto;
-import org.checkmate.admin.dto.response.BookCreateResponseDto;
-import org.checkmate.admin.dto.response.BookReadInformationResponseDto;
-import org.checkmate.admin.dto.response.BookReadLoanStatusResponseDto;
-import org.checkmate.admin.dto.response.BookUpdateResponseDto;
+import org.checkmate.admin.dto.response.*;
 import org.checkmate.common.database.DBConnector;
 import org.checkmate.common.util.TypeFormatter;
 
@@ -161,7 +158,7 @@ public class BookManagementMapper {
      * @return FindAllBooksAdminResponseDto 응답객체
      * @throws SQLException SQL 서버 에러
      */
-    public ObservableList<BookReadLoanStatusResponseDto> ReadBooksByBookName(String bookName) throws SQLException {
+    public ObservableList<BookReadLoanStatusResponseDto> readBooksByBookName(String bookName) throws SQLException {
         ObservableList<BookReadLoanStatusResponseDto> books = FXCollections.observableArrayList();
         String query = prop.getProperty("ReadBooksByBookName");
         try (
@@ -213,5 +210,84 @@ public class BookManagementMapper {
             throw new SQLException(e);
         }
         return deleteRows > 0? "삭제 실패하였습니다" : "삭제되었습니다";
+    }
+
+    /**
+     * 관리자가 모든 대여 정보를 받아오는 기능
+     * @return ReadBookLoanRecordsResponseDto 응답객체
+     * @throws SQLException SQL 서버 에러
+     */
+    public ObservableList<ReadBookLoanRecordsResponseDto> readAllBookLoanRecordsAdmin() throws SQLException {
+        ObservableList<ReadBookLoanRecordsResponseDto> book_loan_records = FXCollections.observableArrayList();
+        String query = prop.getProperty("readAllBookLoanRecordsAdmin");
+        try (
+                Connection connection = DBConnector.getInstance().getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                ResultSet resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
+                ReadBookLoanRecordsResponseDto book_loan_record = ReadBookLoanRecordsResponseDto.builder()
+                        .blrId(resultSet.getLong("blr_id"))
+                        .loginId(resultSet.getString("login_id"))
+                        .eName(resultSet.getString("e_name"))
+                        .dName(resultSet.getString("d_name"))
+                        .tName(resultSet.getString("t_name"))
+                        .bName(resultSet.getString("b_name"))
+                        .loanDate(resultSet.getDate("loan_date"))
+                        .returnPreDate(resultSet.getDate("return_pre_date"))
+                        .returnDate(resultSet.getDate("return_date"))
+                        .build();
+                book_loan_records.add(book_loan_record);
+                System.out.println(book_loan_record.toString());
+            };
+        }
+        return book_loan_records;
+    }
+
+    /**
+     * 관리자가 차트를 위해 부서별 통계를 받아오는 기능
+     * @return ReadBookLoanRecordsForChartResponseDto 응답객체
+     * @throws SQLException SQL 서버 에러
+     */
+    public ObservableList<ReadBookLoanRecordsForChartResponseDto> readDepartmentsBookLoanRecords() throws SQLException {
+        ObservableList<ReadBookLoanRecordsForChartResponseDto> book_loan_records_for_chart = FXCollections.observableArrayList();
+        String query = prop.getProperty("readDepartmentsBookLoanRecords");
+        try (
+                Connection connection = DBConnector.getInstance().getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                ResultSet resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
+                ReadBookLoanRecordsForChartResponseDto book_loan_record_for_chart = ReadBookLoanRecordsForChartResponseDto.builder()
+                        .name(resultSet.getString("d_name"))
+                        .count(resultSet.getInt("count"))
+                        .build();
+                book_loan_records_for_chart.add(book_loan_record_for_chart);
+                System.out.println(book_loan_record_for_chart.toString());
+            };
+        }
+        return book_loan_records_for_chart;
+    }
+
+    /**
+     * 관리자가 차트를 위해 팀별 통계를 받아오는 기능
+     * @return ReadBookLoanRecordsForChartResponseDto 응답객체
+     * @throws SQLException SQL 서버 에러
+     */
+    public ObservableList<ReadBookLoanRecordsForChartResponseDto> readTeamsBookLoanRecords() throws SQLException {
+        ObservableList<ReadBookLoanRecordsForChartResponseDto> book_loan_records_for_chart = FXCollections.observableArrayList();
+        String query = prop.getProperty("readTeamsBookLoanRecords");
+        try (
+                Connection connection = DBConnector.getInstance().getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                ResultSet resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
+                ReadBookLoanRecordsForChartResponseDto book_loan_record_for_chart = ReadBookLoanRecordsForChartResponseDto.builder()
+                        .name(resultSet.getString("t_name"))
+                        .count(resultSet.getInt("count"))
+                        .build();
+                book_loan_records_for_chart.add(book_loan_record_for_chart);
+                System.out.println(book_loan_record_for_chart.toString());
+            };
+        }
+        return book_loan_records_for_chart;
     }
 }

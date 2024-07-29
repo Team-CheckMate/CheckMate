@@ -4,10 +4,7 @@ import java.sql.SQLException;
 import javafx.collections.ObservableList;
 import org.checkmate.admin.dto.request.BookCreateRequestDto;
 import org.checkmate.admin.dto.request.BookUpdateRequestDto;
-import org.checkmate.admin.dto.response.BookCreateResponseDto;
-import org.checkmate.admin.dto.response.BookReadInformationResponseDto;
-import org.checkmate.admin.dto.response.BookReadLoanStatusResponseDto;
-import org.checkmate.admin.dto.response.BookUpdateResponseDto;
+import org.checkmate.admin.dto.response.*;
 import org.checkmate.admin.mapper.BookManagementMapper;
 
 /**
@@ -74,8 +71,8 @@ public class BookManagementServiceImpl implements BookManagementService {
      * @throws SQLException DataBase 에러
      */
     @Override
-    public ObservableList<BookReadLoanStatusResponseDto> ReadBooksByBookName(String bookName) throws SQLException {
-        return bookMapper.ReadBooksByBookName(bookName);
+    public ObservableList<BookReadLoanStatusResponseDto> readBooksByBookName(String bookName) throws SQLException {
+        return bookMapper.readBooksByBookName(bookName);
     }
 
     /**
@@ -88,5 +85,20 @@ public class BookManagementServiceImpl implements BookManagementService {
     @Override
     public String deleteSelectedBook(Long bookId) throws SQLException {
         return bookMapper.deleteSelectedBook(bookId);
+    }
+
+    @Override
+    public ObservableList<ReadBookLoanRecordsResponseDto> readAllBookLoanRecordsAdmin() throws SQLException {
+        return bookMapper.readAllBookLoanRecordsAdmin();
+    }
+
+    @Override
+    public ObservableList<ReadBookLoanRecordsForChartResponseDto> readDepartmentsBookLoanRecords() throws SQLException {
+        return bookMapper.readDepartmentsBookLoanRecords();
+    }
+
+    @Override
+    public ObservableList<ReadBookLoanRecordsForChartResponseDto> readTeamsBookLoanRecords() throws SQLException {
+        return bookMapper.readTeamsBookLoanRecords();
     }
 }
