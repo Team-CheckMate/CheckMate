@@ -1,0 +1,75 @@
+#title {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 48px;
+  -fx-fill: #035aa6;
+}
+
+#subTitle {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 14px;
+  -fx-fill: #05aff2;
+}
+
+.root {
+  -fx-font-family: 'BM EULJIRO';
+}
+
+#userNameLink {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 15px;
+}
+
+#text2 {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 15px;
+}
+
+#cont1 {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 24px;
+  -fx-fill: #035aa6;
+}
+
+#cont2 {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 24px;
+  -fx-fill: #035aa6;
+}
+
+#cont3 {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 24px;
+  -fx-fill: #035aa6;
+}
+
+#cont4 {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 24px;
+  -fx-fill: #035aa6;
+}
+
+.content1 {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 24px;
+  -fx-fill: #035aa6;
+}
+
+.exit-button {
+  -fx-background-color: transparent;
+}
+
+#btn1 {
+  -fx-background-color: transparent;
+}
+
+#btn2 {
+  -fx-background-color: transparent;
+}
+
+#btn3 {
+  -fx-background-color: transparent;
+}
+
+#btn4 {
+  -fx-background-color: transparent;
+}

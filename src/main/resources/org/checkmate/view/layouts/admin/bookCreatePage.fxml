@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.collections.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.checkmate.admin.controller.view.BookManagementPageController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.checkmate.admin.controller.view.BookCreatePageController">
     <children>
         <BorderPane layoutX="67.0" layoutY="57.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <top>
@@ -60,26 +62,48 @@
             <center>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                     <children>
-                        <TableView fx:id="table_book" layoutX="40.0" layoutY="40.0" prefHeight="256.0" prefWidth="535.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="100.0">
-                            <columns>
-                                <TableColumn fx:id="bookId" prefWidth="75.0" style="-fx-alignment: center;" text="ID" />
-                                <TableColumn fx:id="bName" prefWidth="75.0" style="-fx-alignment: center;" text="제목" />
-                                <TableColumn fx:id="ISBN" prefWidth="75.0" style="-fx-alignment: center;" text="ISBN" />
-                                <TableColumn fx:id="author" prefWidth="75.0" style="-fx-alignment: center;" text="저자" />
-                                <TableColumn fx:id="publisher" prefWidth="75.0" style="-fx-alignment: center;" text="출판사" />
-                                <TableColumn fx:id="lStatus" prefWidth="75.0" style="-fx-alignment: center;" text="상태" />
-                                <TableColumn fx:id="date" prefWidth="75.0" style="-fx-alignment: center;" text="등록일" />
-                                <TableColumn fx:id="eName" prefWidth="100.0" style="-fx-alignment: center;" text="대출자" />
-                                <TableColumn fx:id="manage" prefWidth="100.0" style="-fx-alignment: center;" text="관리" />
-                            </columns>
-                        </TableView>
                         <Pane layoutY="28.0" prefHeight="5.0" prefWidth="200.0" style="-fx-background-color: black;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                        <Text layoutX="48.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="도서관리">
+                        <Text layoutX="48.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="도서등록">
                             <font>
                                 <Font name="Bodoni MT" size="14.0" />
                             </font>
                         </Text>
-                        <JFXButton layoutX="556.0" layoutY="356.0" onAction="#moveToAddBook" text="등록하기" />
+                        <JFXButton fx:id="register" layoutX="382.0" layoutY="255.0" onAction="#register" style="-fx-border-color: #000000; -fx-border-radius: 3px;" text="등록하기" />
+                  <ChoiceBox fx:id="categories" layoutX="342.0" layoutY="195.0" prefHeight="22.0" prefWidth="107.0">
+                      <items>
+                          <FXCollections fx:factory="observableArrayList">
+                              <String fx:value="1. 인문" />
+                              <String fx:value="2. 취미/실용/스포츠/여행" />
+                              <String fx:value="3. 경제/경영" />
+                              <String fx:value="4. 문학" />
+                              <String fx:value="5. 생활/요리/건강" />
+                              <String fx:value="6. 인문학일반" />
+                              <String fx:value="7. 심리학" />
+                              <String fx:value="8. 교육학" />
+                              <String fx:value="9. 문학이론/역사/비평" />
+                              <String fx:value="10. 소설" />
+                              <String fx:value="11. 시" />
+                              <String fx:value="12. 가정과 생활" />
+                              <String fx:value="13. 요리" />
+                              <String fx:value="14.	스포츠" />
+                              <String fx:value="18.	자기계발"/>
+                              <String fx:value="19.	컴퓨터/IT" />
+                              <String fx:value="20.	자기계발서" />
+                              <String fx:value="21.	재태크/투자" />
+                          </FXCollections>
+                      </items>
+                  </ChoiceBox>
+                  <Text layoutX="348.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="도서 종류" />
+                  <Text layoutX="192.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="옮긴이" />
+                  <Text layoutX="55.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="저자" />
+                  <Text layoutX="58.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="도서명" />
+                  <Text layoutX="192.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="출판사" />
+                  <Text layoutX="339.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ISBN" />
+                  <TextField fx:id="bookTitle" layoutX="55.0" layoutY="119.0" prefHeight="22.0" prefWidth="110.0" />
+                  <TextField fx:id="publisher" layoutX="198.0" layoutY="119.0" prefHeight="22.0" prefWidth="110.0" />
+                  <TextField fx:id="isbn" layoutX="339.0" layoutY="119.0" prefHeight="22.0" prefWidth="110.0" />
+                  <TextField fx:id="author" layoutX="55.0" layoutY="195.0" prefHeight="22.0" prefWidth="110.0" />
+                  <TextField fx:id="translator" layoutX="198.0" layoutY="195.0" prefHeight="22.0" prefWidth="110.0" />
                         <!--                    <JFXTextField layoutX="494.0" layoutY="57.0">-->
 
                         <!--                    </JFXTextField>>-->

@@ -1,0 +1,44 @@
+#title {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 48px;
+  -fx-fill: #035aa6;
+}
+
+#subTitle{
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 14px;
+  -fx-fill: #05aff2;
+}
+
+.root {
+  -fx-font-family: 'BM EULJIRO';
+}
+
+.left-pane {
+  -fx-background-color: #FFFFFF;
+}
+
+.center-pane {
+  -fx-background-color: #F2F2F2;
+}
+
+.login-field {
+  -fx-background-color: transparent;
+  -fx-border-width: 0px 0px 2px 0px;
+  -fx-border-color: #05AFF2;
+}
+
+.password-field {
+  -fx-background-color: transparent;
+  -fx-border-color: #05AFF2;
+  -fx-border-width: 0px 0px 2px 0px;
+}
+
+.login-button {
+  -fx-background-color: #035AA6;
+  -fx-text-fill: WHITE;
+}
+
+.exit-button {
+  -fx-background-color: transparent;
+}
