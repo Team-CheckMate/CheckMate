@@ -2,7 +2,6 @@ package org.checkmate.common.util;
 
 import lombok.Getter;
 import org.checkmate.common.dto.response.LoginResponseDto;
-import org.checkmate.common.exception.ValidationException;
 
 /**
  * 로그인 회원의 상태를 저장할 세션 생성
