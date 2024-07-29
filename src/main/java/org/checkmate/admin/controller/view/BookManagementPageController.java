@@ -13,9 +13,11 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.Duration;
+import org.checkmate.admin.controller.server.BookController;
 import org.checkmate.admin.dto.response.BookReadLoanStatusResponseDto;
 import org.checkmate.admin.service.BookManagementService;
 import org.checkmate.admin.service.BookManagementServiceImpl;
@@ -33,52 +35,29 @@ import java.util.ResourceBundle;
  */
 public class BookManagementPageController implements Initializable  {
 
-    private final BookManagementService bookService;
+    private final BookController bookController;
 
-    // 기본 생성자
-    public BookManagementPageController() throws IOException {
-        bookService = new BookManagementServiceImpl();
+    public BookManagementPageController() {
+        bookController = new BookController();
     }
 
-    @FXML
-    private Label Menu;
 
-    @FXML
-    private Label MenuBack;
-
-    @FXML
-    private AnchorPane slider;
-
-    @FXML
-    private TableView<BookReadLoanStatusResponseDto> table_book;
-
-    @FXML
-    private TableColumn<BookReadLoanStatusResponseDto, Long> bookId;
-
-    @FXML
-    private TableColumn<BookReadLoanStatusResponseDto, String> bName;
-
-    @FXML
-    private TableColumn<BookReadLoanStatusResponseDto, String> ISBN;
-
-    @FXML
-    private TableColumn<BookReadLoanStatusResponseDto, String> publisher;
-
-    @FXML
-    private TableColumn<BookReadLoanStatusResponseDto, String> author;
-
-    @FXML
-    private TableColumn<BookReadLoanStatusResponseDto, Boolean> lStatus;
-
-    @FXML
-    private TableColumn<BookReadLoanStatusResponseDto, String> eName;
-
-    @FXML
-    private TableColumn<BookReadLoanStatusResponseDto, Date> date;
-
-    @FXML
-    private TableColumn<BookReadLoanStatusResponseDto, Void> manage;
-
+    @FXML private Label Menu;
+    @FXML private Label MenuBack;
+    @FXML private AnchorPane slider;
+    @FXML private Text countMessage;
+    @FXML private TableView<BookReadLoanStatusResponseDto> table_book;
+    @FXML private TableColumn<BookReadLoanStatusResponseDto, Long> bookId;
+    @FXML private TableColumn<BookReadLoanStatusResponseDto, String> bName;
+    @FXML private TableColumn<BookReadLoanStatusResponseDto, String> ISBN;
+    @FXML private TableColumn<BookReadLoanStatusResponseDto, String> publisher;
+    @FXML private TableColumn<BookReadLoanStatusResponseDto, String> author;
+    @FXML private TableColumn<BookReadLoanStatusResponseDto, Boolean> lStatus;
+    @FXML private TableColumn<BookReadLoanStatusResponseDto, String> eName;
+    @FXML private TableColumn<BookReadLoanStatusResponseDto, Date> date;
+    @FXML private TableColumn<BookReadLoanStatusResponseDto, Void> manage;
+    @FXML private Button search;
+    @FXML private TextField bookSearch;
 
     ObservableList<BookReadLoanStatusResponseDto> bookList;
 
@@ -143,8 +122,10 @@ public class BookManagementPageController implements Initializable  {
         lStatus.setCellValueFactory(new PropertyValueFactory<>("lStatus"));
         date.setCellValueFactory(new PropertyValueFactory<>("addDate"));
         eName.setCellValueFactory(new PropertyValueFactory<>("eName"));
-        bookList = bookService.findAllBooksAdmin();
+        bookList = bookController.readAllBooks();
         table_book.setItems(bookList);
+        int count = bookList.size();
+        countMessage.setText("총 : "+count+" 건");
         addButtonToTable();
     }
 
@@ -158,6 +139,7 @@ public class BookManagementPageController implements Initializable  {
                     private final Button deleteBtn = new Button("삭제");
 
                     {
+                        //TODO : 관리자가 수정 진행시 대출 boolean값 변경 가능하도록 기능 추가
                         modifyBtn.setOnAction((event) -> {
                             BookReadLoanStatusResponseDto data = getTableView().getItems().get(getIndex());
                             System.out.println("Selected Data: " + data);
@@ -181,15 +163,14 @@ public class BookManagementPageController implements Initializable  {
                         deleteBtn.setOnAction((event) -> {
                             BookReadLoanStatusResponseDto data = getTableView().getItems().get(getIndex());
                             System.out.println("Selected Data: " + data);
-                            boolean result = false;
+                            String msg = "";
                             try {
-                                result = bookService.deleteSelectedBook(data.getBookId());
+                                msg = bookController.deleteSelectedBook(data.getBookId());
+                                Msg(data.getBName()+msg,"삭제");
                             } catch (SQLException e) {
-                                throw new RuntimeException(e);
+                                Msg("대출중인 회원이 존재하여 삭제할 수 없습니다.","삭제");
                             }
-                            String msg = result ? "삭제되었습니다" : "삭제 실패하였습니다";
-                            Msg(data.getBName()+msg,"삭제");
-                            System.out.println(result);
+
                             SceneManager sm = SceneManager.getInstance();
                             sm.moveScene("/org/checkmate/view/layouts/admin/bookManagementPage.fxml");
                         });
@@ -219,5 +200,24 @@ public class BookManagementPageController implements Initializable  {
     public void moveToAddBook(ActionEvent actionEvent) {
         SceneManager sm = SceneManager.getInstance();
         sm.moveScene("/org/checkmate/view/layouts/admin/bookCreatePage.fxml");
+    }
+
+    @FXML
+    public void search(ActionEvent actionEvent) throws SQLException {
+        String bookName = this.bookSearch.getText();
+        System.out.println(bookName);
+        bookId.setCellValueFactory(new PropertyValueFactory<BookReadLoanStatusResponseDto,Long>("bookId"));
+        bName.setCellValueFactory(new PropertyValueFactory<BookReadLoanStatusResponseDto, String>("bName"));
+        ISBN.setCellValueFactory(new PropertyValueFactory<BookReadLoanStatusResponseDto, String>("ISBN"));
+        author.setCellValueFactory(new PropertyValueFactory<BookReadLoanStatusResponseDto, String>("author"));
+        publisher.setCellValueFactory(new PropertyValueFactory<BookReadLoanStatusResponseDto, String>("publisher"));
+        lStatus.setCellValueFactory(new PropertyValueFactory<BookReadLoanStatusResponseDto, Boolean>("lStatus"));
+        date.setCellValueFactory(new PropertyValueFactory<BookReadLoanStatusResponseDto, Date>("addDate"));
+        eName.setCellValueFactory(new PropertyValueFactory<BookReadLoanStatusResponseDto,String>("eName"));
+        bookList = bookController.ReadBooksByBookName(bookName);
+        table_book.setItems(bookList);
+        int count = bookList.size();
+        countMessage.setText("총 : "+count+" 건");
+        addButtonToTable();
     }
 }
