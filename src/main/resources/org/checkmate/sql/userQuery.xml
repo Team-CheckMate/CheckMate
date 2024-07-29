@@ -43,6 +43,15 @@
   ON B.BOOK_ID = BLN.BOOK_ID
 </entry>
 
+<entry key="findByBookName">
+  SELECT B.BOOK_ID, B.ISBN, B.B_NAME, B.AUTHOR, B.PUBLISHER, B.L_STATUS, (BLN.RETURN_PRE_DATE + 1) AS RETURN_PRE_DATE
+  FROM BOOKS B
+  LEFT OUTER JOIN BOOK_LOAN_RECORDS BLN
+  ON B.BOOK_ID = BLN.BOOK_ID
+  WHERE LOWER(B.B_NAME) LIKE LOWER(?)
+  ORDER BY B.BOOK_ID
+</entry>
+
 <!--    책이름으로 책 검색 시 필터링 된 책 목록-->
 <!--    ? = 검색된 책이름-->
 <!--<entry key="도서검색">-->
