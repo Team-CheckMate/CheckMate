@@ -1,6 +1,9 @@
 package org.checkmate.user.controller.view;
 
+import static org.checkmate.user.util.FilePath.UPDATE_PW_FX;
+
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.text.Text;
@@ -17,22 +20,16 @@ import java.util.ResourceBundle;
 /**
  * MyPage 컨트롤러
  * HISTORY1: 최초 생성                              [이준희  2024.07.26]
-*/
+ * HISTORY2: 화면 디자인                             [송헌욱  2024.07.29]
+ */
 
 public class ReadMyInformationPageController implements Initializable {
 
     private final LoginService loginService;
 
     public ReadMyInformationPageController() {
-        loginService = new LoginServiceImpl();}
-
-    @FXML
-    private Text welcomeMent;
-    @FXML
-    private Text empNo;
-
-    @FXML
-    private Text teamName;
+        loginService = new LoginServiceImpl();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -40,23 +37,26 @@ public class ReadMyInformationPageController implements Initializable {
         try {
             ReadMyInformationResponseDto myPageInfo = loginService.getMypageInfo(
                     loginSession.getMemberInfo().getLoginId());
-            System.out.println(myPageInfo.getTeamName()+""+myPageInfo.getLoginId());
-            welcomeMent.setText( loginSession.getMemberInfo().getEName()+"님 환영합니다!");
+            username.setText(loginSession.getMemberInfo().getEName());
             empNo.setText(myPageInfo.getLoginId());
-            teamName.setText(myPageInfo.getTeamName());
+            tName.setText(myPageInfo.getTeamName());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
+    @FXML private Text username;
+    @FXML private Text empNo;
+    @FXML private Text tName;
+
     @FXML
-    private void exit(javafx.event.ActionEvent event) {
+    private void exit(ActionEvent event) {
         Platform.exit();
     }
 
     @FXML
-    public void changePw_btn(javafx.event.ActionEvent actionEvent) {
+    public void changePw_btn(ActionEvent actionEvent) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/user/updatePasswordPage.fxml");
+        sm.moveScene(UPDATE_PW_FX.getFilePath());
     }
 }
