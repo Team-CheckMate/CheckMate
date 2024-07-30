@@ -18,6 +18,9 @@ public interface BookManagementService {
     ObservableList<BookReadLoanStatusResponseDto> readBooksByBookName(String bookName) throws SQLException;
     ObservableList<ReadBookLoanRecordsResponseDto> readAllBookLoanRecordsAdmin() throws SQLException;
 
-    ObservableList<ReadBookLoanRecordsForChartResponseDto> readDepartmentsBookLoanRecords() throws SQLException;
+    void readPivotDepartmentsBookLoanRecords() throws SQLException;
     ObservableList<ReadBookLoanRecordsForChartResponseDto> readTeamsBookLoanRecords() throws SQLException;
+    ObservableList<ReadBookLoanRecordsResponseDto> readBookLoanRecordByNameAdmin(String eName) throws SQLException;
+    String deleteSelectedBookLoanRecord(Long bookId) throws SQLException;
+    String update_return_date(Long blrId) throws SQLException;
 }
