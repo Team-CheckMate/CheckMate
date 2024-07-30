@@ -93,12 +93,41 @@ public class BookManagementServiceImpl implements BookManagementService {
     }
 
     @Override
-    public ObservableList<ReadBookLoanRecordsForChartResponseDto> readDepartmentsBookLoanRecords() throws SQLException {
-        return bookMapper.readDepartmentsBookLoanRecords();
+    public void readPivotDepartmentsBookLoanRecords() throws SQLException {
+        bookMapper.readPivotDepartmentsBookLoanRecords();
     }
 
     @Override
     public ObservableList<ReadBookLoanRecordsForChartResponseDto> readTeamsBookLoanRecords() throws SQLException {
         return bookMapper.readTeamsBookLoanRecords();
+    }
+
+    @Override
+    public ObservableList<ReadBookLoanRecordsResponseDto> readBookLoanRecordByNameAdmin(String eName) throws SQLException {
+        return bookMapper.readBookLoanRecordByNameAdmin(eName);
+    }
+
+    /**
+     * [Delete] 선택 대여 내역 삭제 기능
+     *
+     * @param blrId 선택된 대여내역 Id
+     * @return String 출력 msg
+     * @throws SQLException DataBase 에러
+     */
+    @Override
+    public String deleteSelectedBookLoanRecord(Long blrId) throws SQLException {
+        return bookMapper.deleteSelectedBookLoanRecord(blrId);
+    }
+
+    /**
+     * [Update] 선택 책 반납 기능
+     *
+     * @param blrId 선택된 대여내역 Id
+     * @return String 출력 msg
+     * @throws SQLException DataBase 에러
+     */
+    @Override
+    public String update_return_date(Long blrId) throws SQLException{
+        return bookMapper.update_return_date(blrId);
     }
 }
