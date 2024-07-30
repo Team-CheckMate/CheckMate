@@ -1,18 +1,32 @@
 package org.checkmate.user.controller.view;
 
+import static javafx.scene.control.Alert.AlertType.WARNING;
+
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.Date;
+import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+
 import org.checkmate.common.controller.view.SceneManager;
 import org.checkmate.user.controller.server.BookController;
 import org.checkmate.common.service.LoginService;
 import org.checkmate.common.service.LoginServiceImpl;
 import org.checkmate.common.util.LoginSession;
+import org.checkmate.user.controller.server.BookController;
 import org.checkmate.user.dto.request.CreateBookLoanRequestDto;
 import org.checkmate.user.dto.request.ReadSearchLoanStatusRequestDto;
 import org.checkmate.user.dto.response.CreateBookLoanResponseDto;
@@ -20,13 +34,6 @@ import org.checkmate.user.dto.response.ReadLoanStatusResponseDto;
 import org.checkmate.user.dto.response.ReadSearchLoanStatusResponseDto;
 import org.checkmate.user.service.BookService;
 import org.checkmate.user.service.BookServiceImpl;
-
-import java.net.URL;
-import java.sql.SQLException;
-import java.util.Date;
-import java.util.ResourceBundle;
-
-import static javafx.scene.control.Alert.AlertType.WARNING;
 
 /**
  * 도서대여 컨트롤러
@@ -159,7 +166,7 @@ public class ReadLoanBookPageController implements Initializable {
 
     @FXML
     public void createLoanBookBtn(ActionEvent actionEvent) throws SQLException {
-        String loginId = LoginSession.getInstance().getMemberInfo().getLoginId();
+        String loginId = LoginSession.getInstance().getUserInfo().getLoginId();
         ObservableList<ReadLoanStatusResponseDto> selectedBooks  = FXCollections.observableArrayList();
 
         for(ReadLoanStatusResponseDto bean : bookList) {

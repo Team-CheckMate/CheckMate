@@ -7,6 +7,6 @@ import java.sql.SQLException;
 
 public interface ApplyService {
     ObservableList<ApplyStatusResponseDto> readApplyStatus() throws Exception;
-int updateRequestDate(Long brId) throws SQLException;
-int updateReturnDate(Long brId) throws SQLException;
+    int updateRequestDate(Long brId) throws SQLException;
+    int updateReturnDate(Long brId) throws SQLException;
 }

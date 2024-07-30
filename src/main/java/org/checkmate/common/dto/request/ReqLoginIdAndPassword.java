@@ -7,16 +7,14 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * 로그인 요청 객체
- * HISTORY1: 최초 생성                              [송헌욱  2024.07.24]
- * HISTORY3: Lombok 적용                           [송헌욱  2024.07.25]
+ * TODO: 주석 달기
  */
 @Getter
 @Builder
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginRequestDto {
+public class ReqLoginIdAndPassword {
 
     private String loginId;  // 로그인 아이디(사원 번호)
     private String password; // 로그인 비밀번호

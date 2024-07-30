@@ -2,6 +2,37 @@
 <properties>
 
   <!--  로그인 회원 조회 -->
+  <entry key="findByLoginIdAndPassword">
+    SELECT
+      M.LOGIN_ID AS LOGIN_ID,
+      M.ROLE,
+      M.DELAY_CNT,
+      E.E_NAME,
+      E.TEAM_NO,
+      T.T_NAME AS T_NAME,
+      D.DEPT_NO,
+      D.D_NAME AS D_NAME
+    FROM MEMBERS M
+    JOIN sysone.EMPLOYEES E ON M.LOGIN_ID = E.EMP_NO
+    JOIN sysone.TEAMS T ON E.TEAM_NO = T.TEAM_NO
+    JOIN sysone.DEPARTMENTS D ON T.DEPT_NO = D.DEPT_NO
+    WHERE M.LOGIN_ID = ?
+    AND M.PASSWORD = ?
+    UNION ALL
+    SELECT
+      A.LOGIN_ID AS LOGIN_ID,
+      A.ROLE, NULL
+      AS DELAY_CNT,
+      NULL AS E_NAME,
+      NULL AS TEAM_NO,
+      NULL AS TEAM_NAME,
+      NULL AS DEPT_NO,
+      NULL AS DEPT_NAME
+    FROM ADMINS A
+    WHERE A.LOGIN_ID = ? AND A.PASSWORD = ?
+  </entry>
+
+  <!--  로그인 회원 조회 -->
   <entry key="findByLoginIdAndPasswordByBasic">
     SELECT  LOGIN_ID, PASSWORD, E_NAME, ROLE, DELAY_CNT
     FROM MEMBERS

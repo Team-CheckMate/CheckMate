@@ -1,55 +1,45 @@
 package org.checkmate.common.service;
 
-import org.checkmate.user.entity.Admin;
-import org.checkmate.user.dto.request.UpdatePasswordRequestDto;
-import org.checkmate.common.dto.request.LoginRequestDto;
-import org.checkmate.user.dto.response.UpdatePasswordResponseDto;
-import org.checkmate.common.dto.response.LoginResponseDto;
-import org.checkmate.user.dto.response.ReadMyInformationResponseDto;
-import org.checkmate.user.entity.Member;
-import org.checkmate.user.mapper.MemberMapper;
 import java.sql.SQLException;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import lombok.RequiredArgsConstructor;
+import org.checkmate.common.dto.request.ReqLoginIdAndPassword;
+import org.checkmate.common.dto.response.UserInfo;
+import org.checkmate.common.exception.DatabaseException;
+import org.checkmate.user.dto.request.UpdatePasswordRequestDto;
+import org.checkmate.user.dto.response.ReadMyInformationResponseDto;
+import org.checkmate.user.dto.response.UpdatePasswordResponseDto;
+import org.checkmate.user.mapper.MemberMapper;
 
-/**
- * 회원 서비스 구현 클래스
- * HISTORY1: 최초 생성                              [송헌욱  2024.07.24]
- * HISTORY2: Optional 타입 선언                     [송헌욱  2024.07.25]
- * HISTORY3: pw update 기능 추가                    [이준희  2024.07.25]
- * HISTORY4: MyPage 정보조회 기능 추가               [이준희  2024.07.26]
- */
+@RequiredArgsConstructor
 public class LoginServiceImpl implements LoginService {
 
-    private final MemberMapper memberMapper;
-
-    public LoginServiceImpl() {
-        this.memberMapper = new MemberMapper();
-    }
+    private final MemberMapper memberMapper = new MemberMapper();
 
     @Override
-    public LoginResponseDto login(LoginRequestDto requestDto) throws SQLException {
-        Optional<Member> member = memberMapper.findByLoginIdAndPasswordForBasic(
-                requestDto.getLoginId(),
-                requestDto.getPassword()
-        );
-        Optional<Admin> admin = memberMapper.findByLoginIdAndPasswordForAdmin(
+    public UserInfo login(ReqLoginIdAndPassword requestDto) {
+        Optional<UserInfo> userInfo = memberMapper.findByLoginIdAndPassword(
                 requestDto.getLoginId(),
                 requestDto.getPassword()
         );
 
-        if (member.isEmpty() && admin.isEmpty()) {
-            throw new SQLException("조회된 회원이 없습니다.");
+        if (userInfo.isEmpty()) {
+            throw new DatabaseException("[Database Exception] 조회된 회원이 없습니다.");
         }
 
-        if (admin.isPresent()) {
-            Admin foundAdmin = admin.get();
-            return LoginResponseDto.from(foundAdmin);
-        } else {
-            Member foundMember = member.get();
-            return LoginResponseDto.from(foundMember);
-        }
+        UserInfo user = userInfo.get();
 
+        return UserInfo.builder()
+                .loginId(user.getLoginId())
+                .teamNo(user.getTeamNo())
+                .deptNo(user.getDeptNo())
+                .eName(user.getEName())
+                .tName(user.getTName())
+                .dName(user.getDName())
+                .role(user.getRole())
+                .delayCnt(user.getDelayCnt())
+                .build();
     }
 
     @Override

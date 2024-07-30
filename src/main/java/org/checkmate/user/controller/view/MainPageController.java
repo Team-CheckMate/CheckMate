@@ -1,7 +1,6 @@
 package org.checkmate.user.controller.view;
 
 import static org.checkmate.user.util.FilePath.READ_MY_INFO_FX;
-import static org.checkmate.user.util.FilePath.READ_MY_INFO_ST;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -10,7 +9,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Hyperlink;
-
 import org.checkmate.common.controller.view.SceneManager;
 import org.checkmate.common.util.LoginSession;
 
@@ -66,8 +64,8 @@ public class MainPageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         var session = LoginSession.getInstance();
-        var memberInfo = session.getMemberInfo();
-        userNameLink.setText(memberInfo.getEName());
+        var userInfo = session.getUserInfo();
+        userNameLink.setText(userInfo.getEName());
     }
 
 }

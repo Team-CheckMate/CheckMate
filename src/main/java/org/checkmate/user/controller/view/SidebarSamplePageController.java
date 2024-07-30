@@ -10,7 +10,7 @@ import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import org.checkmate.common.dto.response.LoginResponseDto;
+import org.checkmate.common.dto.response.UserInfo;
 import org.checkmate.common.util.LoginSession;
 
 public class SidebarSamplePageController implements Initializable {
@@ -22,10 +22,10 @@ public class SidebarSamplePageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         LoginSession loginSession = LoginSession.getInstance();
-        initializePage(loginSession.getMemberInfo());
+        initializePage(loginSession.getUserInfo());
     }
 
-    private void initializePage(LoginResponseDto responseDto) {
+    private void initializePage(UserInfo responseDto) {
         slider.setTranslateX(-176);
 
         Menu.setOnMouseClicked(event -> {

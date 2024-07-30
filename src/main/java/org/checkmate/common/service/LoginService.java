@@ -1,11 +1,11 @@
 package org.checkmate.common.service;
 
-import org.checkmate.user.dto.request.UpdatePasswordRequestDto;
 import java.sql.SQLException;
-import org.checkmate.common.dto.request.LoginRequestDto;
-import org.checkmate.user.dto.response.UpdatePasswordResponseDto;
-import org.checkmate.common.dto.response.LoginResponseDto;
+import org.checkmate.common.dto.request.ReqLoginIdAndPassword;
+import org.checkmate.common.dto.response.UserInfo;
+import org.checkmate.user.dto.request.UpdatePasswordRequestDto;
 import org.checkmate.user.dto.response.ReadMyInformationResponseDto;
+import org.checkmate.user.dto.response.UpdatePasswordResponseDto;
 
 /**
  * 회원 서비스 인터페이스
@@ -14,7 +14,7 @@ import org.checkmate.user.dto.response.ReadMyInformationResponseDto;
  */
 public interface LoginService {
 
-    LoginResponseDto login(LoginRequestDto requestDto) throws SQLException;
+    UserInfo login(ReqLoginIdAndPassword requestDto);
     UpdatePasswordResponseDto changePw(UpdatePasswordRequestDto updatePasswordRequestDto) throws SQLException;
     ReadMyInformationResponseDto getMypageInfo(String loginId) throws SQLException;
 }

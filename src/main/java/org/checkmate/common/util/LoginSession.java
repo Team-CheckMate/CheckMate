@@ -1,7 +1,7 @@
 package org.checkmate.common.util;
 
 import lombok.Getter;
-import org.checkmate.common.dto.response.LoginResponseDto;
+import org.checkmate.common.dto.response.UserInfo;
 
 /**
  * 로그인 회원의 상태를 저장할 세션 생성
@@ -11,16 +11,16 @@ import org.checkmate.common.dto.response.LoginResponseDto;
 public class LoginSession {
 
     private static LoginSession instance;
-    private final LoginResponseDto memberInfo;
+    private final UserInfo userInfo;
 
-    public LoginSession(LoginResponseDto memberInfo) {
-        this.memberInfo = memberInfo;
-        System.out.println("[생성자] Session created: " + memberInfo.toString());
+    public LoginSession(UserInfo userInfo) {
+        this.userInfo = userInfo;
+        System.out.println("[생성자] Session created: " + userInfo.toString());
     }
 
-    public static synchronized LoginSession getInstance(LoginResponseDto memberInfo) {
+    public static synchronized LoginSession getInstance(UserInfo userInfo) {
         if (instance == null) {
-            instance = new LoginSession(memberInfo);
+            instance = new LoginSession(userInfo);
             return instance;
         }
         return null;
