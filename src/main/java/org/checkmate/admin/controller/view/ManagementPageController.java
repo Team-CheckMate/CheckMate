@@ -37,7 +37,7 @@ public class ManagementPageController implements Initializable  {
     // 대여현황
     public void rental_status_btn(ActionEvent actionEvent) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/user/sidebarSamplePage.fxml");
+        sm.moveScene("/org/checkmate/view/layouts/admin/bookRentStatusPage.fxml");
     }
 
     // 사원관리

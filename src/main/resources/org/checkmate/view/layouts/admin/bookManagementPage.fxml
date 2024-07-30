@@ -80,7 +80,7 @@
                             </columns>
                         </TableView>
                         <Pane layoutY="28.0" prefHeight="5.0" prefWidth="200.0" style="-fx-background-color: black;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                        <Text layoutX="48.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="도서관리">
+                        <Text layoutX="48.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0">
                             <font>
                                 <Font name="Bodoni MT" size="14.0" />
                             </font>
@@ -89,14 +89,7 @@
                         <Text fx:id="countMessage" layoutX="40.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="110.48828125" />
                         <TextField fx:id="bookSearch" layoutX="431.0" layoutY="70.0" />
                         <Button fx:id="search" layoutX="589.0" layoutY="70.0" mnemonicParsing="false" onAction="#search" text="검색" />
-                        <!--                    <JFXTextField layoutX="494.0" layoutY="57.0">-->
 
-                        <!--                    </JFXTextField>>-->
-                        <!--                        <ImageView fitHeight="28.0" fitWidth="34.0" layoutX="494.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true">-->
-                        <!--                            <image>-->
-                        <!--                                <Image url="@../../../images/search.png" />-->
-                        <!--                            </image>-->
-                        <!--                        </ImageView>-->
                     </children>
                 </AnchorPane>
             </center>

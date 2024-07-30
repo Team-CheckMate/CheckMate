@@ -70,6 +70,83 @@
         {call add_book (?,?,?,?,?,?)}
     </entry>
 
+<!--    도서대여현황 전체 조회-->
+    <entry key="readAllBookLoanRecordsAdmin">
+        select b.blr_id,b.login_id,sys.e_name,sys.t_name,sys.d_name,b.b_name,b.loan_date, b.return_pre_date, b.return_date,trunc(sysdate-b.return_pre_date,2)delay_Day
+        from book_loan_records b join (select emp_no , e_name , t_name, d_name  from
+        (select team_no,t_name,d_name from sysone.teams t join sysone.departments d
+        on t.dept_no = d.dept_no) td join sysone.employees e
+        on td.team_no = e.team_no) sys
+        on b.login_id = sys.emp_no
+        order by return_date desc,loan_date asc
+    </entry>
+
+    <!--    도서대여현황 이름 검색 조회-->
+    <entry key="readBookLoanRecordByNameAdmin">
+        select b.blr_id,b.login_id,sys.e_name,sys.t_name,sys.d_name,b.b_name,b.loan_date, b.return_pre_date, b.return_date,trunc(sysdate-b.return_pre_date,2)delay_Day
+        from book_loan_records b join (select emp_no , e_name , t_name, d_name  from
+        (select team_no,t_name,d_name from sysone.teams t join sysone.departments d
+        on t.dept_no = d.dept_no) td join sysone.employees e
+        on td.team_no = e.team_no) sys
+        on b.login_id = sys.emp_no
+        where e_name like ?
+        order by return_date desc,loan_date asc
+    </entry>
+
+<!--    도서 반납 처리-->
+    <entry key="update_return_date">
+        {call update_return_date (?)}
+    </entry>
+    <!--    도서현황 삭제-->
+    <entry key="deleteSelectedBookLoanRecord">
+        {call delete_book_loan_record (?)}
+    </entry>
+
+<!--    도서대여현황 by 팀별-->
+    <entry key="readTeamsBookLoanRecords">
+        SELECT sys.t_name, COUNT(*) AS count
+        FROM book_loan_records b
+        JOIN (
+        SELECT e.emp_no, e.e_name, td.t_name, td.d_name
+        FROM sysone.employees e
+        JOIN (
+        SELECT t.team_no, t.t_name, d.d_name
+        FROM sysone.teams t
+        JOIN sysone.departments d ON t.dept_no = d.dept_no
+        ) td ON e.team_no = td.team_no
+        ) sys ON b.login_id = sys.emp_no
+        GROUP BY sys.t_name
+    </entry>
+
+    <!--    도서대여현황 by PIVOT 부서별-->
+    <entry key="readPivotDepartmentsBookLoanRecords">
+        SELECT *
+        FROM (
+        SELECT sys.d_name, COUNT(*) AS count
+        FROM book_loan_records b
+        JOIN (
+        SELECT e.emp_no, e.e_name, td.t_name, td.d_name
+        FROM sysone.employees e
+        JOIN (
+        SELECT t.team_no, t.t_name, d.d_name
+        FROM sysone.teams t
+        JOIN sysone.departments d ON t.dept_no = d.dept_no
+        ) td ON e.team_no = td.team_no
+        ) sys ON b.login_id = sys.emp_no
+        GROUP BY sys.d_name
+        )
+        PIVOT (
+        SUM(count) FOR d_name IN (
+        '전략사업본부' 전략사업본부,
+        '보안사업본부' 보안사업본부,
+        'ITO사업본부' ITO사업본부,
+        'IDC사업본부' IDC사업본부,
+        '솔루션사업본부' 솔루션사업본부,
+        '신사업본부' 신사업본부
+        )
+        )
+    </entry>
+
     <entry key="도서 신청 승인">
         {call insert_book_from_request  (?,?,?)}
 
