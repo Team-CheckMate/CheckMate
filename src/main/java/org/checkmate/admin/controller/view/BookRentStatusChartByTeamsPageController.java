@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import org.checkmate.admin.controller.server.BookController;
 import org.checkmate.admin.dto.response.ReadBookLoanRecordsForChartResponseDto;
 import org.checkmate.admin.service.BookManagementService;
 import org.checkmate.admin.service.BookManagementServiceImpl;
@@ -15,11 +16,11 @@ import java.sql.SQLException;
 
 public class BookRentStatusChartByTeamsPageController {
 
-    private final BookManagementService bookService;
+    private final BookController bookController;
 
     // 기본 생성자
     public BookRentStatusChartByTeamsPageController() {
-        bookService = new BookManagementServiceImpl();
+        bookController = new BookController();
     }
 
     @FXML private BarChart<String, Number> barChart;
@@ -29,7 +30,7 @@ public class BookRentStatusChartByTeamsPageController {
 
     @FXML
     public void initialize() throws SQLException {
-        bookLoanRecordsForChartList = bookService.readTeamsBookLoanRecords();
+        bookLoanRecordsForChartList = bookController.readTeamsBookLoanRecords();
         // List<responseDto>를 ObservableList로 변환
         ObservableList<XYChart.Data<String, Number>> chartData = FXCollections.observableArrayList();
         for (ReadBookLoanRecordsForChartResponseDto record : bookLoanRecordsForChartList) {
