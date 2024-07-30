@@ -63,12 +63,12 @@
     </entry>
 
 <!--    도서 신청-->
-    <entry key="도서 신청 승인">
+    <entry key="updateRequestDate">
     {call update_req_con_date (?)}
 
     </entry>
-
-    <entry key="도서 신청 반려">
+<!-- 도서 반려-->
+    <entry key="updateReturnDate">
         {call update_return_date (?)}
 
     </entry>
@@ -100,9 +100,9 @@
 
 
         <!--신청내역 조회 이미 신청과 반려 된 것들은 제외 -->
-<entry key="신청 내역 조회">
+<entry key="readApplyStatus">
 
-select b.login_id,m.e_name,b.b_name,b.publisher,b.author
+select b.br_id,b.login_id,m.e_name,b.b_name,b.publisher,b.author
 from book_requests b join members m
 on b.login_id = m.login_id
 and req_con_date is null
