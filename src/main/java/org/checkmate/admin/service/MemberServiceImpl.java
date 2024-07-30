@@ -3,14 +3,12 @@ package org.checkmate.admin.service;
 import javafx.collections.ObservableList;
 import org.checkmate.admin.mapper.UserManagementMapper;
 import org.checkmate.admin.dto.response.AdminMemberResponseDto;
-
-
 import java.sql.SQLException;
 
-public class AdminMemberServiceImpl implements AdminMemberService {
+public class MemberServiceImpl implements MemberService {
     private  final UserManagementMapper userManagementMapper ;
 
-    public AdminMemberServiceImpl( ) {
+    public MemberServiceImpl( ) {
         this.userManagementMapper = new UserManagementMapper();
     }
 
@@ -25,6 +23,16 @@ public class AdminMemberServiceImpl implements AdminMemberService {
     @Override
     public int createUser (String loginId, String eName) throws SQLException{
         return userManagementMapper.createUser(loginId, eName);
+    }
+
+    @Override
+    public int updatePw(String loginId) throws SQLException{
+        return userManagementMapper.updatePw(loginId);
+    }
+
+    @Override
+    public ObservableList<AdminMemberResponseDto> searchMember(String str) throws SQLException{
+        return userManagementMapper.searchMember(str);
     }
 
 }
