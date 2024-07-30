@@ -4,6 +4,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import javafx.collections.FXCollections;
@@ -13,15 +15,8 @@ import org.checkmate.common.database.DBConnector;
 import org.checkmate.user.dto.request.CreateBookLoanRequestDto;
 import org.checkmate.user.dto.response.ReadLoanStatusResponseDto;
 import org.checkmate.common.util.TypeFormatter;
+import org.checkmate.user.dto.response.ReadMyDepartmentBookStatusResponseDto;
 
-/**
- * SQL Query mapper 클래스
- * HISTORY1: 최초 생성                              [송헌욱  2024.07.25]
- * HISTORY2: findAllBookLoanStatus 메서드 수정      [권혁규  2024.07.26]
- * HISTORY2: admin파일 연결, 신규 책 등록 메서드 추가   [이준희  2024.07.26]
- * HISTORY3: 관리자 도서 전체조회, 선택 조회, 수정, 삭제 메서드 추가   [이준희  2024.07.27]
- * HISTORY4: 사용자 도서 전체조회, 검색 조회, 도서등록 메서드 추가   [권혁규  2024.07.29]
- */
 public class BookMapper {
 
     private final Properties prop = new Properties();
@@ -116,4 +111,39 @@ public class BookMapper {
         return books;
     }
 
+    /**
+     * 나의 부서 대여 현황을 위해 필요한 데이터 가져오기 위한 DataBase Connection 로직
+     * @param loginId 사원 번호
+     * @param teamId 부서 번호
+     * @return List<ReadMyDepartmentBookStatusResponseDto> 필요한 요청에 대한 응답 객체를 담은 List 타입 객체
+     * @throws SQLException DataBase 예외
+     */
+    public List<ReadMyDepartmentBookStatusResponseDto> findMyDepartmentBookLoanStatus(String loginId, Long teamId) throws SQLException {
+        List<ReadMyDepartmentBookStatusResponseDto> list = new ArrayList<>();
+
+        String query = prop.getProperty("findMyDepartmentStatus");
+        try (
+                Connection connection = DBConnector.getInstance().getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(query)
+        ) {
+            preparedStatement.setLong(1, teamId);
+
+            try (ResultSet rs = preparedStatement.executeQuery()) {
+                while (rs.next()) {
+                    ReadMyDepartmentBookStatusResponseDto dto =
+                            ReadMyDepartmentBookStatusResponseDto.builder()
+                                    .loginId(rs.getString("login_id"))
+                                    .eName(rs.getString("e_name"))
+                                    .bookCount(rs.getInt("book_count"))
+                                    .currentMonthCount(rs.getInt("current_month_count"))
+                                    .lastMonthCount(rs.getInt("last_month_count"))
+                                    .lastYearCount(rs.getInt("last_year_count"))
+                                    .build();
+                    list.add(dto);
+                }
+            }
+        }
+
+        return list;
+    }
 }
