@@ -34,7 +34,26 @@ public class UpdatePasswordPageController implements Initializable {
     private void exit(javafx.event.ActionEvent event) {
         Platform.exit();
     }
-
+    //사이드바 이동
+    @FXML private void goToBookLoan(javafx.event.ActionEvent event)
+    {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene("/org/checkmate/view/layouts/user/readLoanBookPage.fxml");
+    }
+    @FXML private void goToLoanManage(javafx.event.ActionEvent event)
+    {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene("/org/checkmate/view/layouts/user/readLoanBookPage.fxml"); //변경
+    }
+    @FXML private void goToMyLoanBook(javafx.event.ActionEvent event)
+    {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene("/org/checkmate/view/layouts/user/readLoanBookPage.fxml");
+    }
+    @FXML private void goToBookApply(javafx.event.ActionEvent event)
+    {SceneManager sm = SceneManager.getInstance();
+        sm.moveScene("/org/checkmate/view/layouts/user/readLoanBookPage.fxml");
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         var session = LoginSession.getInstance();

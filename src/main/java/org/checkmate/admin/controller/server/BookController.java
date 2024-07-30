@@ -7,6 +7,8 @@ import org.checkmate.admin.dto.request.BookUpdateRequestDto;
 import org.checkmate.admin.dto.response.BookReadInformationResponseDto;
 import org.checkmate.admin.dto.response.BookReadLoanStatusResponseDto;
 import org.checkmate.admin.dto.response.BookUpdateResponseDto;
+import org.checkmate.admin.dto.response.ReadBookLoanRecordsForChartResponseDto;
+import org.checkmate.admin.dto.response.ReadBookLoanRecordsResponseDto;
 import org.checkmate.admin.service.BookManagementService;
 import org.checkmate.admin.service.BookManagementServiceImpl;
 import org.checkmate.common.controller.view.SceneManager;
@@ -44,12 +46,29 @@ public class BookController {
     }
 
     public ObservableList<BookReadLoanStatusResponseDto> ReadBooksByBookName(String bookName) throws SQLException{
-        return bookService.ReadBooksByBookName(bookName);
+        return bookService.readBooksByBookName(bookName);
     }
 
+    public ObservableList<ReadBookLoanRecordsResponseDto> readAllBookLoanRecordsAdmin() throws SQLException{
+        return bookService.readAllBookLoanRecordsAdmin();
+    }
 
+    public void readDepartmentsBookLoanRecords() throws SQLException{
+        bookService.readPivotDepartmentsBookLoanRecords();
+    }
+    public ObservableList<ReadBookLoanRecordsForChartResponseDto> readTeamsBookLoanRecords() throws SQLException{
+        return bookService.readTeamsBookLoanRecords();
+    }
 
+    public ObservableList<ReadBookLoanRecordsResponseDto> readBookLoanRecordByNameAdmin(String eName) throws SQLException{
+        return bookService.readBookLoanRecordByNameAdmin(eName);
+    }
 
+    public String deleteSelectedBookLoanRecord(Long bookId) throws SQLException{
+        return bookService.deleteSelectedBookLoanRecord(bookId);
+    }
 
-
+    public String update_return_date(Long blrId) throws SQLException{
+        return bookService.update_return_date(blrId);
+    }
 }

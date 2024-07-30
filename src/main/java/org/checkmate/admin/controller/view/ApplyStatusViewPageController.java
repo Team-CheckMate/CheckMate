@@ -38,12 +38,32 @@ public class ApplyStatusViewPageController implements Initializable {
 
     @FXML private TableColumn<ApplyStatusResponseDto, Void> manage;
 
-
-
     //시스템 종료
     @FXML private void exit(ActionEvent event) {
         Platform.exit();
     }
+
+    //사이드바 이동
+    @FXML private void goToBookManage(ActionEvent event)
+    {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene("/org/checkmate/view/layouts/admin/bookManagementPage.fxml");
+    }
+    @FXML private void goToLoanStatus(ActionEvent event)
+    {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene("/org/checkmate/view/layouts/admin/applyStatusViewPage.fxml"); //변경
+    }
+    @FXML private void goToUserManage(ActionEvent event)
+    {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene("/org/checkmate/view/layouts/admin/userManagementPage.fxml");
+    }
+    @FXML private void goToApplyStatus(ActionEvent event)
+    {SceneManager sm = SceneManager.getInstance();
+        sm.moveScene("/org/checkmate/view/layouts/admin/applyStatusViewPage.fxml");
+    }
+
 
     ObservableList<ApplyStatusResponseDto> applyList;
 
@@ -120,7 +140,7 @@ public class ApplyStatusViewPageController implements Initializable {
                             Msg(msg);
                             SceneManager sm = SceneManager.getInstance();
                             sm.moveScene("/org/checkmate/view/layouts/admin/applyStatusViewPage.fxml");
-//                            System.out.println(msg);
+
                         });
                     }
 

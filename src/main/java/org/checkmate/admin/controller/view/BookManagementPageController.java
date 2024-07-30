@@ -1,6 +1,11 @@
 package org.checkmate.admin.controller.view;
 
+import static org.checkmate.admin.util.FilePath.BOOK_CREATE_FX;
+import static org.checkmate.admin.util.FilePath.BOOK_MANAGEMENT_FX;
+import static org.checkmate.admin.util.FilePath.BOOK_UPDATE_FX;
+
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -59,6 +64,32 @@ public class BookManagementPageController implements Initializable  {
     @FXML private Button search;
     @FXML private TextField bookSearch;
 
+    //시스템 종료
+    @FXML private void exit(ActionEvent event) {
+        Platform.exit();
+    }
+
+    //사이드바 이동
+    @FXML private void goToBookManage(ActionEvent event)
+    {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene("/org/checkmate/view/layouts/admin/bookManagementPage.fxml");
+    }
+    @FXML private void goToLoanStatus(ActionEvent event)
+    {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene("/org/checkmate/view/layouts/admin/applyStatusViewPage.fxml"); //변경
+    }
+    @FXML private void goToUserManage(ActionEvent event)
+    {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene("/org/checkmate/view/layouts/admin/userManagementPage.fxml");
+    }
+    @FXML private void goToApplyStatus(ActionEvent event)
+    {SceneManager sm = SceneManager.getInstance();
+        sm.moveScene("/org/checkmate/view/layouts/admin/applyStatusViewPage.fxml");
+    }
+
     ObservableList<BookReadLoanStatusResponseDto> bookList;
 
     @Override
@@ -68,40 +99,6 @@ public class BookManagementPageController implements Initializable  {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-//        slider.setTranslateX(-176);
-//
-//        Menu.setOnMouseClicked(event -> {
-//            TranslateTransition slide = new TranslateTransition();
-//            slide.setDuration(Duration.seconds(0.4));
-//            slide.setNode(slider);
-//
-//            slide.setToX(0);
-//            slide.play();
-//
-//            slider.setTranslateX(-176);
-//
-//            slide.setOnFinished((ActionEvent e)->{
-//                Menu.setVisible(false);
-//                MenuBack.setVisible(true);
-//            });
-//        });
-//
-//        MenuBack.setOnMouseClicked(event -> {
-//            TranslateTransition slide = new TranslateTransition();
-//            slide.setDuration(Duration.seconds(0.4));
-//            slide.setNode(slider);
-//
-//            slide.setToX(-176);
-//            slide.play();
-//
-//            slider.setTranslateX(0);
-//
-//            slide.setOnFinished((ActionEvent e)->{
-//                Menu.setVisible(true);
-//                MenuBack.setVisible(false);
-//            });
-//        });
     }
 
     public void Msg(String msg,String function) {
@@ -139,14 +136,13 @@ public class BookManagementPageController implements Initializable  {
                     private final Button deleteBtn = new Button("삭제");
 
                     {
-                        //TODO : 관리자가 수정 진행시 대출 boolean값 변경 가능하도록 기능 추가
                         modifyBtn.setOnAction((event) -> {
                             BookReadLoanStatusResponseDto data = getTableView().getItems().get(getIndex());
                             System.out.println("Selected Data: " + data);
                             BookUpdatePageController controller = new BookUpdatePageController(data.getBookId());
                             // 파라미터 설정
                             FXMLLoader loader = new FXMLLoader(getClass().getResource(
-                                    "/org/checkmate/view/layouts/admin/bookUpdatePage.fxml"));
+                                "/org/checkmate/view/layouts/admin/bookUpdatePage.fxml"));
                             loader.setController(controller);
                             Parent root = null;
                             try {
@@ -172,7 +168,7 @@ public class BookManagementPageController implements Initializable  {
                             }
 
                             SceneManager sm = SceneManager.getInstance();
-                            sm.moveScene("/org/checkmate/view/layouts/admin/bookManagementPage.fxml");
+                            sm.moveScene(BOOK_MANAGEMENT_FX.getFilePath());
                         });
                     }
 
@@ -199,7 +195,7 @@ public class BookManagementPageController implements Initializable  {
     @FXML
     public void moveToAddBook(ActionEvent actionEvent) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/admin/bookCreatePage.fxml");
+        sm.moveScene(BOOK_CREATE_FX.getFilePath());
     }
 
     @FXML

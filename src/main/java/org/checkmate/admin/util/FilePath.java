@@ -18,7 +18,12 @@ public enum FilePath {
     BOOK_UPDATE_ST("/org/checkmate/view/style/admin/bookUpdatePage.css"),
 
     BOOK_MANAGEMENT_FX("/org/checkmate/view/layouts/admin/bookManagementPage.fxml"),
-    BOOK_MANAGEMENT_ST("/org/checkmate/view/style/admin/bookManagementPage.css");
+    BOOK_MANAGEMENT_ST("/org/checkmate/view/style/admin/bookManagementPage.css"),
+
+    RENT_STATUS_CHART_DEPARTMENTS_FX("/org/checkmate/view/layouts/admin/bookRentChartPageForDepartments.fxml"),
+//    RENT_STATUS_CHART_DEPARTMENTS_ST
+    RENT_STATUS_CHART_TEAMS_FX("/org/checkmate/view/layouts/admin/bookRentChartPageForTeams.fxml");
+
 
     private final String filePath;
 

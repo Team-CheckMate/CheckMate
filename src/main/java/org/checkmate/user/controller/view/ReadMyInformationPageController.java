@@ -54,4 +54,24 @@ public class ReadMyInformationPageController implements Initializable {
         sm.moveScene(UPDATE_PW_FX.getFilePath());
     }
 
+    //사이드바 이동
+    @FXML private void goToBookLoan(ActionEvent event)
+    {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene("/org/checkmate/view/layouts/user/readLoanBookPage.fxml");
+    }
+    @FXML private void goToLoanManage(ActionEvent event)
+    {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene("/org/checkmate/view/layouts/user/readLoanBookPage.fxml"); //변경
+    }
+    @FXML private void goToMyLoanBook(ActionEvent event)
+    {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene("/org/checkmate/view/layouts/user/readLoanBookPage.fxml");
+    }
+    @FXML private void goToBookApply(ActionEvent event)
+    {SceneManager sm = SceneManager.getInstance();
+        sm.moveScene("/org/checkmate/view/layouts/user/readLoanBookPage.fxml");
+    }
 }

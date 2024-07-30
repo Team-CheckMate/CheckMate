@@ -1,22 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane minHeight="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.checkmate.user.controller.view.ReadLoanBookPageController">
+<AnchorPane minHeight="-Infinity" prefHeight="650.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.checkmate.user.controller.view.ReadLoanBookPageController">
     <children>
         <BorderPane layoutX="67.0" layoutY="57.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <top>
@@ -41,22 +32,22 @@
                     <children>
                         <VBox layoutX="38.0" layoutY="67.0" prefHeight="282.0" prefWidth="70.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="53.0">
                             <children>
-                                <JFXButton alignment="BASELINE_LEFT" prefHeight="38.0" prefWidth="176.0" text="도서대여" textFill="WHITE">
+                                <JFXButton alignment="BASELINE_LEFT" onAction="#goToBookLoan" prefHeight="38.0" prefWidth="176.0" text="도서대여" textFill="WHITE">
                                     <font>
                                         <Font name="System Bold" size="15.0" />
                                     </font>
                                 </JFXButton>
-                                <JFXButton alignment="BASELINE_LEFT" prefHeight="38.0" prefWidth="176.0" text="대여정보" textFill="WHITE">
+                                <JFXButton alignment="BASELINE_LEFT" onAction="#goToLoanManage" prefHeight="38.0" prefWidth="176.0" text="대여정보" textFill="WHITE">
                                     <font>
                                         <Font name="System Bold" size="15.0" />
                                     </font>
                                 </JFXButton>
-                                <JFXButton alignment="BASELINE_LEFT" prefHeight="38.0" prefWidth="176.0" text="나의부서대여현황" textFill="WHITE">
+                                <JFXButton alignment="BASELINE_LEFT" onAction="#goToMyLoanBook" prefHeight="38.0" prefWidth="176.0" text="나의부서대여현황" textFill="WHITE">
                                     <font>
                                         <Font name="System Bold" size="15.0" />
                                     </font>
                                 </JFXButton>
-                                <JFXButton alignment="BASELINE_LEFT" prefHeight="38.0" prefWidth="176.0" text="도서신청" textFill="WHITE">
+                                <JFXButton alignment="BASELINE_LEFT" onAction="#goToBookApply" prefHeight="38.0" prefWidth="176.0" text="도서신청" textFill="WHITE">
                                     <font>
                                         <Font name="System Bold" size="15.0" />
                                     </font>
@@ -86,9 +77,9 @@
                                 <Font name="Bodoni MT" size="14.0" />
                             </font>
                         </Text>
-                        <JFXButton layoutX="566.0" layoutY="421.0" onAction="#createLoanBookBtn" text="대여하기" />
+                        <JFXButton layoutX="746.0" layoutY="421.0" onAction="#createLoanBookBtn" text="대여하기" />
                         <TextField fx:id="searchName" layoutX="670.0" layoutY="90.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="670.0" />
-                        <Button fx:id="searchBtn" layoutX="650.0" layoutY="91.0" minHeight="22.0" minWidth="19.0" mnemonicParsing="false" onAction="#searchBtn" prefHeight="20.0" prefWidth="20.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="523.0" AnchorPane.leftAnchor="654.0" AnchorPane.rightAnchor="200.0">
+                        <Button fx:id="searchBtn" layoutX="654.0" layoutY="89.39999999999995" minHeight="22.0" minWidth="19.0" mnemonicParsing="false" onAction="#searchBtn" prefHeight="20.0" prefWidth="20.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="473.0" AnchorPane.leftAnchor="654.0" AnchorPane.rightAnchor="200.0">
                      <graphic>
                                 <ImageView fitHeight="24.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
