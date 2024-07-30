@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
-import org.checkmate.common.entity.MRole;
-import org.checkmate.common.entity.Member;
+import org.checkmate.user.entity.Admin;
+import org.checkmate.user.entity.Member;
 
 /**
  * 로그인 응답 객체
@@ -20,9 +20,8 @@ import org.checkmate.common.entity.Member;
 public class LoginResponseDto {
 
     private String loginId;   // 로그인ID(사원 번호)
-    private String password;  // 비밀번호
     private String eName;      // 사원 이름
-    private MRole role;       // 권한 (예: ADMIN - 관리자, BASIC - 일반 사원)
+    private String role;       // 권한 (예: ADMIN - 관리자, BASIC - 일반 사원)
     private int delayCnt;     // 도서 연체 횟수
 
     public static LoginResponseDto from(Member member) {
@@ -30,7 +29,12 @@ public class LoginResponseDto {
                 .loginId(member.getLoginId())
                 .eName(member.getEName())
                 .role(member.getRole())
-                .delayCnt(member.getDelayCnt())
+                .build();
+    }
+
+    public static LoginResponseDto from(Admin admin) {
+        return LoginResponseDto.builder()
+                .role(admin.getRole())
                 .build();
     }
 

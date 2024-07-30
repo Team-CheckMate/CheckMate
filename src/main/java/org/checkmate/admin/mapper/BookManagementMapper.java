@@ -39,9 +39,9 @@ public class BookManagementMapper {
      * @return ObservableList<ReadLoanStatusResponseDto> 응답 책 정보를 담은 리스트 컬랙션
      * @throws SQLException
      */
-    public ObservableList<BookReadLoanStatusResponseDto> findAllBookAdmin() throws SQLException {
+    public ObservableList<BookReadLoanStatusResponseDto> readAllBooks() throws SQLException {
         ObservableList<BookReadLoanStatusResponseDto> books = FXCollections.observableArrayList();
-        String query = prop.getProperty("findAllBookAdmin");
+        String query = prop.getProperty("readAllBooks");
         try (
                 Connection connection = DBConnector.getInstance().getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -53,7 +53,7 @@ public class BookManagementMapper {
                         .ISBN(resultSet.getString("ISBN"))
                         .author(resultSet.getString("author"))
                         .publisher(resultSet.getString("publisher"))
-                        .lStatus(TypeFormatter.BooleanToString(TypeFormatter.IntegerToBoolean(resultSet.getInt("l_status"))))
+                        .lStatus(TypeFormatter.IntegerToString(resultSet.getInt("l_status")))
                         .addDate(resultSet.getDate("add_date"))
                         .eName(resultSet.getString("e_name"))
                         .build();
@@ -82,14 +82,12 @@ public class BookManagementMapper {
             preparedStatement.setString(4, requestDto.getTranslator());
             preparedStatement.setString(5, requestDto.getPublisher());
             preparedStatement.setInt(6, requestDto.getCategory_num());
-            try {
-                preparedStatement.executeQuery();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+            preparedStatement.executeQuery();
 
             BookCreateResponseDto bookCreateResponseDto = new BookCreateResponseDto(true, requestDto.getBookTitle() + "이 등록되었습니다.");
             return bookCreateResponseDto;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -99,8 +97,8 @@ public class BookManagementMapper {
      * @return BookUpdateResponseDto 객체 반환
      * @throws SQLException SQL 서버 에러
      */
-    public BookUpdateResponseDto editBook(BookUpdateRequestDto requestDto) throws SQLException {
-        String query = prop.getProperty("editBook");
+    public BookUpdateResponseDto updateBook(BookUpdateRequestDto requestDto) throws SQLException {
+        String query = prop.getProperty("updateBook");
         try (
                 Connection connection = DBConnector.getInstance().getConnection();
                 CallableStatement callableStatement = connection.prepareCall(query)) {
@@ -113,14 +111,12 @@ public class BookManagementMapper {
             callableStatement.setString(6, requestDto.getPublisher());
             callableStatement.setInt(7, requestDto.getCategory_num());
             callableStatement.setInt(8, requestDto.getL_status());
-            try {
-                callableStatement.executeQuery();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+            callableStatement.executeQuery();
 
             BookUpdateResponseDto responseDto = new BookUpdateResponseDto(true, requestDto.getBookTitle() + "이 수정되었습니다.");
             return responseDto;
+        } catch (SQLException e) {
+        throw new RuntimeException(e);
         }
     }
 
@@ -130,13 +126,13 @@ public class BookManagementMapper {
      * @return BookReadInformationResponseDto 응답객체
      * @throws SQLException SQL 서버 에러
      */
-    public BookReadInformationResponseDto findBook(Long bookId) throws SQLException {
-        String query = prop.getProperty("findSelectedBookAdmin");
+    public BookReadInformationResponseDto readBook(Long bookId) throws SQLException {
+        String query = prop.getProperty("readBook");
         BookReadInformationResponseDto book = null;
         try (
                 Connection connection = DBConnector.getInstance().getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(query)){
-            preparedStatement.setLong(1, bookId);
+                preparedStatement.setLong(1, bookId);
 
             // 쿼리 실행 및 결과 집합 받기
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -157,29 +153,65 @@ public class BookManagementMapper {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return book;
     }
+    /**
+     * 관리자가 책이름을 검색하였을때 해당 도서의 정보를 받아오는 기능
+     * @param bookName 도서명
+     * @return FindAllBooksAdminResponseDto 응답객체
+     * @throws SQLException SQL 서버 에러
+     */
+    public ObservableList<BookReadLoanStatusResponseDto> ReadBooksByBookName(String bookName) throws SQLException {
+        ObservableList<BookReadLoanStatusResponseDto> books = FXCollections.observableArrayList();
+        String query = prop.getProperty("ReadBooksByBookName");
+        try (
+            Connection connection = DBConnector.getInstance().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(query)
+        ) {
+            // 와일드카드를 포함하여 매개변수 값 설정
+            preparedStatement.setString(1, "%" + bookName + "%");
+            ResultSet resultSet = preparedStatement.executeQuery();
 
+            // 결과 처리
+            while (resultSet.next()) {
+                BookReadLoanStatusResponseDto book = BookReadLoanStatusResponseDto.builder()
+                    .bookId(resultSet.getLong("book_id"))
+                    .bName(resultSet.getString("b_name"))
+                    .ISBN(resultSet.getString("ISBN"))
+                    .author(resultSet.getString("author"))
+                    .publisher(resultSet.getString("publisher"))
+                    .lStatus(TypeFormatter.BooleanToString(TypeFormatter.IntegerToBoolean(resultSet.getInt("l_status"))))
+                    .addDate(resultSet.getDate("add_date"))
+                    .eName(resultSet.getString("e_name"))
+                    .build();
+                books.add(book);
+                System.out.println(book.toString());
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return books;
+    }
     /**
      * 선택된 책을 삭제하는 기능
      * @param bookId 책 아이디
      * @return 변경결과
      * @throws SQLException SQL 서버 에러
      */
-    public boolean deleteSelectedBook(Long bookId) throws SQLException{
+    public String deleteSelectedBook(Long bookId) throws SQLException{
         String query = prop.getProperty("deleteSelectedBook");
         int deleteRows = 0;
         try (
-                Connection connection = DBConnector.getInstance().getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(query)){
+            Connection connection = DBConnector.getInstance().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(query)){
             preparedStatement.setLong(1,bookId);
-            try {
-                deleteRows = preparedStatement.executeUpdate();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+
+            deleteRows = preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new SQLException(e);
         }
-        return deleteRows > 0;
+        return deleteRows > 0? "삭제 실패하였습니다" : "삭제되었습니다";
     }
 }

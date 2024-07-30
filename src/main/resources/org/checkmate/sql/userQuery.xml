@@ -2,12 +2,33 @@
 <properties>
 
   <!--  로그인 회원 조회 -->
-  <entry key="findByLoginIdAndPassword">
-
+  <entry key="findByLoginIdAndPasswordByBasic">
     SELECT  LOGIN_ID, PASSWORD, E_NAME, ROLE, DELAY_CNT
     FROM MEMBERS
     WHERE LOGIN_ID = ?
     AND password = ?
+  </entry>
+
+  <!--  로그인 관리자 찾기 -->
+  <entry key="findByLoginIdAndPasswordForAdmin">
+    SELECT ROLE
+    FROM ADMINS
+    WHERE LOGIN_ID = ?
+    AND password = ?
+  </entry>
+
+  <!-- 회원 정보 조회(사원번호, 사워이름, 권한, 팀이름, 부서이름, 연체회수) -->
+  <entry key="readMemberIncludeTeamAndDeptName">
+    SELECT m.LOGIN_ID, m.E_NAME, m.ROLE, sys.T_NAME, sys.D_NAME, m.DELAY_CNT
+    FROM MEMBERS m
+    JOIN (SELECT EMP_NO, E_NAME, T_NAME, D_NAME
+          FROM (SELECT TEAM_NO, T_NAME, D_NAME
+                FROM sysone.TEAMS t
+                JOIN sysone.DEPARTMENTS d
+                ON t.DEPT_NO = d.DEPT_NO) td
+          JOIN sysone.EMPLOYEES e
+            ON td.TEAM_NO = e.TEAM_NO) sys
+    ON m.LOGIN_ID = sys.EMP_NO
   </entry>
 
   <!--  회원 비밀번호 수정 -->
@@ -43,14 +64,23 @@
   ON B.BOOK_ID = BLN.BOOK_ID
 </entry>
 
+<entry key="findByBookName">
+  SELECT B.BOOK_ID, B.ISBN, B.B_NAME, B.AUTHOR, B.PUBLISHER, B.L_STATUS, (BLN.RETURN_PRE_DATE + 1) AS RETURN_PRE_DATE
+  FROM BOOKS B
+  LEFT OUTER JOIN BOOK_LOAN_RECORDS BLN
+  ON B.BOOK_ID = BLN.BOOK_ID
+  WHERE LOWER(B.B_NAME) LIKE LOWER(?)
+  ORDER BY B.BOOK_ID
+</entry>
+
 <!--    책이름으로 책 검색 시 필터링 된 책 목록-->
 <!--    ? = 검색된 책이름-->
-<entry key="도서검색">
-  SELECT b.b_name,b.author,b.publisher,b.l_status,bln.return_pre_date +1
-  FROM books b left outer join  book_loan_records bln
-  on b.book_id = bln.book_id
-  where b_name like %?%
-</entry>
+<!--<entry key="도서검색">-->
+<!--  SELECT b.b_name,b.author,b.publisher,b.l_status,bln.return_pre_date +1-->
+<!--  FROM books b left outer join  book_loan_records bln-->
+<!--  on b.book_id = bln.book_id-->
+<!--  where b_name like %?%-->
+<!--</entry>-->
 <!--대여하기 버튼 클릭시 book_loan에 데이터 삽입-->
 <entry key="대출 데이터 삽입">
   {call add_book_loan_record (?, ?)}
@@ -75,28 +105,28 @@
 </entry>
 
 <!--    마이페이지에 자신이 빌린 책 개수-->
-<entry key="빌린 책 개수">
-  select count(*)
-  from (
-  SELECT *
-  FROM  book_loan_records bln
-  where bln.login_id = '사원번호'
-  and return_date IS NULL
-  );
-</entry>
+<!--<entry key="빌린 책 개수">-->
+<!--  select count(*)-->
+<!--  from (-->
+<!--  SELECT *-->
+<!--  FROM  book_loan_records bln-->
+<!--  where bln.login_id = '사원번호'-->
+<!--  and return_date IS NULL-->
+<!--  );-->
+<!--</entry>-->
 
 
 <!--    마이페이지에 마감기한 지난  책 개수-->
-<entry key="마감기한 지난 책 개수">
-  select count(*)
-  from (
-  SELECT *
-  FROM  book_loan_records bln
-  where bln.login_id = ?
-  and return_pre_date < SYSDATE
-                        and return_date IS NULL
-  );
-</entry>
+<!--<entry key="마감기한 지난 책 개수">-->
+<!--  select count(*)-->
+<!--  from (-->
+<!--  SELECT *-->
+<!--  FROM  book_loan_records bln-->
+<!--  where bln.login_id = ?-->
+<!--  and return_pre_date < SYSDATE-->
+<!--                        and return_date IS NULL-->
+<!--  );-->
+<!--</entry>-->
 
 <!--    반납하기-->
 <!--book 테이블 반납 상태 변경--><!-- book_loan_records 테이블 반납 상태 변경-->

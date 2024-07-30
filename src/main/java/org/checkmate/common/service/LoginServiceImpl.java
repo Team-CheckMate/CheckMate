@@ -1,11 +1,12 @@
 package org.checkmate.common.service;
 
+import org.checkmate.user.entity.Admin;
 import org.checkmate.user.dto.request.UpdatePasswordRequestDto;
 import org.checkmate.common.dto.request.LoginRequestDto;
 import org.checkmate.user.dto.response.UpdatePasswordResponseDto;
 import org.checkmate.common.dto.response.LoginResponseDto;
 import org.checkmate.user.dto.response.ReadMyInformationResponseDto;
-import org.checkmate.common.entity.Member;
+import org.checkmate.user.entity.Member;
 import org.checkmate.user.mapper.MemberMapper;
 import java.sql.SQLException;
 import java.util.NoSuchElementException;
@@ -28,17 +29,27 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public LoginResponseDto login(LoginRequestDto requestDto) throws SQLException {
-        Optional<Member> member = memberMapper.findByLoginIdAndPassword(
+        Optional<Member> member = memberMapper.findByLoginIdAndPasswordForBasic(
+                requestDto.getLoginId(),
+                requestDto.getPassword()
+        );
+        Optional<Admin> admin = memberMapper.findByLoginIdAndPasswordForAdmin(
                 requestDto.getLoginId(),
                 requestDto.getPassword()
         );
 
-        if (member.isEmpty()) {
+        if (member.isEmpty() && admin.isEmpty()) {
             throw new SQLException("조회된 회원이 없습니다.");
         }
 
-        Member foundMember = member.get();
-        return LoginResponseDto.from(foundMember);
+        if (admin.isPresent()) {
+            Admin foundAdmin = admin.get();
+            return LoginResponseDto.from(foundAdmin);
+        } else {
+            Member foundMember = member.get();
+            return LoginResponseDto.from(foundMember);
+        }
+
     }
 
     @Override

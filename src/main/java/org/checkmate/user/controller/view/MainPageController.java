@@ -39,7 +39,7 @@ public class MainPageController implements Initializable {
     @FXML
     public void bookLoan(ActionEvent actionEvent) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/user/sidebarSamplePage.fxml");
+        sm.moveScene("/org/checkmate/view/layouts/user/readLoanBookPage.fxml");
     }
 
     // 대여정보

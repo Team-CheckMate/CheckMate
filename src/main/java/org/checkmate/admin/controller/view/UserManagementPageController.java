@@ -25,7 +25,8 @@ import java.util.ResourceBundle;
 
 
 public class UserManagementPageController implements Initializable {
-        @FXML
+  
+    @FXML
     private Label Menu;
 
     @FXML
@@ -82,50 +83,15 @@ public class UserManagementPageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-
         try {
             loadDate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-//        slider.setTranslateX(-176);
-//
-//        Menu.setOnMouseClicked(event -> {
-//            TranslateTransition slide = new TranslateTransition();
-//            slide.setDuration(Duration.seconds(0.4));
-//            slide.setNode(slider);
-//
-//            slide.setToX(0);
-//            slide.play();
-//
-//            slider.setTranslateX(-176);
-//
-//            slide.setOnFinished((ActionEvent e) -> {
-//                Menu.setVisible(false);
-//                MenuBack.setVisible(true);
-//            });
-//        });
-//
-//        MenuBack.setOnMouseClicked(event -> {
-//            TranslateTransition slide = new TranslateTransition();
-//            slide.setDuration(Duration.seconds(0.4));
-//            slide.setNode(slider);
-//
-//            slide.setToX(-176);
-//            slide.play();
-//
-//            slider.setTranslateX(0);
-//
-//            slide.setOnFinished((ActionEvent e) -> {
-//                Menu.setVisible(true);
-//                MenuBack.setVisible(false);
-//            });
-//        });
     }
 
     private void loadDate() throws SQLException {
-//        select.setCellValueFactory(new PropertyValueFactory<>("select"));
         loginId.setCellValueFactory(new PropertyValueFactory<>("loginId"));
         eName.setCellValueFactory(new PropertyValueFactory<>("eName"));
         tName.setCellValueFactory(new PropertyValueFactory<>("tName"));

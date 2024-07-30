@@ -84,4 +84,6 @@ module org.checkmate {
     // user.util 패키지를 내보내고 열기
     exports org.checkmate.user.util;
     opens org.checkmate.user.util to javafx.fxml;
+    exports org.checkmate.user.entity;
+    opens org.checkmate.user.entity to javafx.fxml;
 }
