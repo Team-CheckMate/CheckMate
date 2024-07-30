@@ -12,10 +12,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.CheckBox;
 import org.checkmate.common.database.DBConnector;
+import org.checkmate.common.exception.DatabaseException;
 import org.checkmate.user.dto.request.CreateBookLoanRequestDto;
 import org.checkmate.user.dto.response.ReadLoanStatusResponseDto;
 import org.checkmate.common.util.TypeFormatter;
-import org.checkmate.user.dto.response.ReadMyDepartmentBookStatusResponseDto;
+import org.checkmate.user.dto.response.TeamMemberLoanStatusDegree;
 
 public class BookMapper {
 
@@ -66,10 +67,10 @@ public class BookMapper {
 
     public void createLoanBook(CreateBookLoanRequestDto requestDto) {
         String query = prop.getProperty("addBookLoanRecord");
-        try(Connection connection = DBConnector.getInstance().getConnection();
-            CallableStatement callableStatement = connection.prepareCall(query);
-            ) {
-            for(ReadLoanStatusResponseDto bean : requestDto.getBookList()) {
+        try (Connection connection = DBConnector.getInstance().getConnection();
+                CallableStatement callableStatement = connection.prepareCall(query);
+        ) {
+            for (ReadLoanStatusResponseDto bean : requestDto.getBookList()) {
                 callableStatement.setLong(1, bean.getBookId());
                 callableStatement.setString(2, requestDto.getLoginId());
                 callableStatement.execute();
@@ -79,7 +80,8 @@ public class BookMapper {
         }
     }
 
-    public ObservableList<ReadLoanStatusResponseDto> findByBookName(String searchName) throws SQLException {
+    public ObservableList<ReadLoanStatusResponseDto> findByBookName(String searchName)
+            throws SQLException {
         ObservableList<ReadLoanStatusResponseDto> books = FXCollections.observableArrayList();
         String query = prop.getProperty("findByBookName");
         CheckBox ch = null;
@@ -89,7 +91,7 @@ public class BookMapper {
                 PreparedStatement preparedStatement = connection.prepareStatement(query)
         ) {
             preparedStatement.setString(1, "%" + searchName + "%");
-            try(ResultSet resultSet = preparedStatement.executeQuery()) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     ch = new CheckBox();
                     ReadLoanStatusResponseDto book = ReadLoanStatusResponseDto.builder()
@@ -113,37 +115,37 @@ public class BookMapper {
 
     /**
      * 나의 부서 대여 현황을 위해 필요한 데이터 가져오기 위한 DataBase Connection 로직
-     * @param loginId 사원 번호
+     *
      * @param teamId 부서 번호
-     * @return List<ReadMyDepartmentBookStatusResponseDto> 필요한 요청에 대한 응답 객체를 담은 List 타입 객체
-     * @throws SQLException DataBase 예외
+     * @return List<TeamMemberLoanStatusDegree> 필요한 요청에 대한 응답 객체를 담은 List 타입 객체
+     * @throws DatabaseException DataBase 예외
      */
-    public List<ReadMyDepartmentBookStatusResponseDto> findMyDepartmentBookLoanStatus(String loginId, Long teamId) throws SQLException {
-        List<ReadMyDepartmentBookStatusResponseDto> list = new ArrayList<>();
+    public List<TeamMemberLoanStatusDegree> findTeamMemberLoanStatus(Long teamId) {
+        List<TeamMemberLoanStatusDegree> list = new ArrayList<>();
+        String query = prop.getProperty("findTeamMemberLoanStatus");
 
-        String query = prop.getProperty("findMyDepartmentStatus");
         try (
                 Connection connection = DBConnector.getInstance().getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(query)
         ) {
             preparedStatement.setLong(1, teamId);
 
-            try (ResultSet rs = preparedStatement.executeQuery()) {
-                while (rs.next()) {
-                    ReadMyDepartmentBookStatusResponseDto dto =
-                            ReadMyDepartmentBookStatusResponseDto.builder()
-                                    .loginId(rs.getString("login_id"))
-                                    .eName(rs.getString("e_name"))
-                                    .bookCount(rs.getInt("book_count"))
-                                    .currentMonthCount(rs.getInt("current_month_count"))
-                                    .lastMonthCount(rs.getInt("last_month_count"))
-                                    .lastYearCount(rs.getInt("last_year_count"))
-                                    .build();
-                    list.add(dto);
-                }
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                TeamMemberLoanStatusDegree dto = TeamMemberLoanStatusDegree.builder()
+                        .loginId(rs.getString("login_id"))
+                        .eName(rs.getString("e_name"))
+                        .bookCount(rs.getInt("book_count"))
+                        .currentMonthCount(rs.getInt("current_month_count"))
+                        .lastMonthCount(rs.getInt("last_month_count"))
+                        .lastYearCount(rs.getInt("last_year_count"))
+                        .build();
+                list.add(dto);
             }
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
         }
-
         return list;
     }
+
 }
