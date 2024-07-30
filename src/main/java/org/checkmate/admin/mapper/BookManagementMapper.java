@@ -15,6 +15,7 @@ import org.checkmate.admin.dto.request.BookCreateRequestDto;
 import org.checkmate.admin.dto.request.BookUpdateRequestDto;
 import org.checkmate.admin.dto.response.*;
 import org.checkmate.common.database.DBConnector;
+import org.checkmate.common.util.Departments;
 import org.checkmate.common.util.TypeFormatter;
 
 public class BookManagementMapper {
@@ -71,15 +72,15 @@ public class BookManagementMapper {
         String query = prop.getProperty("addBook");
         try (
                 Connection connection = DBConnector.getInstance().getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+                CallableStatement callableStatement = connection.prepareCall(query)) {
 
-            preparedStatement.setString(1, requestDto.getIsbn());
-            preparedStatement.setString(2, requestDto.getBookTitle());
-            preparedStatement.setString(3, requestDto.getAuthor());
-            preparedStatement.setString(4, requestDto.getTranslator());
-            preparedStatement.setString(5, requestDto.getPublisher());
-            preparedStatement.setInt(6, requestDto.getCategory_num());
-            preparedStatement.executeQuery();
+            callableStatement.setString(1, requestDto.getIsbn());
+            callableStatement.setString(2, requestDto.getBookTitle());
+            callableStatement.setString(3, requestDto.getAuthor());
+            callableStatement.setString(4, requestDto.getTranslator());
+            callableStatement.setString(5, requestDto.getPublisher());
+            callableStatement.setInt(6, requestDto.getCategory_num());
+            callableStatement.executeQuery();
 
             BookCreateResponseDto bookCreateResponseDto = new BookCreateResponseDto(true, requestDto.getBookTitle() + "이 등록되었습니다.");
             return bookCreateResponseDto;
@@ -201,15 +202,15 @@ public class BookManagementMapper {
         int deleteRows = 0;
         try (
             Connection connection = DBConnector.getInstance().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(query)){
-            preparedStatement.setLong(1,bookId);
+            CallableStatement callableStatement = connection.prepareCall(query)){
+            callableStatement.setLong(1,bookId);
 
-            deleteRows = preparedStatement.executeUpdate();
+            deleteRows = callableStatement.executeUpdate();
 
         } catch (SQLException e) {
             throw new SQLException(e);
         }
-        return deleteRows > 0? "삭제 실패하였습니다" : "삭제되었습니다";
+        return deleteRows > 0? "삭제되었습니다" : "삭제 실패하였습니다";
     }
 
     /**
@@ -225,17 +226,52 @@ public class BookManagementMapper {
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
-                ReadBookLoanRecordsResponseDto book_loan_record = ReadBookLoanRecordsResponseDto.builder()
-                        .blrId(resultSet.getLong("blr_id"))
-                        .loginId(resultSet.getString("login_id"))
-                        .eName(resultSet.getString("e_name"))
-                        .dName(resultSet.getString("d_name"))
-                        .tName(resultSet.getString("t_name"))
-                        .bName(resultSet.getString("b_name"))
-                        .loanDate(resultSet.getDate("loan_date"))
-                        .returnPreDate(resultSet.getDate("return_pre_date"))
-                        .returnDate(resultSet.getDate("return_date"))
-                        .build();
+                ReadBookLoanRecordsResponseDto book_loan_record =
+                    ReadBookLoanRecordsResponseDto.of(resultSet.getLong("blr_id"),
+                        resultSet.getString("login_id"),
+                        resultSet.getString("e_name"),
+                        resultSet.getString("d_name"),
+                        resultSet.getString("t_name"),
+                        resultSet.getString("b_name"),
+                        resultSet.getDate("loan_date"),
+                        resultSet.getDate("return_pre_date"),
+                        resultSet.getDate("return_date"),
+                        resultSet.getFloat("delay_day")
+                        );
+                System.out.println("check");
+                book_loan_records.add(book_loan_record);
+                System.out.println(book_loan_record.toString());
+                System.out.println(book_loan_record.toString());
+            };
+        }
+        return book_loan_records;
+    }
+
+    /**
+     * 관리자가 유저명으로 대여 정보를 받아오는 기능
+     * @return ReadBookLoanRecordsResponseDto 응답객체
+     * @throws SQLException SQL 서버 에러
+     */
+    public ObservableList<ReadBookLoanRecordsResponseDto> readBookLoanRecordByNameAdmin(String eName) throws SQLException {
+        ObservableList<ReadBookLoanRecordsResponseDto> book_loan_records = FXCollections.observableArrayList();
+        String query = prop.getProperty("readBookLoanRecordByNameAdmin");
+        try (
+            Connection connection = DBConnector.getInstance().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(query)){
+            preparedStatement.setString(1, "%"+eName+"%");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                ReadBookLoanRecordsResponseDto book_loan_record = ReadBookLoanRecordsResponseDto.of(resultSet.getLong("blr_id"),
+                    resultSet.getString("login_id"),
+                    resultSet.getString("e_name"),
+                    resultSet.getString("d_name"),
+                    resultSet.getString("t_name"),
+                    resultSet.getString("b_name"),
+                    resultSet.getDate("loan_date"),
+                    resultSet.getDate("return_pre_date"),
+                    resultSet.getDate("return_date"),
+                    resultSet.getFloat("delay_day")
+                );
                 book_loan_records.add(book_loan_record);
                 System.out.println(book_loan_record.toString());
             };
@@ -244,27 +280,69 @@ public class BookManagementMapper {
     }
 
     /**
+     * 선택된 도서를 반납하는 기능
+     * @param blrId 대여 목록 필수 키
+     * @return 변경결과
+     * @throws SQLException SQL 서버 에러
+     */
+    public String update_return_date(Long blrId) throws SQLException{
+        String query = prop.getProperty("update_return_date");
+        int updateRows = 0;
+        try (
+            Connection connection = DBConnector.getInstance().getConnection();
+            CallableStatement callableStatement = connection.prepareCall(query)){
+            callableStatement.setLong(1,blrId);
+
+            updateRows = callableStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new SQLException(e);
+        }
+        return updateRows > 0? "반납처리되었습니다." : "반납처리에 실패하였습니다";
+    }
+
+    /**
+     * 선택된 대여내역을 삭제하는 기능
+     * @param blrId 대여 목록 필수 키
+     * @return 변경결과
+     * @throws SQLException SQL 서버 에러
+     */
+    public String deleteSelectedBookLoanRecord(Long blrId) throws SQLException{
+        String query = prop.getProperty("deleteSelectedBookLoanRecord");
+        int deleteRows = 0;
+        try (
+            Connection connection = DBConnector.getInstance().getConnection();
+            CallableStatement callableStatement = connection.prepareCall(query)){
+            callableStatement.setLong(1,blrId);
+
+            deleteRows = callableStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new SQLException(e);
+        }
+        return deleteRows > 0? "삭제되었습니다" : "삭제 실패하였습니다";
+    }
+
+    /**
      * 관리자가 차트를 위해 부서별 통계를 받아오는 기능
      * @return ReadBookLoanRecordsForChartResponseDto 응답객체
      * @throws SQLException SQL 서버 에러
      */
-    public ObservableList<ReadBookLoanRecordsForChartResponseDto> readDepartmentsBookLoanRecords() throws SQLException {
-        ObservableList<ReadBookLoanRecordsForChartResponseDto> book_loan_records_for_chart = FXCollections.observableArrayList();
-        String query = prop.getProperty("readDepartmentsBookLoanRecords");
+    public void readPivotDepartmentsBookLoanRecords() throws SQLException {
+        String query = prop.getProperty("readPivotDepartmentsBookLoanRecords");
         try (
                 Connection connection = DBConnector.getInstance().getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
-                ResultSet resultSet = preparedStatement.executeQuery()) {
-            while (resultSet.next()) {
-                ReadBookLoanRecordsForChartResponseDto book_loan_record_for_chart = ReadBookLoanRecordsForChartResponseDto.builder()
-                        .name(resultSet.getString("d_name"))
-                        .count(resultSet.getInt("count"))
-                        .build();
-                book_loan_records_for_chart.add(book_loan_record_for_chart);
-                System.out.println(book_loan_record_for_chart.toString());
-            };
+                ResultSet rs = preparedStatement.executeQuery()){
+            if(rs.next()) {
+                Departments.STRATEGY.updateCount(rs.getInt("전략사업본부"));
+                Departments.SECURITY.updateCount(rs.getInt("보안사업본부"));
+                Departments.ITO.updateCount(rs.getInt("보안사업본부"));
+                Departments.IDC.updateCount(rs.getInt("보안사업본부"));
+                Departments.SOLUTION.updateCount(rs.getInt("보안사업본부"));
+                Departments.NEW_BUSINESS.updateCount(rs.getInt("보안사업본부"));
+            }
         }
-        return book_loan_records_for_chart;
     }
 
     /**
