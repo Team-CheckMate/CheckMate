@@ -1,5 +1,9 @@
 package org.checkmate.user.controller.view;
 
+import java.net.URL;
+import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -7,26 +11,19 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import lombok.RequiredArgsConstructor;
 import org.checkmate.common.controller.view.SceneManager;
-import org.checkmate.user.dto.request.UpdatePasswordRequestDto;
-import org.checkmate.user.dto.response.UpdatePasswordResponseDto;
 import org.checkmate.common.service.LoginService;
 import org.checkmate.common.service.LoginServiceImpl;
 import org.checkmate.common.util.LoginSession;
 import org.checkmate.common.util.PasswordEncoder;
+import org.checkmate.user.dto.request.UpdatePasswordRequestDto;
+import org.checkmate.user.dto.response.UpdatePasswordResponseDto;
 
-import java.net.URL;
-import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
-import java.util.ResourceBundle;
-
+@RequiredArgsConstructor
 public class UpdatePasswordPageController implements Initializable {
 
-    private final LoginService loginService;
-
-    public UpdatePasswordPageController() {
-        loginService = new LoginServiceImpl();
-    }
+    private final LoginService loginService = new LoginServiceImpl();
 
     @FXML private Text username;
     @FXML private TextField nowPw;
@@ -41,7 +38,7 @@ public class UpdatePasswordPageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         var session = LoginSession.getInstance();
-        var memberInfo = session.getMemberInfo();
+        var memberInfo = session.getUserInfo();
         username.setText(memberInfo.getEName());
     }
 
@@ -85,7 +82,7 @@ public class UpdatePasswordPageController implements Initializable {
             return;
         }
 
-        String loginId= LoginSession.getInstance().getMemberInfo().getLoginId();
+        String loginId= LoginSession.getInstance().getUserInfo().getLoginId();
         String nowPw =  PasswordEncoder.encrypt(this.nowPw.getText());
         String changePw = PasswordEncoder.encrypt(this.changePw.getText());
 
