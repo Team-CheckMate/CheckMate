@@ -2,9 +2,13 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
@@ -68,7 +72,6 @@
                     <children>
                         <TableView fx:id="table_book_loan_records" layoutX="40.0" layoutY="40.0" prefHeight="256.0" prefWidth="535.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="100.0">
                             <columns>
-                                <TableColumn fx:id="blrId" prefWidth="75.0" style="-fx-alignment: center;" text="번호" />
                                 <TableColumn fx:id="loginId" prefWidth="75.0" style="-fx-alignment: center;" text="사원 번호" />
                                 <TableColumn fx:id="eName" prefWidth="75.0" style="-fx-alignment: center;" text="이름" />
                                 <TableColumn fx:id="dName" prefWidth="75.0" style="-fx-alignment: center;" text="부서" />
@@ -77,11 +80,12 @@
                                 <TableColumn fx:id="loanDate" prefWidth="75.0" style="-fx-alignment: center;" text="대여 일자" />
                                 <TableColumn fx:id="returnPreDate" prefWidth="75.0" style="-fx-alignment: center;" text="반납 예정 일자" />
                                 <TableColumn fx:id="returnDate" prefWidth="75.0" style="-fx-alignment: center;" text="반납 일자" />
+                                <TableColumn fx:id="status" prefWidth="75.0" style="-fx-alignment: center;" text="상태" />
                                 <TableColumn fx:id="manage" prefWidth="100.0" style="-fx-alignment: center;" text="관리" />
                             </columns>
                         </TableView>
                         <Pane layoutY="28.0" prefHeight="5.0" prefWidth="200.0" style="-fx-background-color: black;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                        <Text layoutX="48.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="도서관리">
+                        <Text layoutX="48.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="대여 현황">
                             <font>
                                 <Font name="Bodoni MT" size="14.0" />
                             </font>
@@ -89,14 +93,16 @@
                         <JFXButton layoutX="387.0" layoutY="380.0" onAction="#moveToCheckChartByDepartments" text="부서별 통계 확인" />
                         <JFXButton layoutX="534.0" layoutY="380.0" onAction="#moveToCheckChartByTeams" text="팀별 통계 확인" />
                         <Text fx:id="countMessage" layoutX="40.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="110.48828125" />
-                        <!--                    <JFXTextField layoutX="494.0" layoutY="57.0">-->
+                        <Button fx:id="searchBtn" layoutX="685.0" layoutY="57.0" minHeight="22.0" minWidth="19.0" mnemonicParsing="false" onAction="#search" prefHeight="20.0" prefWidth="20.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="455.66666666666663" AnchorPane.leftAnchor="685.0" AnchorPane.rightAnchor="169.66666666666674">
+                     <graphic>
+                                <ImageView fitHeight="24.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../icons/search.png" />
+                                    </image>
+                                </ImageView>
+                     </graphic></Button>
+                  <TextField fx:id="searchName" layoutX="702.0" layoutY="57.0" prefHeight="22.0" prefWidth="122.0" style="-fx-background-color: #FFFFFF;" />
 
-                        <!--                    </JFXTextField>>-->
-                        <!--                        <ImageView fitHeight="28.0" fitWidth="34.0" layoutX="494.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true">-->
-                        <!--                            <image>-->
-                        <!--                                <Image url="@../../../images/search.png" />-->
-                        <!--                            </image>-->
-                        <!--                        </ImageView>-->
                     </children>
                 </AnchorPane>
             </center>
