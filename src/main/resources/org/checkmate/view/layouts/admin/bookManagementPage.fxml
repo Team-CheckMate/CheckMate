@@ -6,47 +6,53 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.checkmate.admin.controller.view.BookManagementPageController">
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<AnchorPane prefHeight="650.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.checkmate.admin.controller.view.BookManagementPageController">
     <children>
         <BorderPane layoutX="67.0" layoutY="57.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <top>
                 <AnchorPane prefHeight="65.0" prefWidth="200.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
                     <children>
                         <Pane layoutX="72.0" layoutY="20.0" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #032d4d;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                        <Label fx:id="Menu" layoutX="20.0" layoutY="36.0" text="MENU" textFill="#b7b7b7">
+                        <Label  layoutX="20.0" layoutY="36.0" text="MENU" textFill="#b7b7b7">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Label>
-                        <Label fx:id="MenuBack" layoutX="20.0" layoutY="36.0" text="MENU" textFill="#b7b7b7">
+                        <Label  layoutX="20.0" layoutY="36.0" text="MENU" textFill="#b7b7b7">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Label>
+                        <Button layoutX="800.0" layoutY="34.0" mnemonicParsing="false" onAction="#exit" style="-fx-background-color: transoarent;">
+                            <graphic>
+                                <FontAwesomeIconView fill="#1f6179" glyphName="CLOSE" size="20" text="" />
+                            </graphic>
+                        </Button>
                     </children>
                 </AnchorPane>
             </top>
             <left>
-                <AnchorPane fx:id="slider" prefHeight="362.0" prefWidth="130.0" style="-fx-background-color: #0A4969;" BorderPane.alignment="CENTER">
+                <AnchorPane  prefHeight="362.0" prefWidth="176.0" style="-fx-background-color: #0A4969;" BorderPane.alignment="CENTER">
                     <children>
-                        <VBox layoutX="38.0" layoutY="67.0" prefHeight="282.0" prefWidth="70.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="53.0">
+                        <VBox layoutX="38.0" layoutY="67.0" prefHeight="282.0" prefWidth="116.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="53.0">
                             <children>
-                                <JFXButton alignment="BASELINE_LEFT" prefHeight="38.0" prefWidth="176.0" text="도서관리" textFill="WHITE">
+                                <JFXButton alignment="BASELINE_LEFT" onAction="#goToBookManage" prefHeight="38.0" prefWidth="176.0" text="도서관리" textFill="WHITE">
                                     <font>
                                         <Font name="System Bold" size="15.0" />
                                     </font>
                                 </JFXButton>
-                                <JFXButton alignment="BASELINE_LEFT" prefHeight="38.0" prefWidth="176.0" text="대여현황" textFill="WHITE">
+                                <JFXButton alignment="BASELINE_LEFT" onAction="#goToLoanStatus" prefHeight="38.0" prefWidth="176.0" text="대여현황" textFill="WHITE">
                                     <font>
                                         <Font name="System Bold" size="15.0" />
                                     </font>
                                 </JFXButton>
-                                <JFXButton alignment="BASELINE_LEFT" prefHeight="38.0" prefWidth="176.0" text="사원관리" textFill="WHITE">
+                                <JFXButton alignment="BASELINE_LEFT" onAction="#goToUserManage" prefHeight="38.0" prefWidth="176.0" text="사원관리" textFill="WHITE">
                                     <font>
                                         <Font name="System Bold" size="15.0" />
                                     </font>
                                 </JFXButton>
-                                <JFXButton alignment="BASELINE_LEFT" prefHeight="38.0" prefWidth="176.0" text="신청현황" textFill="WHITE">
+                                <JFXButton alignment="BASELINE_LEFT" onAction="#goToApplyStatus" prefHeight="38.0" prefWidth="176.0" text="신청현황" textFill="WHITE">
                                     <font>
                                         <Font name="System Bold" size="15.0" />
                                     </font>
@@ -60,7 +66,7 @@
             <center>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                     <children>
-                        <TableView fx:id="table_book" layoutX="40.0" layoutY="40.0" prefHeight="256.0" prefWidth="535.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="100.0">
+                        <TableView fx:id="table_book" layoutX="40.0" layoutY="40.0" prefHeight="343.0" prefWidth="594.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="100.0">
                             <columns>
                                 <TableColumn fx:id="bookId" prefWidth="75.0" style="-fx-alignment: center;" text="ID" />
                                 <TableColumn fx:id="bName" prefWidth="75.0" style="-fx-alignment: center;" text="제목" />
@@ -79,10 +85,10 @@
                                 <Font name="Bodoni MT" size="14.0" />
                             </font>
                         </Text>
-                        <JFXButton layoutX="556.0" layoutY="356.0" onAction="#moveToAddBook" text="등록하기" />
+                        <JFXButton layoutX="570.0" layoutY="460.0" onAction="#moveToAddBook" text="등록하기" />
                         <Text fx:id="countMessage" layoutX="40.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="110.48828125" />
                         <TextField fx:id="bookSearch" layoutX="431.0" layoutY="70.0" />
-                        <Button fx:id="search" layoutX="589.0" layoutY="70.0" onAction="#search" mnemonicParsing="false" text="검색" />
+                        <Button fx:id="search" layoutX="589.0" layoutY="70.0" mnemonicParsing="false" onAction="#search" text="검색" />
                         <!--                    <JFXTextField layoutX="494.0" layoutY="57.0">-->
 
                         <!--                    </JFXTextField>>-->
