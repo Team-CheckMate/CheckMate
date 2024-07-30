@@ -1,5 +1,8 @@
 package org.checkmate.admin.controller.view;
 
+import static org.checkmate.admin.util.FilePath.RENT_STATUS_CHART_DEPARTMENTS_FX;
+import static org.checkmate.admin.util.FilePath.RENT_STATUS_CHART_TEAMS_FX;
+
 import javafx.animation.TranslateTransition;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,6 +20,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.Duration;
+import org.checkmate.admin.controller.server.BookController;
+import org.checkmate.admin.dto.response.BookReadLoanStatusResponseDto;
 import org.checkmate.admin.dto.response.ReadBookLoanRecordsResponseDto;
 import org.checkmate.admin.service.BookManagementService;
 import org.checkmate.admin.service.BookManagementServiceImpl;
@@ -29,23 +34,25 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+
 /**
  * 도서 대여 현황
  * HISTORY1: 최초 생성                              [이준희  2024.07.28]
  */
 public class BookRentStatusPageController implements Initializable  {
 
-    private final BookManagementService bookService;
+    private final BookController bookController;
 
     // 기본 생성자
     public BookRentStatusPageController() {
-        bookService = new BookManagementServiceImpl();
+        bookController = new BookController();
     }
 
     @FXML private Label Menu;
     @FXML private Label MenuBack;
     @FXML private AnchorPane slider;
     @FXML private Text countMessage;
+    @FXML private TextField searchName;
     @FXML private TableView<ReadBookLoanRecordsResponseDto> table_book_loan_records;
     @FXML private TableColumn<ReadBookLoanRecordsResponseDto, Long> blrId;
     @FXML private TableColumn<ReadBookLoanRecordsResponseDto, String> loginId;
@@ -57,6 +64,7 @@ public class BookRentStatusPageController implements Initializable  {
     @FXML private TableColumn<ReadBookLoanRecordsResponseDto, Date> returnPreDate;
     @FXML private TableColumn<ReadBookLoanRecordsResponseDto, Date> returnDate;
     @FXML private TableColumn<ReadBookLoanRecordsResponseDto, Void> manage;
+    @FXML private TableColumn<ReadBookLoanRecordsResponseDto, String> status;
 
     ObservableList<ReadBookLoanRecordsResponseDto> bookLoanRecordsList;
 
@@ -113,7 +121,6 @@ public class BookRentStatusPageController implements Initializable  {
 
 
     private void loadData() throws SQLException {
-        blrId.setCellValueFactory(new PropertyValueFactory<ReadBookLoanRecordsResponseDto,Long>("blrId"));
         loginId.setCellValueFactory(new PropertyValueFactory<ReadBookLoanRecordsResponseDto, String>("loginId"));
         eName.setCellValueFactory(new PropertyValueFactory<ReadBookLoanRecordsResponseDto, String>("eName"));
         dName.setCellValueFactory(new PropertyValueFactory<ReadBookLoanRecordsResponseDto, String>("dName"));
@@ -122,7 +129,8 @@ public class BookRentStatusPageController implements Initializable  {
         loanDate.setCellValueFactory(new PropertyValueFactory<ReadBookLoanRecordsResponseDto, Date>("loanDate"));
         returnPreDate.setCellValueFactory(new PropertyValueFactory<ReadBookLoanRecordsResponseDto, Date>("returnPreDate"));
         returnDate.setCellValueFactory(new PropertyValueFactory<ReadBookLoanRecordsResponseDto, Date>("returnDate"));
-        bookLoanRecordsList = bookService.readAllBookLoanRecordsAdmin();
+        status.setCellValueFactory(new PropertyValueFactory<ReadBookLoanRecordsResponseDto, String>("status"));
+        bookLoanRecordsList = bookController.readAllBookLoanRecordsAdmin();
         table_book_loan_records.setItems(bookLoanRecordsList);
         int count = bookLoanRecordsList.size();
         countMessage.setText("총 : "+count+" 건");
@@ -135,16 +143,31 @@ public class BookRentStatusPageController implements Initializable  {
             public TableCell<ReadBookLoanRecordsResponseDto, Void> call(final TableColumn<ReadBookLoanRecordsResponseDto, Void> param) {
                 final TableCell<ReadBookLoanRecordsResponseDto, Void> cell = new TableCell<>() {
 
-                    private final Button modifyBtn = new Button("수정");
+                    private final Button modifyBtn = new Button("반납");
                     private final Button deleteBtn = new Button("삭제");
 
                     {
                         modifyBtn.setOnAction((event) -> {
+                            ReadBookLoanRecordsResponseDto data = getTableView().getItems().get(getIndex());
+                          try {
+                            String msg = bookController.update_return_date(data.getBlrId());
+                              Msg(data.getBName()+msg,"반납");
+                          } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                          }
+                            SceneManager sm = SceneManager.getInstance();
+                            sm.moveScene("/org/checkmate/view/layouts/admin/bookRentStatusPage.fxml");
                         });
-
                         deleteBtn.setOnAction((event) -> {
                             ReadBookLoanRecordsResponseDto data = getTableView().getItems().get(getIndex());
-                            System.out.println("Selected Data: " + data);
+                          try {
+                            String msg = bookController.deleteSelectedBookLoanRecord(data.getBlrId());
+                              Msg(data.getBName()+msg,"삭제");
+                          } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                          }
+                            SceneManager sm = SceneManager.getInstance();
+                            sm.moveScene("/org/checkmate/view/layouts/admin/bookRentStatusPage.fxml");
                         });
                     }
 
@@ -169,14 +192,32 @@ public class BookRentStatusPageController implements Initializable  {
     }
 
     @FXML
+    public void search(ActionEvent actionEvent) throws SQLException {
+        loginId.setCellValueFactory(new PropertyValueFactory<ReadBookLoanRecordsResponseDto, String>("loginId"));
+        eName.setCellValueFactory(new PropertyValueFactory<ReadBookLoanRecordsResponseDto, String>("eName"));
+        dName.setCellValueFactory(new PropertyValueFactory<ReadBookLoanRecordsResponseDto, String>("dName"));
+        tName.setCellValueFactory(new PropertyValueFactory<ReadBookLoanRecordsResponseDto, String>("tName"));
+        bName.setCellValueFactory(new PropertyValueFactory<ReadBookLoanRecordsResponseDto, String>("bName"));
+        loanDate.setCellValueFactory(new PropertyValueFactory<ReadBookLoanRecordsResponseDto, Date>("loanDate"));
+        returnPreDate.setCellValueFactory(new PropertyValueFactory<ReadBookLoanRecordsResponseDto, Date>("returnPreDate"));
+        returnDate.setCellValueFactory(new PropertyValueFactory<ReadBookLoanRecordsResponseDto, Date>("returnDate"));
+        status.setCellValueFactory(new PropertyValueFactory<ReadBookLoanRecordsResponseDto, String>("status"));
+        bookLoanRecordsList = bookController.readBookLoanRecordByNameAdmin(searchName.getText());
+        table_book_loan_records.setItems(bookLoanRecordsList);
+        int count = bookLoanRecordsList.size();
+        countMessage.setText("총 : "+count+" 건");
+        addButtonToTable();
+    }
+
+    @FXML
     public void moveToCheckChartByDepartments(ActionEvent actionEvent) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/admin/bookRentChartPageForDepartments.fxml");
+        sm.moveScene(RENT_STATUS_CHART_DEPARTMENTS_FX.getFilePath());
     }
 
     @FXML
     public void moveToCheckChartByTeams(ActionEvent actionEvent) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/admin/bookRentChartPageForTeams.fxml");
+        sm.moveScene(RENT_STATUS_CHART_TEAMS_FX.getFilePath());
     }
 }
