@@ -69,39 +69,39 @@ public class BookManagementPageController implements Initializable  {
             throw new RuntimeException(e);
         }
 
-        slider.setTranslateX(-176);
-
-        Menu.setOnMouseClicked(event -> {
-            TranslateTransition slide = new TranslateTransition();
-            slide.setDuration(Duration.seconds(0.4));
-            slide.setNode(slider);
-
-            slide.setToX(0);
-            slide.play();
-
-            slider.setTranslateX(-176);
-
-            slide.setOnFinished((ActionEvent e)->{
-                Menu.setVisible(false);
-                MenuBack.setVisible(true);
-            });
-        });
-
-        MenuBack.setOnMouseClicked(event -> {
-            TranslateTransition slide = new TranslateTransition();
-            slide.setDuration(Duration.seconds(0.4));
-            slide.setNode(slider);
-
-            slide.setToX(-176);
-            slide.play();
-
-            slider.setTranslateX(0);
-
-            slide.setOnFinished((ActionEvent e)->{
-                Menu.setVisible(true);
-                MenuBack.setVisible(false);
-            });
-        });
+//        slider.setTranslateX(-176);
+//
+//        Menu.setOnMouseClicked(event -> {
+//            TranslateTransition slide = new TranslateTransition();
+//            slide.setDuration(Duration.seconds(0.4));
+//            slide.setNode(slider);
+//
+//            slide.setToX(0);
+//            slide.play();
+//
+//            slider.setTranslateX(-176);
+//
+//            slide.setOnFinished((ActionEvent e)->{
+//                Menu.setVisible(false);
+//                MenuBack.setVisible(true);
+//            });
+//        });
+//
+//        MenuBack.setOnMouseClicked(event -> {
+//            TranslateTransition slide = new TranslateTransition();
+//            slide.setDuration(Duration.seconds(0.4));
+//            slide.setNode(slider);
+//
+//            slide.setToX(-176);
+//            slide.play();
+//
+//            slider.setTranslateX(0);
+//
+//            slide.setOnFinished((ActionEvent e)->{
+//                Menu.setVisible(true);
+//                MenuBack.setVisible(false);
+//            });
+//        });
     }
 
     public void Msg(String msg,String function) {

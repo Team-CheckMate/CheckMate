@@ -8,24 +8,22 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.CheckBox;
 import org.checkmate.common.database.DBConnector;
-import org.checkmate.admin.dto.response.AdminMemberResponseDto;
+import org.checkmate.admin.dto.response.ApplyStatusResponseDto;
 
 
 /**
  * SQL Query mapper 클래스
- * HISTORY1: 최초 생성                              [황희정  2024.07.27]
+ * HISTORY1: 최초 생성                              [황희정  2024.07.29]
 
  */
-public class UserManagementMapper {
+public class ApplyManagementMapper {
 
     private final Properties prop = new Properties();
 
-    public UserManagementMapper() {
+    public ApplyManagementMapper() {
 
         try {
             InputStream input = new FileInputStream("target/classes/org/checkmate/sql/adminQuery.xml");
@@ -37,42 +35,46 @@ public class UserManagementMapper {
     }
 
     /**
-     * SQL에 접근하여 사용자를 모두 조회하는 SELECT 하는 기능
-     * @return List<Member>  사용자 정보를 담은 리스트 컬렉션
+     * SQL에 접근하여 신청목록을 모두 조회하는 SELECT 하는 기능
+     * @return List<Apply>  사용자 정보를 담은 리스트 컬렉션
      * @throws SQLException SQL 서버 에러
      */
-    public ObservableList<AdminMemberResponseDto> findByMember() throws SQLException {
-        ObservableList<AdminMemberResponseDto> members = FXCollections.observableArrayList();
-        String query = prop.getProperty("findByMember");
-        CheckBox ch ;
+    public ObservableList<ApplyStatusResponseDto> readApplyStatus() throws SQLException {
+        ObservableList<ApplyStatusResponseDto> lists = FXCollections.observableArrayList();
+        String query = prop.getProperty("readApplyStatus");
 
         try (
                 Connection connection = DBConnector.getInstance().getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
-                ch = new CheckBox();
-                AdminMemberResponseDto member = AdminMemberResponseDto.builder()
+
+                ApplyStatusResponseDto apply = ApplyStatusResponseDto.builder()
+                        .brId(resultSet.getLong("br_id"))
                         .loginId(resultSet.getString("login_id"))
                         .eName(resultSet.getString("e_name"))
-                        .tName(resultSet.getString("t_name"))
-                        .dName(resultSet.getString("d_name"))
+                        .bName(resultSet.getString("b_name"))
+                        .publisher(resultSet.getString("publisher"))
+                        .author(resultSet.getString("author"))
                         .build();
-        System.out.println(member.toString());
-                members.add(member);
+               // System.out.println(apply.toString());
+                lists.add(apply);
             }
         }
-        return members;
+        return lists;
     }
-
-    public int deleteUser(String loginId) throws SQLException {
-        String query = prop.getProperty("deleteUser");
+    /**
+     * SQL에 접근하여 신청 승인 -> req_date update
+     * @throws SQLException SQL 서버 에러
+     */
+    public int updateRequestDate(Long brId) throws SQLException {
+        String query = prop.getProperty("updateRequestDate");
 
         try (
                 Connection connection = DBConnector.getInstance().getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(query))
         {
-                preparedStatement.setString(1,loginId);
+            preparedStatement.setLong(1,brId);
             return preparedStatement.executeUpdate();
         }
         catch (SQLException e){
@@ -80,15 +82,17 @@ public class UserManagementMapper {
         }
 
     }
-
-    public int createUser(String loginId,String eName){
-        String query = prop.getProperty("createUser");
+    /**
+     * SQL에 접근하여 신청 반려 -> req_con_date update
+     * @throws SQLException SQL 서버 에러
+     */
+    public int updateReturnDate(Long brId){
+        String query = prop.getProperty("updateReturnDate");
         try (
                 Connection connection = DBConnector.getInstance().getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(query))
         {
-            preparedStatement.setString(1,loginId);
-            preparedStatement.setString(2,eName);
+            preparedStatement.setLong(1,brId);
             return preparedStatement.executeUpdate();
         }
         catch (SQLException e){
