@@ -45,6 +45,32 @@
     where e.emp_no = ?
   </entry>
 
+  <!--나의 부서 대여 현황 SELECT 쿼리 -->
+  <entry key="findMyDepartmentStatus">
+    SELECT
+      me.login_id,
+      me.e_name,
+      NVL(b.book_count, 0) AS book_count,
+      NVL(b.last_month_count, 0) AS last_month_count,
+      NVL(b.current_month_count, 0) AS current_month_count,
+      NVL(b.last_year_count, 0) AS last_year_count
+    FROM (
+      SELECT m.login_id, e.e_name, e.team_no
+      FROM members m
+      JOIN sysone.employees e ON m.login_id = e.emp_no
+      WHERE e.team_no = ?) me
+    LEFT OUTER JOIN (
+      SELECT
+        b.login_id,
+        COUNT(*) AS book_count,
+        COUNT(CASE WHEN EXTRACT(MONTH FROM b.loan_date) = EXTRACT(MONTH FROM TRUNC(SYSDATE)) - 1 THEN b.login_id END) AS last_month_count,
+        COUNT(CASE WHEN EXTRACT(MONTH FROM b.loan_date) = EXTRACT(MONTH FROM TRUNC(SYSDATE)) THEN b.login_id END) AS current_month_count,
+        COUNT(CASE WHEN EXTRACT(YEAR FROM b.loan_date) = EXTRACT(YEAR FROM TRUNC(SYSDATE)) - 1 THEN b.login_id END) AS last_year_count
+      FROM book_loan_records b
+      WHERE b.return_date IS NULL
+      GROUP BY b.login_id) b
+    ON me.login_id = b.login_id
+  </entry>
 
 <!-- 도서 대여 파트-->
 
