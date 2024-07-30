@@ -5,6 +5,9 @@ import lombok.Getter;
 @Getter
 public enum FilePath {
 
+    // SQL Query
+    ORACLE_QUERY_USER("target/classes/org/checkmate/sql/userQuery.xml"),
+
     // FONT
     EXTERNAL_FT("/org/checkmate/fonts/BMEULJIRO.otf"),
 

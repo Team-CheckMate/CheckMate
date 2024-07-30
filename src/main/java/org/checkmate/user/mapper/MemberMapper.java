@@ -1,5 +1,7 @@
 package org.checkmate.user.mapper;
 
+import static org.checkmate.common.util.FilePath.ORACLE_QUERY_USER;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,62 +12,72 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.Properties;
 import org.checkmate.common.database.DBConnector;
+import org.checkmate.common.dto.response.UserInfo;
+import org.checkmate.common.exception.DatabaseException;
 import org.checkmate.user.dto.response.ReadMyInformationResponseDto;
 import org.checkmate.user.entity.Admin;
-import org.checkmate.user.entity.Member;
 
 /**
- * SQL Query mapper 클래스
- *
- * HISTORY1: 최초 생성                               [송헌욱  2024.07.24]
- * HISTORY2:Optional 타입 선언                       [송헌욱  2024.07.25]
- * HISTORY3: 패스워드 Update 매핑 추가                 [이준희  2024.07.25]
- * HISTORY4: MyPage 조회 정보 매핑 추가,admin prop 추가 [이준희  2024.07.25]
+ * TODO: 주석 달기
  */
 public class MemberMapper {
 
     private final Properties prop = new Properties();
 
-    public MemberMapper() {
+    private void loadProperties() {
         try {
-            InputStream input = new FileInputStream(
-                    "target/classes/org/checkmate/sql/userQuery.xml");
+            InputStream input = new FileInputStream(ORACLE_QUERY_USER.getFilePath());
             prop.loadFromXML(input);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    public MemberMapper() {
+        loadProperties();
+    }
+
     /**
-     * SQL에 접근하여 이용자의 아이디와 패스워드로 SELECT
+     * [SELECT] 이용자 정보 조회 기능
      *
      * @param loginId  로그인 아이디
      * @param password 비밀 번호
-     * @return Member 객체
-     * @throws SQLException SQL 서버 에러
+     * @return UserInfo ResponseDTO 객체
      */
-    public Optional<Member> findByLoginIdAndPasswordForBasic(String loginId, String password)
-            throws SQLException {
-        String query = prop.getProperty("findByLoginIdAndPasswordByBasic");
-        try (Connection connection = DBConnector.getInstance().getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+    public Optional<UserInfo> findByLoginIdAndPassword(String loginId, String password) {
+        Optional<UserInfo> userInfo = Optional.empty();
+        String query = prop.getProperty("findByLoginIdAndPassword");
+        System.out.println("query init");
+
+        try (
+                Connection connection = DBConnector.getInstance().getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(query)
+        ) {
             preparedStatement.setString(1, loginId);
             preparedStatement.setString(2, password);
+            preparedStatement.setString(3, loginId);
+            preparedStatement.setString(4, password);
 
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    return Optional.of(Member.builder()
-                            .loginId(resultSet.getString("login_id"))
-                            .password(resultSet.getString("password"))
-                            .eName(resultSet.getString("e_name"))
-                            .role(resultSet.getString("role"))
-                            .delayCnt(resultSet.getInt("delay_cnt"))
+            try (ResultSet rs = preparedStatement.executeQuery()) {
+                System.out.println("rs.toString() = " + rs.toString());
+                if (rs.next()) {
+                    return Optional.of(UserInfo.builder()
+                            .loginId(rs.getString("login_id"))
+                            .teamNo(rs.getLong("team_no"))
+                            .deptNo(rs.getLong("dept_no"))
+                            .eName(rs.getString("e_name"))
+                            .tName(rs.getString("t_name"))
+                            .dName(rs.getString("d_name"))
+                            .role(rs.getString("role"))
+                            .delayCnt(rs.getInt("delay_cnt"))
                             .build()
                     );
                 }
             }
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
         }
-        return Optional.empty();
+        return userInfo;
     }
 
     /**

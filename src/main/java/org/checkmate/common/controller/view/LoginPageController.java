@@ -1,11 +1,10 @@
 package org.checkmate.common.controller.view;
 
 import static javafx.scene.control.Alert.AlertType.WARNING;
-import static org.checkmate.admin.util.FilePath.*;
+import static org.checkmate.admin.util.FilePath.MANAGEMENT_FX;
 import static org.checkmate.user.util.FilePath.MAIN_FX;
 
 import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
 import java.util.Objects;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -13,13 +12,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import org.checkmate.common.dto.request.LoginRequestDto;
-import org.checkmate.common.dto.response.LoginResponseDto;
+import lombok.NoArgsConstructor;
+import org.checkmate.common.controller.server.LoginController;
+import org.checkmate.common.dto.response.UserInfo;
 import org.checkmate.common.exception.ValidationException;
-import org.checkmate.common.service.LoginService;
-import org.checkmate.common.service.LoginServiceImpl;
 import org.checkmate.common.util.LoginSession;
 import org.checkmate.common.util.PasswordEncoder;
+
 
 
 /**
@@ -29,13 +28,10 @@ import org.checkmate.common.util.PasswordEncoder;
  * HISTORY3: 로그인, pw 암호화 기능 생성               [송헌욱, 이준희  2024.07.24]
  * HISTORY4: Dto, lombok, optional 변경 병합        [송헌욱  2024.07.25]
  */
+@NoArgsConstructor(force = true)
 public class LoginPageController {
 
-    private final LoginService loginService;
-
-    public LoginPageController() {
-        loginService = new LoginServiceImpl();
-    }
+    private final LoginController loginController = new LoginController();
 
     @FXML private TextField loginIdField;
     @FXML private PasswordField loginPwField;
@@ -45,34 +41,27 @@ public class LoginPageController {
     }
 
     @FXML
-    public void loginBtnClick(ActionEvent actionEvent) throws SQLException, NoSuchAlgorithmException {
+    public void loginBtnClick(ActionEvent actionEvent) throws NoSuchAlgorithmException {
         validateUserFields();
 
+        UserInfo userInfo = loginController.getUserInfo(
+                loginIdField.getText(),
+                PasswordEncoder.encrypt(loginPwField.getText())
+        );
+
+        LoginSession instance = LoginSession.getInstance(userInfo);
         try {
-            String id = loginIdField.getText();
-            String pw = PasswordEncoder.encrypt(loginPwField.getText());
-
-            LoginRequestDto requestDto = LoginRequestDto.builder()
-                    .loginId(id)
-                    .password(pw)
-                    .build();
-
-            LoginResponseDto memberInfo = loginService.login(requestDto);
-
-            LoginSession instance = LoginSession.getInstance(memberInfo);
-            if (Objects.equals(memberInfo.getRole(), "ADMIN")) {
+            if (Objects.equals(userInfo.getRole(), "ADMIN")) {
                 System.out.println("관리자 로그인");
                 SceneManager sm = SceneManager.getInstance();
                 sm.moveScene(MANAGEMENT_FX.getFilePath());
-                assert instance != null;
-                System.out.println(instance.getMemberInfo().toString());
             } else {
                 System.out.println("유저 로그인");
                 SceneManager sm = SceneManager.getInstance();
                 sm.moveScene(MAIN_FX.getFilePath());
-                assert instance != null;
-                System.out.println(instance.getMemberInfo().toString());
             }
+            assert instance != null;
+            System.out.println(instance.getUserInfo().toString());
         } catch (ValidationException e) {
             showAlert(e.getMessage());
         }
