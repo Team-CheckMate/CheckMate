@@ -51,3 +51,7 @@
   -fx-background-color: #035AA6;
   -fx-text-fill: WHITE;
 }
+
+.exit-button {
+  -fx-background-color: transparent;
+}

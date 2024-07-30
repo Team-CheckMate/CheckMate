@@ -4,24 +4,20 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.CheckBox;
 import org.checkmate.common.database.DBConnector;
+import org.checkmate.common.exception.DatabaseException;
 import org.checkmate.user.dto.request.CreateBookLoanRequestDto;
 import org.checkmate.user.dto.response.ReadLoanStatusResponseDto;
 import org.checkmate.common.util.TypeFormatter;
+import org.checkmate.user.dto.response.TeamMemberLoanStatusDegree;
 
-/**
- * SQL Query mapper 클래스
- * HISTORY1: 최초 생성                              [송헌욱  2024.07.25]
- * HISTORY2: findAllBookLoanStatus 메서드 수정      [권혁규  2024.07.26]
- * HISTORY2: admin파일 연결, 신규 책 등록 메서드 추가   [이준희  2024.07.26]
- * HISTORY3: 관리자 도서 전체조회, 선택 조회, 수정, 삭제 메서드 추가   [이준희  2024.07.27]
- * HISTORY4: 사용자 도서 전체조회, 검색 조회, 도서등록 메서드 추가   [권혁규  2024.07.29]
- */
 public class BookMapper {
 
     private final Properties prop = new Properties();
@@ -71,10 +67,10 @@ public class BookMapper {
 
     public void createLoanBook(CreateBookLoanRequestDto requestDto) {
         String query = prop.getProperty("addBookLoanRecord");
-        try(Connection connection = DBConnector.getInstance().getConnection();
-            CallableStatement callableStatement = connection.prepareCall(query);
-            ) {
-            for(ReadLoanStatusResponseDto bean : requestDto.getBookList()) {
+        try (Connection connection = DBConnector.getInstance().getConnection();
+                CallableStatement callableStatement = connection.prepareCall(query);
+        ) {
+            for (ReadLoanStatusResponseDto bean : requestDto.getBookList()) {
                 callableStatement.setLong(1, bean.getBookId());
                 callableStatement.setString(2, requestDto.getLoginId());
                 callableStatement.execute();
@@ -84,7 +80,8 @@ public class BookMapper {
         }
     }
 
-    public ObservableList<ReadLoanStatusResponseDto> findByBookName(String searchName) throws SQLException {
+    public ObservableList<ReadLoanStatusResponseDto> findByBookName(String searchName)
+            throws SQLException {
         ObservableList<ReadLoanStatusResponseDto> books = FXCollections.observableArrayList();
         String query = prop.getProperty("findByBookName");
         CheckBox ch = null;
@@ -94,7 +91,7 @@ public class BookMapper {
                 PreparedStatement preparedStatement = connection.prepareStatement(query)
         ) {
             preparedStatement.setString(1, "%" + searchName + "%");
-            try(ResultSet resultSet = preparedStatement.executeQuery()) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     ch = new CheckBox();
                     ReadLoanStatusResponseDto book = ReadLoanStatusResponseDto.builder()
@@ -114,6 +111,41 @@ public class BookMapper {
         }
 
         return books;
+    }
+
+    /**
+     * 나의 부서 대여 현황을 위해 필요한 데이터 가져오기 위한 DataBase Connection 로직
+     *
+     * @param teamId 부서 번호
+     * @return List<TeamMemberLoanStatusDegree> 필요한 요청에 대한 응답 객체를 담은 List 타입 객체
+     * @throws DatabaseException DataBase 예외
+     */
+    public List<TeamMemberLoanStatusDegree> findTeamMemberLoanStatus(Long teamId) {
+        List<TeamMemberLoanStatusDegree> list = new ArrayList<>();
+        String query = prop.getProperty("findTeamMemberLoanStatus");
+
+        try (
+                Connection connection = DBConnector.getInstance().getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(query)
+        ) {
+            preparedStatement.setLong(1, teamId);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                TeamMemberLoanStatusDegree dto = TeamMemberLoanStatusDegree.builder()
+                        .loginId(rs.getString("login_id"))
+                        .eName(rs.getString("e_name"))
+                        .bookCount(rs.getInt("book_count"))
+                        .currentMonthCount(rs.getInt("current_month_count"))
+                        .lastMonthCount(rs.getInt("last_month_count"))
+                        .lastYearCount(rs.getInt("last_year_count"))
+                        .build();
+                list.add(dto);
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }
+        return list;
     }
 
 }
