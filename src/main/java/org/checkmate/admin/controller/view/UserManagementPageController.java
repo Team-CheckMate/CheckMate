@@ -1,81 +1,56 @@
 package org.checkmate.admin.controller.view;
 
-import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import javafx.util.Callback;
-import javafx.util.Duration;
 import org.checkmate.admin.dto.response.AdminMemberResponseDto;
-import org.checkmate.admin.service.AdminMemberService;
-import org.checkmate.admin.service.AdminMemberServiceImpl;
+import org.checkmate.admin.service.MemberService;
+import org.checkmate.admin.service.MemberServiceImpl;
 import org.checkmate.common.controller.view.SceneManager;
-
-import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 
 public class UserManagementPageController implements Initializable {
-  
-    @FXML
-    private Label Menu;
 
-    @FXML
-    private Label MenuBack;
-
-    @FXML
-    private AnchorPane slider;
-    AdminMemberService adminMemberService;
+    MemberService adminMemberService;
     public UserManagementPageController(){
-        adminMemberService = new AdminMemberServiceImpl();
+        adminMemberService = new MemberServiceImpl();
     }
 
-    @FXML
-    private TableView<AdminMemberResponseDto> table_admin_user;
-
-    @FXML
-    private TableColumn<AdminMemberResponseDto, String> loginId;
-
-    @FXML
-    private TableColumn<AdminMemberResponseDto, String> eName;
-
-    @FXML
-    private TableColumn<AdminMemberResponseDto, String> tName;
-
-    @FXML
-    private TableColumn<AdminMemberResponseDto, String> dName;
-
-
-    @FXML
-    private TableColumn<AdminMemberResponseDto, Void> delete;
-
-    @FXML
-    private void exit(ActionEvent event) {
+    @FXML private TextField searchContent; //검색 내용
+    @FXML private Text searchCount; //검색된 행 개수
+    @FXML private TableView<AdminMemberResponseDto> table_admin_user; //테이블
+    @FXML private TableColumn<AdminMemberResponseDto, String> loginId; //테이블 열 1 - 로그인 아이디
+    @FXML private TableColumn<AdminMemberResponseDto, String> eName;//테이블 열 2 - 사원이름
+    @FXML private TableColumn<AdminMemberResponseDto, String> tName;//테이블 열 3 - 팀이름
+    @FXML private TableColumn<AdminMemberResponseDto, String> dName;//테이블 열 4 - 부서 이름
+    @FXML private TableColumn<AdminMemberResponseDto, Void> manage;//테이블 열 5 - 관리버튼
+    @FXML private void exit(ActionEvent event) {
         Platform.exit();
-    }
-
-
+    } //종료
     ObservableList<AdminMemberResponseDto> memberList;
+
+
 
     @FXML
     private void createUserBtn(ActionEvent event) {
         SceneManager sm = SceneManager.getInstance();
         sm.moveScene("/org/checkmate/view/layouts/admin/userAddPage.fxml");
     }
-
+    //메세지 창
     public void Msg(String msg) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("경고!");
-        alert.setHeaderText("삭제");
+        alert.setHeaderText("메세지");
         alert.setContentText(msg);
         alert.show();
     }
@@ -99,17 +74,34 @@ public class UserManagementPageController implements Initializable {
 
         memberList = adminMemberService.findByMember();
         table_admin_user.setItems(memberList);
-       delete();
+        addButtonToTable();
     }
-
-    private void delete() {
+    //관리버튼 추가 -> 삽입 초기화 버튼
+    private void addButtonToTable() {
         Callback<TableColumn<AdminMemberResponseDto, Void>, TableCell<AdminMemberResponseDto, Void>> cellFactory = new Callback<>() {
             @Override
             public TableCell<AdminMemberResponseDto, Void> call(final TableColumn<AdminMemberResponseDto, Void> param) {
                 final TableCell<AdminMemberResponseDto, Void> cell = new TableCell<>() {
-
+                    private final Button updatePwBtn = new Button("초기화");
                     private final Button deleteBtn = new Button("삭제");
 
+                    {
+                        updatePwBtn.setOnAction((event) -> {
+                            AdminMemberResponseDto data = getTableView().getItems().get(getIndex());
+
+                            int result = 0;
+                            try {
+                                result = adminMemberService.updatePw(data.getLoginId());
+
+                            } catch (SQLException e) {
+                                throw new RuntimeException(e);
+                            }
+                            String msg = result != 0 ? "승인되었습니다" : "승인 실패하였습니다";
+                            Msg(msg);
+                            SceneManager sm = SceneManager.getInstance();
+                            sm.moveScene("/org/checkmate/view/layouts/admin/userManagementPage.fxml");
+                        });
+                    }
                     {
                         deleteBtn.setOnAction((event) -> {
                             AdminMemberResponseDto data = getTableView().getItems().get(getIndex());
@@ -135,7 +127,10 @@ public class UserManagementPageController implements Initializable {
                         if (empty) {
                             setGraphic(null);
                         } else {
-                            setGraphic(deleteBtn);
+                            HBox hBox = new HBox(10); // 버튼 사이의 간격 설정
+                            hBox.getChildren().addAll(updatePwBtn, deleteBtn);
+                            setGraphic(hBox);
+
                         }
                     }
                 };
@@ -143,7 +138,23 @@ public class UserManagementPageController implements Initializable {
             }
         };
 
-        delete.setCellFactory(cellFactory);
+        manage.setCellFactory(cellFactory);
+    }
+    //검색 버튼
+    @FXML
+    public void searchBtn(ActionEvent actionEvent) throws SQLException {
+        String searchContent = this.searchContent.getText();
+        System.out.println(searchContent);
+        loginId.setCellValueFactory(new PropertyValueFactory<>("loginId"));
+        eName.setCellValueFactory(new PropertyValueFactory<>("eName"));
+        tName.setCellValueFactory(new PropertyValueFactory<>("tName"));
+        dName.setCellValueFactory(new PropertyValueFactory<>("dName"));
+        memberList = adminMemberService.searchMember(searchContent);
+        table_admin_user.setItems(memberList);
+        int count = memberList.size();
+        searchCount.setText("총 : "+count+" 건");
+        addButtonToTable();
+
     }
 
 }

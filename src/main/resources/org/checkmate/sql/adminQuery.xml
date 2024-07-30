@@ -90,9 +90,9 @@
 <!--    사원 관리 파트-->
 
     <!--    비밀번호 초기화 -->
-    <entry key="비밀번호 초기화">
+    <entry key="updatePw">
 
-        {call update_member_password  (?,?)}
+        {call update_member_password (?)}
     </entry>
 
     <!--    사원등록 -->
@@ -131,4 +131,19 @@ and return_date is null
      on td.team_no = e.team_no) sys
      on m.login_id = sys.emp_no
  </entry>
+
+  <!-- 사용자 검색 -->
+<entry key = "searchMember">
+    select m.login_id  ,sys.e_name  ,sys.t_name  ,sys.d_name
+    from members m join (select emp_no , e_name , t_name, d_name  from
+    (select team_no,t_name,d_name from sysone.teams t join sysone.departments d
+    on t.dept_no = d.dept_no) td join sysone.employees e
+    on td.team_no = e.team_no) sys
+    on m.login_id = sys.emp_no
+    where m.login_id like ?
+    or sys.e_name like ?
+    or sys.t_name like ?
+    or sys.d_name like ?
+</entry>
 </properties>
+
