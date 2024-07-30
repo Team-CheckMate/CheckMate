@@ -39,6 +39,26 @@ public class UserManagementPageController implements Initializable {
     } //종료
     ObservableList<AdminMemberResponseDto> memberList;
 
+    //사이드바 이동
+    @FXML private void goToBookManage(ActionEvent event)
+    {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene("/org/checkmate/view/layouts/admin/bookManagementPage.fxml");
+    }
+    @FXML private void goToLoanStatus(ActionEvent event)
+    {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene("/org/checkmate/view/layouts/admin/applyStatusViewPage.fxml"); //변경
+    }
+    @FXML private void goToUserManage(ActionEvent event)
+    {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene("/org/checkmate/view/layouts/admin/userManagementPage.fxml");
+    }
+    @FXML private void goToApplyStatus(ActionEvent event)
+    {SceneManager sm = SceneManager.getInstance();
+        sm.moveScene("/org/checkmate/view/layouts/admin/applyStatusViewPage.fxml");
+    }
 
 
     @FXML
@@ -74,6 +94,8 @@ public class UserManagementPageController implements Initializable {
 
         memberList = adminMemberService.findByMember();
         table_admin_user.setItems(memberList);
+        int count = memberList.size();
+        searchCount.setText("총 : "+count+" 건");
         addButtonToTable();
     }
     //관리버튼 추가 -> 삽입 초기화 버튼

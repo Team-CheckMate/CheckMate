@@ -54,7 +54,6 @@ public class UserManagementMapper {
                         .tName(resultSet.getString("t_name"))
                         .dName(resultSet.getString("d_name"))
                         .build();
-        System.out.println(member.toString());
                 members.add(member);
             }
         }

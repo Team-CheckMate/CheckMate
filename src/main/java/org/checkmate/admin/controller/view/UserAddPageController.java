@@ -24,6 +24,26 @@ public class UserAddPageController implements Initializable  {
     public UserAddPageController() {
         adminMemberService = new MemberServiceImpl();
     }
+    //사이드바 이동
+    @FXML private void goToBookManage(ActionEvent event)
+    {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene("/org/checkmate/view/layouts/admin/bookManagementPage.fxml");
+    }
+    @FXML private void goToLoanStatus(ActionEvent event)
+    {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene("/org/checkmate/view/layouts/admin/applyStatusViewPage.fxml"); //변경
+    }
+    @FXML private void goToUserManage(ActionEvent event)
+    {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene("/org/checkmate/view/layouts/admin/userManagementPage.fxml");
+    }
+    @FXML private void goToApplyStatus(ActionEvent event)
+    {SceneManager sm = SceneManager.getInstance();
+        sm.moveScene("/org/checkmate/view/layouts/admin/applyStatusViewPage.fxml");
+    }
 
     @FXML private void exit(ActionEvent event) {
         Platform.exit();
