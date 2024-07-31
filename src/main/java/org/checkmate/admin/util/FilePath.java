@@ -22,8 +22,9 @@ public enum FilePath {
 
     RENT_STATUS_CHART_DEPARTMENTS_FX("/org/checkmate/view/layouts/admin/bookRentChartPageForDepartments.fxml"),
 //    RENT_STATUS_CHART_DEPARTMENTS_ST
-    RENT_STATUS_CHART_TEAMS_FX("/org/checkmate/view/layouts/admin/bookRentChartPageForTeams.fxml");
+    RENT_STATUS_CHART_TEAMS_FX("/org/checkmate/view/layouts/admin/bookRentChartPageForTeams.fxml"),
 
+    BOOK_APPLY_FX("/org/checkmate/view/layouts/admin/applyStatusViewPage.fxml");
 
     private final String filePath;
 
