@@ -1,0 +1,3 @@
+[submodule "CheckMate"]
+	path = CheckMate
+	url = https://github.com/SysoneEduTeam4/security.git
