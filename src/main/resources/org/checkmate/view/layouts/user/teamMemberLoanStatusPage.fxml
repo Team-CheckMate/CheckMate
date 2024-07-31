@@ -31,7 +31,7 @@
          <ImageView fitHeight="217.0" fitWidth="153.0" layoutX="5.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true">
             <Image url="@../../../icons/side_menu_bu2.png" />
          </ImageView>
-         <Button layoutX="15.0" layoutY="21.0" mnemonicParsing="false" prefHeight="97.0" prefWidth="148.0" styleClass="home-button" />
+         <Button layoutX="15.0" layoutY="21.0" mnemonicParsing="false" onAction="#goHome" prefHeight="97.0" prefWidth="148.0" styleClass="home-button" />
          <JFXButton alignment="CENTER_RIGHT" layoutX="11.0" layoutY="145.0" onAction="#goToBookLoan" prefHeight="35.0" prefWidth="142.0" styleClass="side-button" text="도서 대여" />
          <JFXButton alignment="CENTER_RIGHT" layoutX="10.0" layoutY="195.0" onAction="#goToLoanManage" prefHeight="37.0" prefWidth="144.0" styleClass="side-button" text="대여 정보" />
          <JFXButton alignment="CENTER_RIGHT" layoutX="8.0" layoutY="245.0" onAction="#goToMyLoanBook" prefHeight="43.0" prefWidth="149.0" styleClass="active-side-button" text="대여 현황" />
@@ -97,7 +97,7 @@
                         <Image url="@../../../icons/analysis.png" />
                      </image>
                   </ImageView>
-                  <Text fx:id="anaMsg" layoutX="371.0" layoutY="396.0" text="통계 안내" styleClass="analysis"/>
+                  <Text fx:id="anaMsg" layoutX="371.0" layoutY="396.0" styleClass="analysis" text="통계 안내" />
                </AnchorPane>
             </center>
          </BorderPane>

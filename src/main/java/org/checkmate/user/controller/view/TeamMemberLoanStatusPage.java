@@ -1,5 +1,6 @@
 package org.checkmate.user.controller.view;
 
+import static org.checkmate.user.util.FilePath.MAIN_FX;
 import static org.checkmate.user.util.FilePath.READ_TM_LOAN_STATUS_FX;
 
 import java.net.URL;
@@ -47,6 +48,12 @@ public class TeamMemberLoanStatusPage implements Initializable {
     @FXML
     private void exit(ActionEvent event) {
         Platform.exit();
+    }
+
+    @FXML
+    public void goHome(ActionEvent event) {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(MAIN_FX.getFilePath());
     }
 
     @FXML
