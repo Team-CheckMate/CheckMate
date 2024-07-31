@@ -1,0 +1,114 @@
+.root {
+  -fx-font-family: 'BM EULJIRO';
+}
+
+.left-pane {
+  -fx-background-color: #364959;
+}
+
+.center-pane {
+  -fx-background-color: #FFFFFF;
+}
+
+.top-pane {
+  -fx-background-color: #F2F2F2;
+}
+
+.center-inner-pane {
+  -fx-background-color: #FFFFFF;
+}
+
+.title {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 48px;
+  -fx-fill: #035aa6;
+}
+
+.subtitle {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 14px;
+  -fx-fill: #05aff2;
+}
+
+.subtitle2 {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 20px;
+  -fx-fill: #035aa6;
+}
+
+.admin {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 15px;
+  -fx-border-width: 0;
+  -fx-text-fill: WHITE;
+}
+
+.admin-info-text {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 13px;
+  -fx-fill: #f2f0d5;
+}
+
+.home-button {
+  -fx-background-color: transparent;
+}
+
+.side-button {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 18px;
+  -fx-text-fill: #FFFFFF;
+}
+
+.active-side-button {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 18px;
+  -fx-text-fill: #FFFFFF;
+  -fx-border-color: #e0ffff;
+  -fx-border-width: 3;
+}
+
+/* 기본 TableView 스타일 설정 */
+.table-view {
+  -fx-background-color: #FFFFFF; /*transparent; */
+}
+
+/* 기본 TableColumn 스타일 설정 */
+.table-column {
+  -fx-background-color: #FFFFFF; /* 기본 배경색 */
+}
+
+/* 기본 TableCell 스타일 설정 */
+.table-cell {
+  -fx-background-color: transparent; /* 기본 배경색 */
+  -fx-text-fill: black; /* 기본 텍스트 색상 */
+}
+
+/* 선택된 TableRowCell 스타일 설정 */
+.table-row-cell:selected {
+  -fx-background-color: #364959; /* 선택된 행의 배경색 */
+}
+
+/* 선택된 TableCell 스타일 설정 */
+.table-cell:selected {
+  -fx-background-color: #364959; /* 선택된 셀의 배경색 */
+}
+
+/* 일반 TableRowCell 스타일 설정 (선택되지 않았을 때) */
+.table-row-cell {
+  -fx-background-color: transparent; /* 기본 배경색 */
+  -fx-text-fill: black; /* 기본 텍스트 색상 */
+}
+
+.line {
+  -fx-stroke: #f6c5a1;
+  -fx-stroke-width: 2;
+}
+
+.table-line {
+  -fx-stroke: #364959;
+  -fx-stroke-width: 1;
+}
+
+.exit-button {
+  -fx-background-color: transparent;
+}
