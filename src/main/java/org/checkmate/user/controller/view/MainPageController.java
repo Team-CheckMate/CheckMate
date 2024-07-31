@@ -1,6 +1,7 @@
 package org.checkmate.user.controller.view;
 
 import static org.checkmate.user.util.FilePath.READ_MY_INFO_FX;
+import static org.checkmate.user.util.FilePath.READ_TM_LOAN_STATUS_FX;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -51,7 +52,7 @@ public class MainPageController implements Initializable {
     @FXML
     public void teamStatus(ActionEvent actionEvent) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/user/sidebarSamplePage.fxml");
+        sm.moveScene(READ_TM_LOAN_STATUS_FX.getFilePath());
     }
 
     // 도서신청

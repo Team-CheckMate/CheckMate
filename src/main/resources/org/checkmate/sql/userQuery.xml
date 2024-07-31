@@ -77,7 +77,7 @@
   </entry>
 
   <!--나의 부서 대여 현황 SELECT 쿼리 -->
-  <entry key="findMyDepartmentStatus">
+  <entry key="findTeamMemberLoanStatus">
     SELECT
       me.login_id,
       me.e_name,

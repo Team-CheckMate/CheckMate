@@ -79,8 +79,6 @@
                                         <TableColumn fx:id="tName" prefWidth="142.6000213623047" style="-fx-background-color: #ffffff;" text="팀이름" />
                                         <TableColumn fx:id="dName" prefWidth="170.5999755859375" style="-fx-background-color: #ffffff;" text="부서이름" />
                                         <TableColumn fx:id="manage" prefWidth="138.39999999999998" style="-fx-background-color: #ffffff; " text="관리" />
-
-
                                     </columns>
                                 </TableView>
                                 <Text fx:id="searchCount" layoutX="49.0" layoutY="434.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="114.30938720703125" />

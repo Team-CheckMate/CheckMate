@@ -20,7 +20,6 @@ import org.checkmate.common.util.LoginSession;
 import org.checkmate.common.util.PasswordEncoder;
 
 
-
 /**
  * 로그인 요청 객체
  * HISTORY1: 최초 생성                              [송헌욱  2024.07.22]
