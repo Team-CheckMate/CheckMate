@@ -141,13 +141,16 @@ public class MemberMapper {
      * @return updateRows 변경된 쿼리 개수
      * @throws SQLException SQL 서버 에러
      */
-    public int updateMemberPassword(String login_id, String changePassword) throws SQLException {
+    public int updateMemberPassword(String login_id, String nowPw,String changePassword) throws SQLException {
         String query = prop.getProperty("updateMemberPassword");
         try (Connection connection = DBConnector.getInstance().getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, login_id);
-            preparedStatement.setString(2, changePassword);
+            preparedStatement.setString(2, nowPw);
+            preparedStatement.setString(3, changePassword);
             return preparedStatement.executeUpdate();
+        }catch (SQLException e){
+            return -1;
         }
     }
 
