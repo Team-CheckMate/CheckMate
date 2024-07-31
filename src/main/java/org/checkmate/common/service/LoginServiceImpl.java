@@ -54,11 +54,13 @@ public class LoginServiceImpl implements LoginService {
         try{
             System.out.println(updatePasswordRequestDto.toString());
            int result = memberMapper.updateMemberPassword(updatePasswordRequestDto.getLoginId(),
-                   updatePasswordRequestDto.getChangePw());
+                   updatePasswordRequestDto.getNowPw(),updatePasswordRequestDto.getChangePw());
            if(result>0){
                System.out.println("비번 변경 성공");
                return new UpdatePasswordResponseDto(true,"비밀번호 변경이 완료되었습니다.");
-           }else{
+           }else if(result==-1){
+               return new UpdatePasswordResponseDto(false,"현재 비밀번호가 다릅니다.");
+           }else {
                System.out.println("비번 변경 실패");
                return new UpdatePasswordResponseDto(false,"비밀번호 변경에 실패하였습니다.");
            }

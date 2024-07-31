@@ -70,12 +70,21 @@ public class BookCreatePageController implements Initializable {
 
     }
 
+
+
     @FXML
     public void register(ActionEvent actionEvent) {
         System.out.println("등록버튼실행됨");
         try {
-            BookCreateRequestDto requestDto = createRequestDto();
-            bookController.createBook(requestDto);
+            String title = bookTitle.getText();
+            String isbnText = isbn.getText();
+            String authorText = author.getText();
+            String translatorText = translator.getText();
+            String publisherText = publisher.getText();
+            String category = String.valueOf(categories.getValue());
+            int categoryNum = StringSplit.getCategoryNum(category, ".");
+            validateUserFields();
+            bookController.createBook(title,isbnText,authorText,translatorText,publisherText,category,categoryNum);
         } catch (ValidationException | SQLException e) {
             showAlert(e.getMessage());
         }
@@ -90,27 +99,11 @@ public class BookCreatePageController implements Initializable {
         alert.show();
     }
 
-    private BookCreateRequestDto createRequestDto() {
-        String title = bookTitle.getText();
-        String isbnText = isbn.getText();
-        String authorText = author.getText();
-        String translatorText = translator.getText();
-        String publisherText = publisher.getText();
-        String category = String.valueOf(categories.getValue());
-        int categoryNum = StringSplit.getCategoryNum(category, ".");
 
-        validateUserFields();
 
-        return BookCreateRequestDto.builder()
-                .bookTitle(title)
-                .isbn(isbnText)
-                .author(authorText)
-                .translator(translatorText)
-                .publisher(publisherText)
-                .category(category)
-                .category_num(categoryNum)
-                .build();
-    }
+
+
+
 
     public void validateUserFields() {
         isNotEmpty(bookTitle, "책 제목을 입력해주세요.");

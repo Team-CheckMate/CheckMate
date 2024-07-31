@@ -6,6 +6,7 @@ import static org.checkmate.admin.util.FilePath.BOOK_UPDATE_FX;
 
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -119,7 +120,7 @@ public class BookManagementPageController implements Initializable  {
         lStatus.setCellValueFactory(new PropertyValueFactory<>("lStatus"));
         date.setCellValueFactory(new PropertyValueFactory<>("addDate"));
         eName.setCellValueFactory(new PropertyValueFactory<>("eName"));
-        bookList = bookController.readAllBooks();
+        ObservableList<BookReadLoanStatusResponseDto> bookList = FXCollections.observableArrayList(bookController.readAllBooks());
         table_book.setItems(bookList);
         int count = bookList.size();
         countMessage.setText("총 : "+count+" 건");

@@ -1,5 +1,8 @@
 package org.checkmate.user.controller.view;
 
+import static org.checkmate.user.util.FilePath.READ_MY_INFO_FX;
+
+import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
@@ -88,8 +91,8 @@ public class UpdatePasswordPageController implements Initializable {
 
     public void Msg(String msg) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("경고!");
-        alert.setHeaderText("로그인");
+        alert.setTitle("알림");
+        alert.setHeaderText("마이페이지");
         alert.setContentText(msg);
         alert.show();
     }
@@ -100,22 +103,20 @@ public class UpdatePasswordPageController implements Initializable {
         if(!userField(nowPw,changePw,checkChangePw)){
             return;
         }
-
         String loginId= LoginSession.getInstance().getUserInfo().getLoginId();
         String nowPw =  PasswordEncoder.encrypt(this.nowPw.getText());
         String changePw = PasswordEncoder.encrypt(this.changePw.getText());
 
         UpdatePasswordResponseDto changeResult = loginService.changePw(
-                UpdatePasswordRequestDto.of(loginId,nowPw,changePw));
+            UpdatePasswordRequestDto.builder().loginId(loginId).nowPw(nowPw).changePw(changePw)
+                .build());
         if(changeResult.isSuccess()){
-            // TODO : 성공 모달창 띄우기
+            Msg("비밀번호가 변경되었습니다!");
             SceneManager sm = SceneManager.getInstance();
-            sm.moveScene("/org/checkmate/view/layouts/user/sidebarSamplePage.fxml");
+            sm.moveScene(READ_MY_INFO_FX.getFilePath());
             System.out.println(changeResult.getMessage());
         }else{
-            // TODO : 실패 모달창 띄운 후 기존화면으로 전환
-            System.out.println(changeResult.getMessage());
+            Msg(changeResult.getMessage());
         }
     }
-
 }
