@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="850.0" stylesheets="@../../style/user/templatePage.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.checkmate.user.controller.view.TemplatePage">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="850.0" stylesheets="@../../style/user/templatePage.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.checkmate.user.controller.view.TemplatePage">
    <top>
       <AnchorPane prefHeight="0.0" prefWidth="850.0" BorderPane.alignment="CENTER" />
    </top>
@@ -34,10 +34,10 @@
                   <Image url="@../../../icons/side_menu_bu.png" />
                </image>
             </ImageView>
-            <JFXButton alignment="TOP_RIGHT" layoutX="9.0" layoutY="170.0" onAction="#goToBookLoan" prefHeight="37.0" prefWidth="160.0" text="도서 대여" styleClass="side-button"/>
-            <JFXButton alignment="TOP_RIGHT" layoutX="9.0" layoutY="227.0" onAction="#goToLoanManage" prefHeight="37.0" prefWidth="160.0" text="대여 정보" styleClass="side-button"/>
-            <JFXButton alignment="TOP_RIGHT" layoutX="9.0" layoutY="285.0" onAction="#goToMyLoanBook" prefHeight="37.0" prefWidth="160.0" text="팀 대여 현황" styleClass="side-button"/>
-            <JFXButton alignment="TOP_RIGHT" layoutX="9.0" layoutY="345.0" onAction="#goToBookApply" prefHeight="37.0" prefWidth="160.0" text="도서 신청" styleClass="side-button"/>
+            <JFXButton alignment="TOP_RIGHT" layoutX="9.0" layoutY="170.0" onAction="#goToBookLoan" prefHeight="37.0" prefWidth="160.0" text="도서 대여" textFill="#FFFFFF" styleClass="side-button"/>
+            <JFXButton alignment="TOP_RIGHT" layoutX="9.0" layoutY="227.0" onAction="#goToLoanManage" prefHeight="37.0" prefWidth="160.0" text="대여 정보" textFill="#FFFFFF" styleClass="side-button"/>
+            <JFXButton alignment="TOP_RIGHT" layoutX="9.0" layoutY="285.0" onAction="#goToMyLoanBook" prefHeight="37.0" prefWidth="160.0" text="팀 대여 현황" textFill="#FFFFFF" styleClass="side-button"/>
+            <JFXButton alignment="TOP_RIGHT" layoutX="9.0" layoutY="345.0" onAction="#goToBookApply" prefHeight="37.0" prefWidth="160.0" text="도서 신청" textFill="#FFFFFF" styleClass="side-button"/>
             <Button layoutX="15.0" layoutY="21.0" mnemonicParsing="false" prefHeight="97.0" prefWidth="148.0" styleClass="home-button" />
          </children>
       </AnchorPane>
