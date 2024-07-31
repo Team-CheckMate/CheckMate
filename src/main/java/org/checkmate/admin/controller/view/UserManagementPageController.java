@@ -29,7 +29,6 @@ public class UserManagementPageController implements Initializable {
     adminMemberService = new MemberServiceImpl();
   }
 
-  @FXML private Text tdName;
   @FXML private Hyperlink userNameLink;
   @FXML private TextField searchContent; //검색 내용
   @FXML private Text searchCount; //검색된 행 개수
@@ -90,10 +89,8 @@ public class UserManagementPageController implements Initializable {
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
 
-    var session = LoginSession.getInstance();
-    var userInfo = session.getUserInfo();
-    userNameLink.setText(userInfo.getEName());
-    tdName.setText(userInfo.getDName()+" \n -> "+ userInfo.getTName());
+
+    userNameLink.setText("관리자");
     try {
       loadDate();
 

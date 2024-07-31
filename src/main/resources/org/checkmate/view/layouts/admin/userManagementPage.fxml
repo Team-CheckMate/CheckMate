@@ -8,21 +8,19 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="850.0" stylesheets="@../../style/user/templatePage.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.checkmate.admin.controller.view.UserManagementPageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" stylesheets="@../../style/user/templatePage.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.checkmate.admin.controller.view.UserManagementPageController">
     <top>
-        <AnchorPane prefHeight="0.0" prefWidth="850.0" BorderPane.alignment="CENTER" />
+        <AnchorPane prefHeight="0.0" prefWidth="1000.0" BorderPane.alignment="CENTER" />
     </top>
     <left>
-        <AnchorPane prefHeight="650.0" prefWidth="82.0" style="-fx-background-color: #364959;" BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="650.0" prefWidth="190.0" style="-fx-background-color: #364959;" BorderPane.alignment="CENTER">
             <children>
                 <ImageView fitHeight="110.0" fitWidth="158.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../../../images/checkmate_logo.png" />
                     </image>
                 </ImageView>
-                <Text fx:id="tdName" fill="#f2f0d5" layoutX="10.0" layoutY="605.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="user-info-text" text="부서명 팀명" />
                 <Hyperlink fx:id="userNameLink" layoutX="27.0" layoutY="560.0" style="-fx-border-width: 0;" text="홍길동" textFill="WHITE" />
-                <Text fx:id="user_position" fill="#f2f0d5" layoutX="80.0" layoutY="578.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="user-info-text" text="사우님" />
                 <FontAwesomeIconView fill="#f2f0d5" glyphName="USER" layoutX="10.0" layoutY="580.0" size="20" />
                 <Line endX="22.0" layoutX="140.0" layoutY="585.0" startX="-132.2000274658203" stroke="#f6c5a1" strokeWidth="2.0" />
                 <ImageView fitHeight="253.0" fitWidth="170.0" layoutX="4.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true">
@@ -41,13 +39,13 @@
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
             <children>
-                <BorderPane prefHeight="657.0" prefWidth="674.0">
+                <BorderPane prefHeight="658.0" prefWidth="818.0">
                     <top>
                         <AnchorPane prefHeight="107.0" prefWidth="674.0" style="-fx-background-color: #F2F2F2;" BorderPane.alignment="CENTER">
                             <children>
                                 <Text fx:id="title" layoutX="220.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CheckMate" />
                                 <Text fx:id="subTitle" layoutX="337.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="책과 함께하는 친구 같은 공간" />
-                                <Button layoutX="632.0" layoutY="14.0" mnemonicParsing="false" onAction="#exit" styleClass="exit-button">
+                                <Button layoutX="767.0" layoutY="20.0" mnemonicParsing="false" onAction="#exit" styleClass="exit-button">
                                     <graphic>
                                         <FontAwesomeIconView fill="#05aff2" glyphName="CLOSE" size="20.0" />
                                     </graphic>
@@ -72,26 +70,26 @@
                                         <Image url="@../../../images/company_logo.jpg" />
                                     </image>
                                 </ImageView>
-                                <TableView fx:id="table_admin_user" layoutX="24.0" layoutY="49.0" prefHeight="350.0" prefWidth="626.0" style="-fx-background-color: transparent;">
+                                <TableView fx:id="table_admin_user" layoutX="67.0" layoutY="49.0" prefHeight="350.0" prefWidth="706.0" style="-fx-background-color: transparent;">
                                     <columns>
-                                        <TableColumn fx:id="loginId" prefWidth="79.99998474121094" style="-fx-background-color: #ffffff;" text="사원번호" />
-                                        <TableColumn fx:id="eName" prefWidth="92.5999755859375" style="-fx-background-color: #ffffff;" text="이름" />
-                                        <TableColumn fx:id="tName" prefWidth="142.6000213623047" style="-fx-background-color: #ffffff;" text="팀이름" />
-                                        <TableColumn fx:id="dName" prefWidth="170.5999755859375" style="-fx-background-color: #ffffff;" text="부서이름" />
-                                        <TableColumn fx:id="manage" prefWidth="138.39999999999998" style="-fx-background-color: #ffffff; " text="관리" />
+                                        <TableColumn fx:id="loginId" prefWidth="110.00000762939453" style="-fx-background-color: #ffffff;" text="사원번호" />
+                                        <TableColumn fx:id="eName" prefWidth="102.0" style="-fx-background-color: #ffffff;" text="이름" />
+                                        <TableColumn fx:id="tName" prefWidth="184.60003662109375" style="-fx-background-color: #ffffff;" text="팀이름" />
+                                        <TableColumn fx:id="dName" prefWidth="226.59994506835938" style="-fx-background-color: #ffffff;" text="부서이름" />
+                                        <TableColumn fx:id="manage" prefWidth="109.39996337890625" style="-fx-background-color: #ffffff; " text="관리" />
 
 
                                     </columns>
                                 </TableView>
                                 <Text fx:id="searchCount" layoutX="49.0" layoutY="434.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="114.30938720703125" />
-                                <JFXButton ellipsisString="" layoutX="597.0" layoutY="16.0" onAction="#searchBtn" prefHeight="23.0" prefWidth="48.0" style="-fx-background-color: #364959;" text="검색" textFill="WHITE" />
-                                <TextField fx:id="searchContent" layoutX="463.0" layoutY="16.0" prefHeight="22.0" prefWidth="133.0" style="-fx-background-color: transperant; -fx-border-color: #364959;" />
-                                <JFXButton layoutX="593.0" layoutY="409.0" onAction="#createUserBtn" style="-fx-background-color: #364959;" text="사원등록" textFill="WHITE" />
+                                <JFXButton ellipsisString="" layoutX="743.0" layoutY="16.0" onAction="#searchBtn" prefHeight="23.0" prefWidth="48.0" style="-fx-background-color: #364959;" text="검색" textFill="WHITE" />
+                                <TextField fx:id="searchContent" layoutX="609.0" layoutY="16.0" prefHeight="22.0" prefWidth="133.0" style="-fx-background-color: transperant; -fx-border-color: #364959;" />
+                                <JFXButton layoutX="721.0" layoutY="409.0" onAction="#createUserBtn" style="-fx-background-color: #364959;" text="사원등록" textFill="WHITE" />
                                 <Text fx:id="subTitle2" layoutX="26.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="사원관리" textAlignment="CENTER">
                                     <font>
                                         <Font name="System Bold" size="12.0" />
                                     </font></Text>
-                        <Line endX="470.0" layoutX="141.0" layoutY="74.0" smooth="false" startX="-100.0" stroke="#364959" />
+                                <Line endX="630.0" layoutX="141.0" layoutY="74.0" smooth="false" startX="-65.0" stroke="#364959" />
                             </children>
                         </AnchorPane>
                     </center>

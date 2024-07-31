@@ -8,21 +8,19 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="850.0" stylesheets="@../../style/admin/userAddPage.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.checkmate.admin.controller.view.UserAddPageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" stylesheets="@../../style/admin/userAddPage.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.checkmate.admin.controller.view.UserAddPageController">
     <top>
-        <AnchorPane prefHeight="0.0" prefWidth="850.0" BorderPane.alignment="CENTER" />
+        <AnchorPane prefHeight="0.0" prefWidth="1000.0" BorderPane.alignment="CENTER" />
     </top>
     <left>
-        <AnchorPane prefHeight="650.0" prefWidth="82.0" style="-fx-background-color: #364959;" BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="650.0" prefWidth="190.0" style="-fx-background-color: #364959;" BorderPane.alignment="CENTER">
             <children>
                 <ImageView fitHeight="110.0" fitWidth="158.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../../../images/checkmate_logo.png" />
                     </image>
                 </ImageView>
-                <Text fx:id="tdName" fill="#f2f0d5" layoutX="10.0" layoutY="605.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="user-info-text" text="부서명 팀명" />
                 <Hyperlink fx:id="userNameLink" layoutX="27.0" layoutY="560.0" style="-fx-border-width: 0;" text="홍길동" textFill="WHITE" />
-                <Text fx:id="user_position" fill="#f2f0d5" layoutX="80.0" layoutY="578.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="user-info-text" text="사우님" />
                 <FontAwesomeIconView fill="#f2f0d5" glyphName="USER" layoutX="10.0" layoutY="580.0" size="20" />
                 <Line endX="22.0" layoutX="140.0" layoutY="585.0" startX="-132.2000274658203" stroke="#f6c5a1" strokeWidth="2.0" />
                 <ImageView fitHeight="253.0" fitWidth="170.0" layoutX="4.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true">
@@ -32,7 +30,7 @@
                 </ImageView>
                 <JFXButton alignment="TOP_RIGHT" layoutX="9.0" layoutY="170.0" onAction="#goToBookManage" prefHeight="37.0" prefWidth="160.0" styleClass="side-button" text="도서 관리" textFill="#FFFFFF" />
                 <JFXButton alignment="TOP_RIGHT" layoutX="9.0" layoutY="227.0" onAction="#goToLoanStatus" prefHeight="37.0" prefWidth="160.0" styleClass="side-button" text="대여 현황" textFill="#FFFFFF" />
-                <JFXButton alignment="TOP_RIGHT" layoutX="8.0" layoutY="280.0" onAction="#goToUserManage" prefHeight="46.0" prefWidth="165.0" style="-fx-border-width: 3; -fx-border-color: #e0ffff;" styleClass="side-button" text="사원 관리" textFill="#FFFFFF" />
+                <JFXButton alignment="TOP_RIGHT" layoutX="8.0" layoutY="280.0" onAction="#goToUserManage" prefHeight="46.0" prefWidth="165.0" style="-fx-border-color: #e0ffff; -fx-border-width: 3;" styleClass="side-button" text="사원 관리" textFill="#FFFFFF" />
                 <JFXButton alignment="TOP_RIGHT" layoutX="9.0" layoutY="345.0" onAction="#goToApplyStatus" prefHeight="37.0" prefWidth="160.0" styleClass="side-button" text="신청 현황" textFill="#FFFFFF" />
                 <Button layoutX="15.0" layoutY="21.0" mnemonicParsing="false" prefHeight="97.0" prefWidth="148.0" styleClass="home-button" />
             </children>
@@ -41,13 +39,13 @@
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
             <children>
-                <BorderPane prefHeight="657.0" prefWidth="674.0">
+                <BorderPane prefHeight="658.0" prefWidth="818.0">
                     <top>
                         <AnchorPane prefHeight="107.0" prefWidth="674.0" style="-fx-background-color: #F2F2F2;" BorderPane.alignment="CENTER">
                             <children>
                                 <Text fx:id="title" layoutX="220.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CheckMate" />
                                 <Text fx:id="subTitle" layoutX="337.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="책과 함께하는 친구 같은 공간" />
-                                <Button layoutX="632.0" layoutY="14.0" mnemonicParsing="false" onAction="#exit" styleClass="exit-button">
+                                <Button layoutX="767.0" layoutY="20.0" mnemonicParsing="false" onAction="#exit" styleClass="exit-button">
                                     <graphic>
                                         <FontAwesomeIconView fill="#05aff2" glyphName="CLOSE" size="20.0" />
                                     </graphic>
@@ -67,31 +65,27 @@
                     <center>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
                             <children>
-                                <ImageView fitHeight="50.0" fitWidth="178.0" layoutX="257.0" layoutY="445.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fitHeight="50.0" fitWidth="178.0" layoutX="279.0" layoutY="419.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@../../../images/company_logo.jpg" />
                                     </image>
                                 </ImageView>
-                                <AnchorPane layoutX="1.0" layoutY="39.0" prefHeight="405.0" prefWidth="672.0" BorderPane.alignment="CENTER">
-                                    <children>
-                                        <Text fill="#035aa6" layoutX="192.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="member" text="사원 번호" wrappingWidth="270.3094177246094" />
-                                        <TextField fx:id="loginId" layoutX="193.0" layoutY="122.0" prefHeight="39.0" prefWidth="314.0" promptText="사원번호를 입력하세요" styleClass="input_field" />
-                                        <Text fill="#035aa6" layoutX="196.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="member" text="사원 이름" wrappingWidth="186.211669921875" />
-                                        <TextField fx:id="eName" layoutX="196.0" layoutY="234.0" prefHeight="46.0" prefWidth="314.0" promptText="사원이름을 입력하세요" styleClass="input_field" />
-                                        <Text layoutX="277.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="member" text="사원 등록" wrappingWidth="117.30938720703125" />
-                                        <JFXButton layoutX="180.0" layoutY="308.0" onAction="#createAddBtn" prefHeight="42.0" prefWidth="311.0" styleClass="shot_button" text="사원 등록" textFill="WHITE" />
-                              <ImageView fitHeight="43.0" fitWidth="46.0" layoutX="136.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../icons/idCard.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fitHeight="52.0" fitWidth="62.0" layoutX="132.0" layoutY="224.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../icons/name.png" />
-                                 </image>
-                              </ImageView>
-                                    </children>
-                                </AnchorPane>
+                                    <Text fill="#035aa6" layoutX="236.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="member" text="사원 번호" wrappingWidth="270.3094177246094" />
+                                    <TextField fx:id="loginId" layoutX="237.0" layoutY="122.0" prefHeight="39.0" prefWidth="314.0" promptText="사원번호를 입력하세요" styleClass="input_field" />
+                                    <Text fill="#035aa6" layoutX="240.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="member" text="사원 이름" wrappingWidth="186.211669921875" />
+                                    <TextField fx:id="eName" layoutX="240.0" layoutY="234.0" prefHeight="46.0" prefWidth="314.0" promptText="사원이름을 입력하세요" styleClass="input_field" />
+                                    <Text layoutX="286.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="member" text="사원 등록" wrappingWidth="117.30938720703125" />
+                                    <JFXButton layoutX="224.0" layoutY="308.0" onAction="#createAddBtn" prefHeight="42.0" prefWidth="311.0" styleClass="shot_button" text="사원 등록" textFill="WHITE" />
+                                    <ImageView fitHeight="43.0" fitWidth="46.0" layoutX="180.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true">
+                                        <image>
+                                            <Image url="@../../../icons/idCard.png" />
+                                        </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="52.0" fitWidth="62.0" layoutX="176.0" layoutY="224.0" pickOnBounds="true" preserveRatio="true">
+                                        <image>
+                                            <Image url="@../../../icons/name.png" />
+                                        </image>
+                                    </ImageView>
                             </children>
                         </AnchorPane>
                     </center>

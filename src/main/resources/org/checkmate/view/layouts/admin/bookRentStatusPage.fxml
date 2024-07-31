@@ -1,111 +1,107 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.checkmate.admin.controller.view.BookRentStatusPageController">
-    <children>
-        <BorderPane layoutX="67.0" layoutY="57.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <top>
-                <AnchorPane prefHeight="65.0" prefWidth="200.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
-                    <children>
-                        <Pane layoutX="72.0" layoutY="20.0" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #032d4d;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                        <Label fx:id="Menu" layoutX="20.0" layoutY="36.0" text="MENU" textFill="#b7b7b7">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
-                        <Label fx:id="MenuBack" layoutX="20.0" layoutY="36.0" text="MENU" textFill="#b7b7b7">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
-                    </children>
-                </AnchorPane>
-            </top>
-            <left>
-                <AnchorPane fx:id="slider" prefHeight="362.0" prefWidth="130.0" style="-fx-background-color: #0A4969;" BorderPane.alignment="CENTER">
-                    <children>
-                        <VBox layoutX="38.0" layoutY="67.0" prefHeight="282.0" prefWidth="70.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="53.0">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" stylesheets="@../../style/user/templatePage.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.checkmate.admin.controller.view.BookRentStatusPageController">
+    <top>
+        <AnchorPane prefHeight="0.0" prefWidth="1000.0" BorderPane.alignment="CENTER" />
+    </top>
+    <left>
+        <AnchorPane prefHeight="650.0" prefWidth="190.0" style="-fx-background-color: #364959;" BorderPane.alignment="CENTER">
+            <children>
+                <ImageView fitHeight="110.0" fitWidth="158.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../images/checkmate_logo.png" />
+                    </image>
+                </ImageView>
+                <Hyperlink fx:id="userNameLink" layoutX="27.0" layoutY="560.0" style="-fx-border-width: 0;" text="홍길동" textFill="WHITE" />
+                <FontAwesomeIconView fill="#f2f0d5" glyphName="USER" layoutX="10.0" layoutY="580.0" size="20" />
+                <Line endX="22.0" layoutX="140.0" layoutY="585.0" startX="-132.2000274658203" stroke="#f6c5a1" strokeWidth="2.0" />
+                <ImageView fitHeight="253.0" fitWidth="170.0" layoutX="4.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../icons/side_menu_bu.png" />
+                    </image>
+                </ImageView>
+                <JFXButton alignment="TOP_RIGHT" layoutX="9.0" layoutY="170.0" onAction="#goToBookManage" prefHeight="37.0" prefWidth="160.0" styleClass="side-button" text="도서 관리" textFill="#FFFFFF" />
+                <JFXButton alignment="TOP_RIGHT" layoutX="10.0" layoutY="225.0" onAction="#goToLoanStatus" prefHeight="37.0" prefWidth="160.0" style="-fx-border-color: #e0ffff; -fx-border-width: 3;" styleClass="side-button" text="대여 현황" textFill="#FFFFFF" />
+                <JFXButton alignment="TOP_RIGHT" layoutX="8.0" layoutY="280.0" onAction="#goToUserManage" prefHeight="46.0" prefWidth="165.0" styleClass="side-button" text="사원 관리" textFill="#FFFFFF" />
+                <JFXButton alignment="TOP_RIGHT" layoutX="9.0" layoutY="345.0" onAction="#goToApplyStatus" prefHeight="37.0" prefWidth="160.0" styleClass="side-button" text="신청 현황" textFill="#FFFFFF" />
+                <Button layoutX="15.0" layoutY="21.0" mnemonicParsing="false" prefHeight="97.0" prefWidth="148.0" styleClass="home-button" />
+            </children>
+        </AnchorPane>
+    </left>
+    <center>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
+            <children>
+                <BorderPane prefHeight="658.0" prefWidth="818.0">
+                    <top>
+                        <AnchorPane prefHeight="107.0" prefWidth="674.0" style="-fx-background-color: #F2F2F2;" BorderPane.alignment="CENTER">
                             <children>
-                                <JFXButton alignment="BASELINE_LEFT" prefHeight="38.0" prefWidth="176.0" text="도서관리" textFill="WHITE">
-                                    <font>
-                                        <Font name="System Bold" size="15.0" />
-                                    </font>
-                                </JFXButton>
-                                <JFXButton alignment="BASELINE_LEFT" prefHeight="38.0" prefWidth="176.0" text="대여현황" textFill="WHITE">
-                                    <font>
-                                        <Font name="System Bold" size="15.0" />
-                                    </font>
-                                </JFXButton>
-                                <JFXButton alignment="BASELINE_LEFT" prefHeight="38.0" prefWidth="176.0" text="사원관리" textFill="WHITE">
-                                    <font>
-                                        <Font name="System Bold" size="15.0" />
-                                    </font>
-                                </JFXButton>
-                                <JFXButton alignment="BASELINE_LEFT" prefHeight="38.0" prefWidth="176.0" text="신청현황" textFill="WHITE">
-                                    <font>
-                                        <Font name="System Bold" size="15.0" />
-                                    </font>
-                                </JFXButton>
-                            </children></VBox>
-                    </children>
-                    <opaqueInsets>
-                        <Insets />
-                    </opaqueInsets></AnchorPane>
-            </left>
-            <center>
-                <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                    <children>
-                        <TableView fx:id="table_book_loan_records" layoutX="40.0" layoutY="40.0" prefHeight="256.0" prefWidth="535.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="100.0">
-                            <columns>
-                                <TableColumn fx:id="loginId" prefWidth="75.0" style="-fx-alignment: center;" text="사원 번호" />
-                                <TableColumn fx:id="eName" prefWidth="75.0" style="-fx-alignment: center;" text="이름" />
-                                <TableColumn fx:id="dName" prefWidth="75.0" style="-fx-alignment: center;" text="부서" />
-                                <TableColumn fx:id="tName" prefWidth="75.0" style="-fx-alignment: center;" text="팀" />
-                                <TableColumn fx:id="bName" prefWidth="75.0" style="-fx-alignment: center;" text="책 제목" />
-                                <TableColumn fx:id="loanDate" prefWidth="75.0" style="-fx-alignment: center;" text="대여 일자" />
-                                <TableColumn fx:id="returnPreDate" prefWidth="75.0" style="-fx-alignment: center;" text="반납 예정 일자" />
-                                <TableColumn fx:id="returnDate" prefWidth="75.0" style="-fx-alignment: center;" text="반납 일자" />
-                                <TableColumn fx:id="status" prefWidth="75.0" style="-fx-alignment: center;" text="상태" />
-                                <TableColumn fx:id="manage" prefWidth="100.0" style="-fx-alignment: center;" text="관리" />
-                            </columns>
-                        </TableView>
-                        <Pane layoutY="28.0" prefHeight="5.0" prefWidth="200.0" style="-fx-background-color: black;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                        <Text layoutX="48.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="대여 현황">
-                            <font>
-                                <Font name="Bodoni MT" size="14.0" />
-                            </font>
-                        </Text>
-                        <JFXButton layoutX="387.0" layoutY="380.0" onAction="#moveToCheckChartByDepartments" text="부서별 통계 확인" />
-                        <JFXButton layoutX="534.0" layoutY="380.0" onAction="#moveToCheckChartByTeams" text="팀별 통계 확인" />
-                        <Text fx:id="countMessage" layoutX="40.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="110.48828125" />
-                        <Button fx:id="searchBtn" layoutX="685.0" layoutY="57.0" minHeight="22.0" minWidth="19.0" mnemonicParsing="false" onAction="#search" prefHeight="20.0" prefWidth="20.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="455.66666666666663" AnchorPane.leftAnchor="685.0" AnchorPane.rightAnchor="169.66666666666674">
-                     <graphic>
-                                <ImageView fitHeight="24.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                <Text fx:id="title" layoutX="220.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CheckMate" />
+                                <Text fx:id="subTitle" layoutX="337.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="책과 함께하는 친구 같은 공간" />
+                                <Button layoutX="767.0" layoutY="20.0" mnemonicParsing="false" onAction="#exit" styleClass="exit-button">
+                                    <graphic>
+                                        <FontAwesomeIconView fill="#05aff2" glyphName="CLOSE" size="20.0" />
+                                    </graphic>
+                                </Button>
+                            </children>
+                        </AnchorPane>
+                    </top>
+                    <left>
+                        <AnchorPane prefHeight="457.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
+                    </left>
+                    <right>
+                        <AnchorPane prefHeight="457.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
+                    </right>
+                    <bottom>
+                        <AnchorPane prefHeight="0.0" prefWidth="674.0" BorderPane.alignment="CENTER" />
+                    </bottom>
+                    <center>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
+                            <children>
+                                <ImageView fitHeight="50.0" fitWidth="178.0" layoutX="300.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../../../icons/search.png" />
+                                        <Image url="@../../../images/company_logo.jpg" />
                                     </image>
                                 </ImageView>
-                     </graphic></Button>
-                  <TextField fx:id="searchName" layoutX="702.0" layoutY="57.0" prefHeight="22.0" prefWidth="122.0" style="-fx-background-color: #FFFFFF;" />
-
-                    </children>
-                </AnchorPane>
-            </center>
-        </BorderPane>
-    </children>
-</AnchorPane>
+                                <TableView fx:id="table_book_loan_records" layoutX="20.0" layoutY="52.0" prefHeight="346.0" prefWidth="770.0" style="-fx-background-color: transperant;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="52.0">
+                                    <columns>
+                                        <TableColumn fx:id="loginId" prefWidth="75.0" style="-fx-alignment: center; -fx-background-color: #ffffff;" text="사원 번호" />
+                                        <TableColumn fx:id="eName" prefWidth="64.00000762939453" style="-fx-alignment: center; -fx-background-color: #ffffff;" text="이름" />
+                                        <TableColumn fx:id="dName" prefWidth="79.20001220703125" style="-fx-alignment: center; -fx-background-color: #ffffff;" text="부서" />
+                                        <TableColumn fx:id="tName" prefWidth="78.4000244140625" style="-fx-alignment: center; -fx-background-color: #ffffff;" text="팀" />
+                                        <TableColumn fx:id="bName" prefWidth="72.99996948242188" style="-fx-alignment: center; -fx-background-color: #ffffff;" text="책 제목" />
+                                        <TableColumn fx:id="loanDate" prefWidth="82.20001220703125" style="-fx-alignment: center; -fx-background-color: #ffffff;" text="대여 일자" />
+                                        <TableColumn fx:id="returnPreDate" prefWidth="82.99996948242188" style="-fx-alignment: center; -fx-background-color: #ffffff;" text="반납 예정 일자" />
+                                        <TableColumn fx:id="returnDate" prefWidth="73.79998779296875" style="-fx-alignment: center; -fx-background-color: #ffffff;" text="반납 일자" />
+                                        <TableColumn fx:id="status" prefWidth="62.4000244140625" style="-fx-alignment: center; -fx-background-color: #ffffff;" text="상태" />
+                                        <TableColumn fx:id="manage" prefWidth="99.4000244140625" style="-fx-alignment: center; -fx-background-color: #ffffff;" text="관리" />
+                                    </columns>
+                                </TableView>
+                                <Line endX="630.0" layoutX="141.0" layoutY="75.0" smooth="false" startX="-110.0" stroke="#364959" />
+                                <Text fx:id="searchCount" layoutX="49.0" layoutY="434.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="114.30938720703125" />
+                                <JFXButton ellipsisString="" layoutX="743.0" layoutY="16.0" onAction="#searchBtn" prefHeight="23.0" prefWidth="48.0" style="-fx-background-color: #364959;" text="검색" textFill="WHITE" />
+                                <TextField fx:id="searchContent" layoutX="609.0" layoutY="16.0" prefHeight="22.0" prefWidth="133.0" style="-fx-background-color: transperant; -fx-border-color: #364959;" />
+                                <JFXButton layoutX="689.0" layoutY="419.0" onAction="#moveToCheckChartByDepartments" style="-fx-background-color: #364959;" text="부서별 통계 확인" textFill="WHITE" />
+                                <JFXButton layoutX="570.0" layoutY="419.0" onAction="#moveToCheckChartByTeams" prefHeight="22.0" prefWidth="106.0" style="-fx-background-color: #364959;" text="팀별 통계 확인" textFill="WHITE" />
+                                <Text fx:id="subTitle2" layoutX="26.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="대여현황" textAlignment="CENTER">
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font></Text>
+                            </children>
+                        </AnchorPane>
+                    </center>
+                </BorderPane>
+            </children>
+        </AnchorPane>
+    </center>
+    <right>
+        <AnchorPane prefHeight="509.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
+    </right>
+</BorderPane>

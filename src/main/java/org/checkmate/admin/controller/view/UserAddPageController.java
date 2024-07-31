@@ -19,7 +19,6 @@ import org.checkmate.common.util.LoginSession;
 
 public class UserAddPageController implements Initializable  {
 
-    @FXML private Text tdName;
     @FXML private Hyperlink userNameLink;
     @FXML private TextField loginId;
     @FXML private TextField eName;
@@ -83,10 +82,8 @@ public class UserAddPageController implements Initializable  {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        var session = LoginSession.getInstance();
-        var userInfo = session.getUserInfo();
-        userNameLink.setText(userInfo.getEName());
-        tdName.setText(userInfo.getDName()+" \n -> "+ userInfo.getTName());
+
+        userNameLink.setText("관리자");
     }
 
     }

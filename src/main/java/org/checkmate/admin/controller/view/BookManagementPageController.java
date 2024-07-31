@@ -46,11 +46,8 @@ public class BookManagementPageController implements Initializable  {
         bookController = new BookController();
     }
 
-
-    @FXML private Label Menu;
-    @FXML private Label MenuBack;
-    @FXML private AnchorPane slider;
-    @FXML private Text countMessage;
+    @FXML private Hyperlink userNameLink;
+    @FXML private Text searchCount;
     @FXML private TableView<BookReadLoanStatusResponseDto> table_book;
     @FXML private TableColumn<BookReadLoanStatusResponseDto, Long> bookId;
     @FXML private TableColumn<BookReadLoanStatusResponseDto, String> bName;
@@ -61,8 +58,8 @@ public class BookManagementPageController implements Initializable  {
     @FXML private TableColumn<BookReadLoanStatusResponseDto, String> eName;
     @FXML private TableColumn<BookReadLoanStatusResponseDto, Date> date;
     @FXML private TableColumn<BookReadLoanStatusResponseDto, Void> manage;
-    @FXML private Button search;
-    @FXML private TextField bookSearch;
+    @FXML private Button searchBtn;
+    @FXML private TextField searchContent;
 
     //시스템 종료
     @FXML private void exit(ActionEvent event) {
@@ -94,6 +91,7 @@ public class BookManagementPageController implements Initializable  {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        userNameLink.setText("관리자");
         try {
             loadDate();
         } catch (SQLException e) {
@@ -122,7 +120,7 @@ public class BookManagementPageController implements Initializable  {
         bookList = bookController.readAllBooks();
         table_book.setItems(bookList);
         int count = bookList.size();
-        countMessage.setText("총 : "+count+" 건");
+        searchCount.setText("총 : "+count+" 건");
         addButtonToTable();
     }
 
@@ -136,6 +134,9 @@ public class BookManagementPageController implements Initializable  {
                     private final Button deleteBtn = new Button("삭제");
 
                     {
+                        modifyBtn.setStyle("-fx-background-color: transperant; -fx-border-color: #364959 ;");
+                        deleteBtn.setStyle("-fx-background-color: transperant; -fx-border-color: #364959 ;");
+
                         modifyBtn.setOnAction((event) -> {
                             BookReadLoanStatusResponseDto data = getTableView().getItems().get(getIndex());
                             System.out.println("Selected Data: " + data);
@@ -199,8 +200,8 @@ public class BookManagementPageController implements Initializable  {
     }
 
     @FXML
-    public void search(ActionEvent actionEvent) throws SQLException {
-        String bookName = this.bookSearch.getText();
+    public void searchBtn(ActionEvent actionEvent) throws SQLException {
+        String bookName = this.searchContent.getText();
         System.out.println(bookName);
         bookId.setCellValueFactory(new PropertyValueFactory<BookReadLoanStatusResponseDto,Long>("bookId"));
         bName.setCellValueFactory(new PropertyValueFactory<BookReadLoanStatusResponseDto, String>("bName"));
@@ -213,7 +214,7 @@ public class BookManagementPageController implements Initializable  {
         bookList = bookController.ReadBooksByBookName(bookName);
         table_book.setItems(bookList);
         int count = bookList.size();
-        countMessage.setText("총 : "+count+" 건");
+        searchCount.setText("총 : "+count+" 건");
         addButtonToTable();
     }
 }
