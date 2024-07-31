@@ -11,12 +11,6 @@ import java.sql.SQLException;
  * HISTORY2: autoCommit false 설정                  [이준희  2024.07.23]
  */
 public class DBConnector {
-    Dotenv dotenv = Dotenv.configure()
-        .directory(System.getProperty("user.dir") + "/CheckMate")
-        .load();
-    private static final String URL = dotenv.get("DB_URL");
-    private static final String USERNAME = dotenv.get("DB_USERNAME");
-    private static final String PASSWORD = dotenv.get("DB_PASSWORD");
 
     private static volatile DBConnector instance;
 
@@ -32,6 +26,12 @@ public class DBConnector {
     }
 
     public Connection getConnection() throws SQLException {
+        Dotenv dotenv = Dotenv.configure()
+            .directory(System.getProperty("user.dir") + "/CheckMate")
+            .load();
+        String URL = dotenv.get("DB_URL");
+        String USERNAME = dotenv.get("DB_USERNAME");
+        String PASSWORD = dotenv.get("DB_PASSWORD");
         Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         connection.setAutoCommit(false);
         return connection;
