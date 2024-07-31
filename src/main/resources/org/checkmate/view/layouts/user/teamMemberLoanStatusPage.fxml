@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="850.0" stylesheets="@../../style/user/templatePage.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.checkmate.user.controller.view.TeamMemberLoanStatusPage">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" stylesheets="@../../style/user/templatePage.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.checkmate.user.controller.view.TeamMemberLoanStatusPage">
    <top>
       <AnchorPane prefHeight="0.0" prefWidth="850.0" BorderPane.alignment="CENTER" />
    </top>
@@ -47,13 +47,13 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
          <children>
-            <BorderPane prefHeight="657.0" prefWidth="674.0">
+            <BorderPane prefHeight="657.0" prefWidth="829.0">
                <top>
-                  <AnchorPane prefHeight="107.0" prefWidth="674.0" style="-fx-background-color: #F2F2F2;" BorderPane.alignment="CENTER">
+                  <AnchorPane prefHeight="107.0" prefWidth="832.0" style="-fx-background-color: #F2F2F2;" BorderPane.alignment="CENTER">
                      <children>
-                        <Text fx:id="title" layoutX="220.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CheckMate" />
-                        <Text fx:id="subTitle" layoutX="337.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="책과 함께하는 친구 같은 공간" />
-                        <Button layoutX="632.0" layoutY="14.0" mnemonicParsing="false" onAction="#exit" styleClass="exit-button">
+                        <Text fx:id="title" layoutX="278.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CheckMate" />
+                        <Text fx:id="subTitle" layoutX="395.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="책과 함께하는 친구 같은 공간" />
+                        <Button layoutX="782.0" layoutY="14.0" mnemonicParsing="false" onAction="#exit" styleClass="exit-button">
                            <graphic>
                               <FontAwesomeIconView fill="#05aff2" glyphName="CLOSE" size="20.0" />
                            </graphic>
@@ -71,30 +71,31 @@
                   <AnchorPane prefHeight="0.0" prefWidth="674.0" BorderPane.alignment="CENTER" />
                </bottom>
                <center>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
+                  <AnchorPane prefHeight="550.0" prefWidth="834.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
                      <children>
-                        <ImageView fitHeight="50.0" fitWidth="178.0" layoutX="257.0" layoutY="419.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="50.0" fitWidth="178.0" layoutX="335.0" layoutY="462.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../images/company_logo.jpg" />
                            </image>
                         </ImageView>
-                        <TableView fx:id="tableView" layoutX="15.0" layoutY="49.0" prefHeight="329.0" prefWidth="645.0" style="-fx-background-color: transparent;">
+                        <TableView fx:id="tableView" layoutX="25.0" layoutY="49.0" prefHeight="285.0" prefWidth="778.0" style="-fx-background-color: transparent;">
                            <columns>
                               <TableColumn fx:id="column1" minWidth="-1.0" prefWidth="30.0" style="-fx-background-color: #FFFFFF;" text="번호" />
-                              <TableColumn fx:id="column2" minWidth="-1.0" prefWidth="87.0" style="-fx-background-color: #FFFFFF;" text="사원 번호" />
-                              <TableColumn fx:id="column3" minWidth="-1.0" prefWidth="61.0" style="-fx-background-color: #FFFFFF;" text="이름" />
-                              <TableColumn fx:id="column4" minWidth="-1.0" prefWidth="121.5" style="-fx-background-color: #FFFFFF;" text="현재 대여 도서 수" />
-                              <TableColumn fx:id="column5" minWidth="-1.0" prefWidth="123.0" style="-fx-background-color: #FFFFFF;" text="이번 달 읽은 도서 수" />
-                              <TableColumn fx:id="column6" minWidth="-1.0" prefWidth="129.0" style="-fx-background-color: #FFFFFF;" text="지난 달 읽은 도서 수" />
-                              <TableColumn fx:id="column7" minWidth="-1.0" prefWidth="106.0" style="-fx-background-color: #FFFFFF;" text="작년의 읽은 도서 수" />
+                              <TableColumn fx:id="column2" minWidth="-1.0" prefWidth="111.0" style="-fx-background-color: #FFFFFF;" text="사원 번호" />
+                              <TableColumn fx:id="column3" minWidth="-1.0" prefWidth="139.0" style="-fx-background-color: #FFFFFF;" text="이름" />
+                              <TableColumn fx:id="column4" minWidth="-1.0" prefWidth="120.0" style="-fx-background-color: #FFFFFF;" text="현재 대여 도서 수" />
+                              <TableColumn fx:id="column5" minWidth="-1.0" prefWidth="120.0" style="-fx-background-color: #FFFFFF;" text="이번 달 읽은 도서 수" />
+                              <TableColumn fx:id="column6" minWidth="-1.0" prefWidth="130.0" style="-fx-background-color: #FFFFFF;" text="지난 달 읽은 도서 수" />
+                              <TableColumn fx:id="column7" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="130.0" style="-fx-background-color: #FFFFFF;" text="작년의 읽은 도서 수" />
                            </columns>
                         </TableView>
-                        <Text fx:id="subTitle2" layoutX="26.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="사원관리" textAlignment="CENTER">
+                        <Text fx:id="subTitle2" layoutX="25.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="사원관리" textAlignment="CENTER">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Text>
-                        <Line endX="551.0" layoutX="109.0" layoutY="75.0" startX="-94.0" stroke="#364959" strokeWidth="2.0" />
+                        <Line endX="675.0" layoutX="119.0" layoutY="75.0" startX="-94.0" stroke="#364959" strokeWidth="2.0" />
+                        <Text fx:id="infoText" layoutX="83.0" layoutY="378.0" strokeType="OUTSIDE" strokeWidth="0.0" text="통계 안내" />
                      </children>
                   </AnchorPane>
                </center>
