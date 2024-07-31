@@ -1,6 +1,7 @@
 package org.checkmate.admin.controller.view;
 
 import static org.checkmate.admin.util.FilePath.BOOK_APPLY_FX;
+import static org.checkmate.admin.util.FilePath.BOOK_MANAGEMENT_FX;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,11 +29,11 @@ public class ManagementPageController implements Initializable  {
 
     }
 
-    // 대여 관리
+    // 도서 관리
     @FXML
     public void books_manager_btn(ActionEvent actionEvent) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/admin/bookManagementPage.fxml");
+        sm.moveScene(BOOK_MANAGEMENT_FX.getFilePath());
     }
 
     // 대여현황
