@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import javafx.util.Callback;
 import org.checkmate.admin.dto.response.ApplyStatusResponseDto;
 import org.checkmate.admin.service.ApplyService;
@@ -16,6 +17,7 @@ import org.checkmate.common.controller.view.SceneManager;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import org.checkmate.common.util.LoginSession;
 
 
 public class ApplyStatusViewPageController implements Initializable {
@@ -24,18 +26,13 @@ public class ApplyStatusViewPageController implements Initializable {
         applyService = new ApplyServiceImpl() ;
     }
 
+    @FXML private Hyperlink userNameLink;
     @FXML private TableView<ApplyStatusResponseDto> table_admin_user;
-
     @FXML private TableColumn<ApplyStatusResponseDto, String> loginId;
-
     @FXML private TableColumn<ApplyStatusResponseDto, String> eName;
-
     @FXML private TableColumn<ApplyStatusResponseDto, String> bName;
-
     @FXML private TableColumn<ApplyStatusResponseDto, String> publisher;
-
     @FXML private TableColumn<ApplyStatusResponseDto, String> author;
-
     @FXML private TableColumn<ApplyStatusResponseDto, Void> manage;
 
     //시스템 종료
@@ -79,7 +76,7 @@ public class ApplyStatusViewPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        userNameLink.setText("관리자");
         try {
             loadDate();
         } catch (Exception e) {
@@ -107,6 +104,10 @@ public class ApplyStatusViewPageController implements Initializable {
                     private final Button createBtn = new Button("승인");
                     private final Button deleteBtn = new Button("반려");
                     {
+                        createBtn.setStyle("-fx-background-color: transperant; -fx-border-color: #364959 ;");
+                        deleteBtn.setStyle("-fx-background-color: transperant; -fx-border-color: #364959 ;");
+
+
                         createBtn.setOnAction((event) -> {
                             ApplyStatusResponseDto data = getTableView().getItems().get(getIndex());
 

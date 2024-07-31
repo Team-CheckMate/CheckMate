@@ -29,29 +29,17 @@ public class UserManagementPageController implements Initializable {
     adminMemberService = new MemberServiceImpl();
   }
 
-  @FXML
-  private Text tdName;
-  @FXML
-  private Hyperlink userNameLink;
-  @FXML
-  private TextField searchContent; //검색 내용
-  @FXML
-  private Text searchCount; //검색된 행 개수
-  @FXML
-  private TableView<AdminMemberResponseDto> table_admin_user; //테이블
-  @FXML
-  private TableColumn<AdminMemberResponseDto, String> loginId; //테이블 열 1 - 로그인 아이디
-  @FXML
-  private TableColumn<AdminMemberResponseDto, String> eName;//테이블 열 2 - 사원이름
-  @FXML
-  private TableColumn<AdminMemberResponseDto, String> tName;//테이블 열 3 - 팀이름
-  @FXML
-  private TableColumn<AdminMemberResponseDto, String> dName;//테이블 열 4 - 부서 이름
-  @FXML
-  private TableColumn<AdminMemberResponseDto, Void> manage;//테이블 열 5 - 관리버튼
+  @FXML private Hyperlink userNameLink;
+  @FXML private TextField searchContent; //검색 내용
+  @FXML private Text searchCount; //검색된 행 개수
+  @FXML private TableView<AdminMemberResponseDto> table_admin_user; //테이블
+  @FXML private TableColumn<AdminMemberResponseDto, String> loginId; //테이블 열 1 - 로그인 아이디
+  @FXML private TableColumn<AdminMemberResponseDto, String> eName;//테이블 열 2 - 사원이름
+  @FXML private TableColumn<AdminMemberResponseDto, String> tName;//테이블 열 3 - 팀이름
+  @FXML private TableColumn<AdminMemberResponseDto, String> dName;//테이블 열 4 - 부서 이름
+  @FXML private TableColumn<AdminMemberResponseDto, Void> manage;//테이블 열 5 - 관리버튼
 
-  @FXML
-  private void exit(ActionEvent event) {
+  @FXML private void exit(ActionEvent event) {
     Platform.exit();
   } //종료
 
@@ -101,10 +89,8 @@ public class UserManagementPageController implements Initializable {
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
 
-    var session = LoginSession.getInstance();
-    var userInfo = session.getUserInfo();
-    userNameLink.setText(userInfo.getEName());
-    tdName.setText(userInfo.getDName()+" \n -> "+ userInfo.getTName());
+
+    userNameLink.setText("관리자");
     try {
       loadDate();
 
