@@ -1,6 +1,10 @@
 package org.checkmate.admin.controller.server;
 
+import static org.checkmate.admin.util.FilePath.BOOK_MANAGEMENT_FX;
+
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.collections.ObservableList;
 import org.checkmate.admin.dto.request.BookCreateRequestDto;
 import org.checkmate.admin.dto.request.BookUpdateRequestDto;
@@ -21,20 +25,39 @@ public class BookController {
         this.bookService = new BookManagementServiceImpl();
     }
 
-    public ObservableList<BookReadLoanStatusResponseDto> readAllBooks() throws SQLException{
+    /**
+     * [Read] 모든 대여 현황 조회 Server Controller
+     * @return [ResponseDTO] BookReadLoanStatusResponseDto - 서비스 로직을 수행한 이후 요청에 대한 데이터 응답 객체
+     * @throws SQLException Database 예외
+     */
+    public List<BookReadLoanStatusResponseDto> readAllBooks() throws SQLException{
         return bookService.readAllBooks();
     }
 
-    public void createBook(BookCreateRequestDto requestDto) throws SQLException {
+    /**
+     * [Create] 도서 추가 Server Controller
+     * @return void 성공
+     * @throws SQLException Database 예외
+     */
+    public void createBook(String title,String isbnText,String authorText,String translatorText,String publisherText,String category,int categoryNum ) throws SQLException {
+        BookCreateRequestDto requestDto = BookCreateRequestDto.builder()
+            .bookTitle(title)
+            .isbn(isbnText)
+            .author(authorText)
+            .translator(translatorText)
+            .publisher(publisherText)
+            .category(category)
+            .category_num(categoryNum)
+            .build();
         bookService.createBook(requestDto);
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/admin/bookManagementPage.fxml");
+        sm.moveScene(BOOK_MANAGEMENT_FX.getFilePath());
     }
 
     public void updateBook(BookUpdateRequestDto requestDto) throws SQLException{
         bookService.updateBook(requestDto);
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/admin/bookManagementPage.fxml");
+        sm.moveScene(BOOK_MANAGEMENT_FX.getFilePath());
     }
 
     public String deleteSelectedBook(Long bookId) throws SQLException{
