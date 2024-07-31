@@ -5,18 +5,21 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import org.checkmate.admin.service.MemberService;
 import org.checkmate.admin.service.MemberServiceImpl;
 import org.checkmate.common.controller.view.SceneManager;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import org.checkmate.common.util.LoginSession;
 
 
 public class UserAddPageController implements Initializable  {
 
-
+    @FXML private Hyperlink userNameLink;
     @FXML private TextField loginId;
     @FXML private TextField eName;
     @FXML MemberService adminMemberService;
@@ -80,6 +83,7 @@ public class UserAddPageController implements Initializable  {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        userNameLink.setText("관리자");
     }
 
     }

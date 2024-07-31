@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,8 +39,8 @@ public class BookManagementMapper {
      * @return ObservableList<ReadLoanStatusResponseDto> 응답 책 정보를 담은 리스트 컬랙션
      * @throws SQLException
      */
-    public ObservableList<BookReadLoanStatusResponseDto> readAllBooks() throws SQLException {
-        ObservableList<BookReadLoanStatusResponseDto> books = FXCollections.observableArrayList();
+    public List<BookReadLoanStatusResponseDto> readAllBooks() throws SQLException {
+        List<BookReadLoanStatusResponseDto> books = new ArrayList<>();
         String query = prop.getProperty("readAllBooks");
         try (
                 Connection connection = DBConnector.getInstance().getConnection();

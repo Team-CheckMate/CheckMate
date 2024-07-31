@@ -1,6 +1,7 @@
 package org.checkmate.admin.service;
 
 import java.sql.SQLException;
+import java.util.List;
 import javafx.collections.ObservableList;
 import org.checkmate.admin.dto.request.BookCreateRequestDto;
 import org.checkmate.admin.dto.request.BookUpdateRequestDto;
@@ -10,7 +11,7 @@ public interface BookManagementService {
 
 
 
-    ObservableList<BookReadLoanStatusResponseDto> readAllBooks() throws SQLException;
+    List<BookReadLoanStatusResponseDto> readAllBooks() throws SQLException;
     BookCreateResponseDto createBook(BookCreateRequestDto requestDto) throws SQLException;
     BookUpdateResponseDto updateBook(BookUpdateRequestDto requestDto) throws SQLException;
     String deleteSelectedBook(Long bookId) throws SQLException;
