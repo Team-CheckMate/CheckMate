@@ -5,8 +5,9 @@ module org.checkmate {
     requires static lombok;
     requires com.jfoenix;
     requires java.desktop;
+  requires java.dotenv;
 
-    // 기본 패키지를 내보내고 열기
+  // 기본 패키지를 내보내고 열기
     exports org.checkmate;
     opens org.checkmate to javafx.fxml;
 
