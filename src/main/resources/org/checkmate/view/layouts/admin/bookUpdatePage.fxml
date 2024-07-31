@@ -8,116 +8,99 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.shape.Line?>
 
-<AnchorPane prefHeight="650.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="650.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" >
     <children>
-        <BorderPane layoutX="67.0" layoutY="57.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" stylesheets="@../../style/user/templatePage.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
             <top>
-                <AnchorPane prefHeight="65.0" prefWidth="200.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
-                    <children>
-                        <Pane layoutX="72.0" layoutY="20.0" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #032d4d;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                        <Label  layoutX="20.0" layoutY="36.0" text="MENU" textFill="#b7b7b7">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
-                        <Label  layoutX="20.0" layoutY="36.0" text="MENU" textFill="#b7b7b7">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
-                        <Button layoutX="800.0" layoutY="34.0" mnemonicParsing="false" onAction="#exit" style="-fx-background-color: transoarent;">
-                        <graphic>
-                        <FontAwesomeIconView fill="#1f6179" glyphName="CLOSE" size="20" text="" />
-                        </graphic>
-                        </Button>
-                    </children>
-                </AnchorPane>
+                <AnchorPane prefHeight="0.0" prefWidth="1000.0" BorderPane.alignment="CENTER" />
             </top>
             <left>
-                <AnchorPane  prefHeight="362.0" prefWidth="176.0" style="-fx-background-color: #0A4969;" BorderPane.alignment="CENTER">
+                <AnchorPane prefHeight="650.0" prefWidth="190.0" style="-fx-background-color: #364959;" BorderPane.alignment="CENTER">
                     <children>
-                        <VBox layoutX="38.0" layoutY="67.0" prefHeight="282.0" prefWidth="116.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="53.0">
-                            <children>
-                                <JFXButton alignment="BASELINE_LEFT" onAction="#goToBookManage" prefHeight="38.0" prefWidth="176.0" text="도서관리" textFill="WHITE">
-                                    <font>
-                                        <Font name="System Bold" size="15.0" />
-                                    </font>
-                                </JFXButton>
-                                <JFXButton alignment="BASELINE_LEFT" onAction="#goToLoanStatus" prefHeight="38.0" prefWidth="176.0" text="대여현황" textFill="WHITE">
-                                    <font>
-                                        <Font name="System Bold" size="15.0" />
-                                    </font>
-                                </JFXButton>
-                                <JFXButton alignment="BASELINE_LEFT" onAction="#goToUserManage" prefHeight="38.0" prefWidth="176.0" text="사원관리" textFill="WHITE">
-                                    <font>
-                                        <Font name="System Bold" size="15.0" />
-                                    </font>
-                                </JFXButton>
-                                <JFXButton alignment="BASELINE_LEFT" onAction="#goToApplyStatus" prefHeight="38.0" prefWidth="176.0" text="신청현황" textFill="WHITE">
-                                    <font>
-                                        <Font name="System Bold" size="15.0" />
-                                    </font>
-                                </JFXButton>
-                            </children></VBox>
+                        <ImageView fitHeight="110.0" fitWidth="158.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../../images/checkmate_logo.png" />
+                            </image>
+                        </ImageView>
+                        <Hyperlink fx:id="userNameLink" layoutX="27.0" layoutY="560.0" style="-fx-border-width: 0;" text="홍길동" textFill="WHITE" />
+                        <FontAwesomeIconView fill="#f2f0d5" glyphName="USER" layoutX="10.0" layoutY="580.0" size="20" />
+                        <Line endX="22.0" layoutX="140.0" layoutY="585.0" startX="-132.2000274658203" stroke="#f6c5a1" strokeWidth="2.0" />
+                        <ImageView fitHeight="253.0" fitWidth="170.0" layoutX="4.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../../icons/side_menu_bu.png" />
+                            </image>
+                        </ImageView>
+                        <JFXButton alignment="TOP_RIGHT" layoutX="9.0" layoutY="170.0" onAction="#goToBookManage" prefHeight="37.0" prefWidth="160.0" styleClass="side-button" text="도서 관리" textFill="#FFFFFF" />
+                        <JFXButton alignment="TOP_RIGHT" layoutX="10.0" layoutY="225.0" onAction="#goToLoanStatus" prefHeight="37.0" prefWidth="160.0" styleClass="side-button" text="대여 현황" textFill="#FFFFFF" />
+                        <JFXButton alignment="TOP_RIGHT" layoutX="8.0" layoutY="280.0" onAction="#goToUserManage" prefHeight="46.0" prefWidth="165.0" styleClass="side-button" text="사원 관리" textFill="#FFFFFF" />
+                        <JFXButton alignment="TOP_RIGHT" layoutX="10.0" layoutY="343.0" onAction="#goToApplyStatus" prefHeight="42.0" prefWidth="160.0" style="-fx-border-color: #e0ffff; -fx-border-width: 3;" styleClass="side-button" text="신청 현황" textFill="#FFFFFF" />
+                        <Button layoutX="15.0" layoutY="21.0" mnemonicParsing="false" prefHeight="97.0" prefWidth="148.0" styleClass="home-button" />
                     </children>
-                    <opaqueInsets>
-                        <Insets />
-                    </opaqueInsets></AnchorPane>
+                </AnchorPane>
             </left>
             <center>
-                <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
                     <children>
-                        <Pane layoutY="28.0" prefHeight="5.0" prefWidth="200.0" style="-fx-background-color: black;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                        <Text layoutX="48.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="도서수정">
+                        <BorderPane prefHeight="658.0" prefWidth="818.0">
+                            <top>
+                                <AnchorPane prefHeight="107.0" prefWidth="674.0" style="-fx-background-color: #F2F2F2;" BorderPane.alignment="CENTER">
+                                    <children>
+                                        <Text fx:id="title" layoutX="220.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CheckMate" />
+                                        <Text fx:id="subTitle" layoutX="337.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="책과 함께하는 친구 같은 공간" />
+                                        <Button layoutX="767.0" layoutY="20.0" mnemonicParsing="false" onAction="#exit" styleClass="exit-button">
+                                            <graphic>
+                                                <FontAwesomeIconView fill="#05aff2" glyphName="CLOSE" size="20.0" />
+                                            </graphic>
+                                        </Button>
+                                    </children>
+                                </AnchorPane>
+                            </top>
+                        </BorderPane>
+                        <Text fx:id="subTitle2" layoutX="70.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="도서수정">
                             <font>
                                 <Font name="Bodoni MT" size="14.0" />
                             </font>
                         </Text>
-                        <JFXButton fx:id="register" layoutX="382.0" layoutY="255.0" onAction="#register" style="-fx-border-color: #000000; -fx-border-radius: 3px;" text="도서수정" />
-                  <ChoiceBox fx:id="categories" layoutX="342.0" layoutY="195.0" prefHeight="22.0" prefWidth="107.0">
-                      <items>
-                          <FXCollections fx:factory="observableArrayList">
-                              <String fx:value="1. 인문" />
-                              <String fx:value="2. 취미/실용/스포츠/여행" />
-                              <String fx:value="3. 경제/경영" />
-                              <String fx:value="4. 문학" />
-                              <String fx:value="5. 생활/요리/건강" />
-                              <String fx:value="6. 인문학일반" />
-                              <String fx:value="7. 심리학" />
-                              <String fx:value="8. 교육학" />
-                              <String fx:value="9. 문학이론/역사/비평" />
-                              <String fx:value="10. 소설" />
-                              <String fx:value="11. 시" />
-                              <String fx:value="12. 가정과 생활" />
-                              <String fx:value="13. 요리" />
-                              <String fx:value="14. 스포츠" />
-                              <String fx:value="18. 자기계발" />
-                              <String fx:value="19. 컴퓨터/IT" />
-                              <String fx:value="20. 자기계발서" />
-                              <String fx:value="21. 재태크/투자" />
-                          </FXCollections>
-                      </items>
-                  </ChoiceBox>
-                  <Text layoutX="348.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="도서 종류" />
-                  <Text layoutX="192.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="옮긴이" />
-                  <Text layoutX="55.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="저자" />
-                  <Text layoutX="58.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="도서명" />
-                  <Text layoutX="192.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="출판사" />
-                  <Text layoutX="339.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ISBN" />
-                  <TextField fx:id="bookTitle" layoutX="55.0" layoutY="119.0" prefHeight="22.0" prefWidth="110.0" />
-                  <TextField fx:id="publisher" layoutX="198.0" layoutY="119.0" prefHeight="22.0" prefWidth="110.0" />
-                  <TextField fx:id="isbn" layoutX="339.0" layoutY="119.0" prefHeight="22.0" prefWidth="110.0" />
-                  <TextField fx:id="author" layoutX="55.0" layoutY="195.0" prefHeight="22.0" prefWidth="110.0" />
-                  <TextField fx:id="translator" layoutX="198.0" layoutY="195.0" prefHeight="22.0" prefWidth="110.0" />
-                        <!--                    <JFXTextField layoutX="494.0" layoutY="57.0">-->
-
-                        <!--                    </JFXTextField>>-->
-                        <!--                        <ImageView fitHeight="28.0" fitWidth="34.0" layoutX="494.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true">-->
-                        <!--                            <image>-->
-                        <!--                                <Image url="@../../../images/search.png" />-->
-                        <!--                            </image>-->
-                        <!--                        </ImageView>-->
+                        <JFXButton fx:id="register" layoutX="400.0" layoutY="350.0" onAction="#register" style="-fx-border-color: #000000; -fx-border-radius: 3px;" text="도서수정" />
+                        <ChoiceBox fx:id="categories" layoutX="348.0" layoutY="300.0" prefHeight="22.0" prefWidth="107.0">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="1. 인문" />
+                                    <String fx:value="2. 취미/실용/스포츠/여행" />
+                                    <String fx:value="3. 경제/경영" />
+                                    <String fx:value="4. 문학" />
+                                    <String fx:value="5. 생활/요리/건강" />
+                                    <String fx:value="6. 인문학일반" />
+                                    <String fx:value="7. 심리학" />
+                                    <String fx:value="8. 교육학" />
+                                    <String fx:value="9. 문학이론/역사/비평" />
+                                    <String fx:value="10. 소설" />
+                                    <String fx:value="11. 시" />
+                                    <String fx:value="12. 가정과 생활" />
+                                    <String fx:value="13. 요리" />
+                                    <String fx:value="14. 스포츠" />
+                                    <String fx:value="18. 자기계발" />
+                                    <String fx:value="19. 컴퓨터/IT" />
+                                    <String fx:value="20. 자기계발서" />
+                                    <String fx:value="21. 재태크/투자" />
+                                </FXCollections>
+                            </items>
+                        </ChoiceBox>
+                        <Text layoutX="348.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="도서 종류" />
+                        <Text layoutX="192.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="옮긴이" />
+                        <Text layoutX="55.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="저자" />
+                        <Text layoutX="55.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="도서명" />
+                        <Text layoutX="192.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="출판사" />
+                        <Text layoutX="348.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ISBN" />
+                        <TextField fx:id="bookTitle" layoutX="55.0" layoutY="190.0" prefHeight="22.0" prefWidth="110.0" />
+                        <TextField fx:id="publisher" layoutX="192.0" layoutY="190.0" prefHeight="22.0" prefWidth="110.0" />
+                        <TextField fx:id="isbn" layoutX="348.0" layoutY="190.0" prefHeight="22.0" prefWidth="110.0" />
+                        <TextField fx:id="author" layoutX="55.0" layoutY="300.0" prefHeight="22.0" prefWidth="110.0" />
+                        <TextField fx:id="translator" layoutX="192.0" layoutY="300.0" prefHeight="22.0" prefWidth="110.0" />
                     </children>
                 </AnchorPane>
             </center>
