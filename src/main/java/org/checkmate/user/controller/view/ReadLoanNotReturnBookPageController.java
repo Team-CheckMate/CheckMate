@@ -1,5 +1,6 @@
 package org.checkmate.user.controller.view;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -7,10 +8,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import org.checkmate.common.controller.view.SceneManager;
 import org.checkmate.common.util.LoginSession;
-import org.checkmate.user.controller.server.BookController;
 import org.checkmate.user.dto.response.ReadLoanStatusResponseDto;
 import org.checkmate.user.service.BookService;
 import org.checkmate.user.service.BookServiceImpl;
@@ -30,17 +30,13 @@ import static org.checkmate.user.util.FilePath.*;
 public class ReadLoanNotReturnBookPageController implements Initializable {
 
     private final BookService bookService;
-    private final BookController bookController;
 
     public ReadLoanNotReturnBookPageController() {
         bookService = new BookServiceImpl();
-        bookController = new BookController();
     }
 
-    @FXML private Label Menu;
-    @FXML private Label MenuBack;
-    @FXML private AnchorPane slider;
-    @FXML private TextField searchName;
+    @FXML private Hyperlink userNameLink;
+    @FXML private Text tdName;
     @FXML private TableView<ReadLoanStatusResponseDto> table_book;
     @FXML private TableColumn<ReadLoanStatusResponseDto, String> bName;
     @FXML private TableColumn<ReadLoanStatusResponseDto, String> publisher;
@@ -49,7 +45,6 @@ public class ReadLoanNotReturnBookPageController implements Initializable {
     @FXML private TableColumn<ReadLoanStatusResponseDto, Date> returnPreDate;
     @FXML private TableColumn<ReadLoanStatusResponseDto, CheckBox> select;
     @FXML private TextArea overdueTextArea;
-    //@FXML private TextArea totalCnt;
     @FXML private Hyperlink overdueLink;
 
     ObservableList<ReadLoanStatusResponseDto> bookList;
@@ -88,7 +83,12 @@ public class ReadLoanNotReturnBookPageController implements Initializable {
     }
 
     private void loadDate() throws SQLException, SQLException {
-        String loginId= LoginSession.getInstance().getUserInfo().getLoginId();
+        LoginSession session = LoginSession.getInstance();
+        var userInfo = session.getUserInfo();
+        var loginId= session.getUserInfo().getLoginId();
+        userNameLink.setText(userInfo.getEName());
+        tdName.setText(userInfo.getDName() + "\n" + userInfo.getTName());
+
         select.setCellValueFactory(new PropertyValueFactory<ReadLoanStatusResponseDto, CheckBox>("select"));
         bName.setCellValueFactory(new PropertyValueFactory<ReadLoanStatusResponseDto, String>("bName"));
         publisher.setCellValueFactory(new PropertyValueFactory<ReadLoanStatusResponseDto, String>("publisher"));
@@ -130,7 +130,7 @@ public class ReadLoanNotReturnBookPageController implements Initializable {
 //            overdueTextArea.setVisible(true);
 //            overdueTextArea.setText("반납 기한이 지난 도서가 존재합니다.(" + overdueCnt + "권)\n 즉시, 반납 부탁드립니다.");
             overdueLink.setVisible(true);
-            overdueLink.setText("반납 기한이 지난 도서가 존재합니다.(" + overdueCnt + "권)\n 즉시, 반납 부탁드립니다.");
+            overdueLink.setText("반납 기한이 지난 도서가 존재합니다.(" + overdueCnt + "권) 즉시, 반납 부탁드립니다.");
         } else {
             overdueLink.setVisible(false);
 //            overdueTextArea.setVisible(false);
@@ -141,5 +141,40 @@ public class ReadLoanNotReturnBookPageController implements Initializable {
     public void moveOverduePage(ActionEvent actionEvent) {
         SceneManager sm = SceneManager.getInstance();
         sm.moveScene(READ_OVERDUE_LOAN_BOOK_FX.getFilePath());
+    }
+    
+    @FXML
+    public void goHome(ActionEvent actionEvent) {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(MAIN_FX.getFilePath());
+    }
+
+    @FXML
+    public void goToBookLoan(ActionEvent actionEvent) {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(READ_RENT_LOAN_BOOK_FX.getFilePath());
+    }
+
+    @FXML
+    public void goToLoanManage(ActionEvent actionEvent) {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(READ_NOT_RENT_LOAN_BOOK_FX.getFilePath());
+    }
+    
+    @FXML
+    public void goToMyLoanBook(ActionEvent actionEvent) {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(READ_TM_LOAN_STATUS_FX.getFilePath());
+    }
+
+    @FXML
+    public void goToBookApply(ActionEvent actionEvent) {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(READ_REQUEST_BOOK_FX.getFilePath());
+    }
+
+    @FXML
+    public void exit(ActionEvent actionEvent) {
+        Platform.exit();
     }
 }
