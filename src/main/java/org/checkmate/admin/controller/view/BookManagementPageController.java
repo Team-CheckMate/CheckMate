@@ -94,6 +94,7 @@ public class BookManagementPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        userNameLink.setText("관리자");
         try {
             loadDate();
         } catch (SQLException e) {
@@ -138,10 +139,8 @@ public class BookManagementPageController implements Initializable {
                     private final Button deleteBtn = new Button("삭제");
 
                     {
-                        modifyBtn.setStyle(
-                                "-fx-background-color: transperant; -fx-border-color: #364959 ;");
-                        deleteBtn.setStyle(
-                                "-fx-background-color: transperant; -fx-border-color: #364959 ;");
+                        modifyBtn.setStyle("-fx-background-color: transperant; -fx-border-color: #364959 ;");
+                        deleteBtn.setStyle("-fx-background-color: transperant; -fx-border-color: #364959 ;");
 
                         modifyBtn.setOnAction((event) -> {
                             BookReadLoanStatusResponseDto data = getTableView().getItems()
@@ -231,6 +230,7 @@ public class BookManagementPageController implements Initializable {
         bookList = bookController.ReadBooksByBookName(bookName);
         table_book.setItems(bookList);
         int count = bookList.size();
+
         searchCount.setText("총 : " + count + " 건");
         addButtonToTable();
     }

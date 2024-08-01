@@ -99,7 +99,6 @@ public class UserManagementPageController implements Initializable {
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
-
   }
 
 

@@ -10,6 +10,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.ResourceBundle;
+import javafx.animation.TranslateTransition;
+
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -28,7 +30,6 @@ import javafx.util.Callback;
 import org.checkmate.admin.controller.server.BookController;
 import org.checkmate.admin.dto.response.ReadBookLoanRecordsResponseDto;
 import org.checkmate.common.controller.view.SceneManager;
-
 
 /**
  * 도서 대여 현황
@@ -66,6 +67,8 @@ public class BookRentStatusPageController implements Initializable  {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        userNameLink.setText("관리자");
         try {
             loadData();
         } catch (SQLException e) {
@@ -103,7 +106,6 @@ public class BookRentStatusPageController implements Initializable  {
         SceneManager sm = SceneManager.getInstance();
         sm.moveScene("/org/checkmate/view/layouts/admin/userAddPage.fxml");
     }
-
     public void Msg(String msg,String function) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("도서 관리");
