@@ -1,94 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.geometry.Insets?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.checkmate.user.controller.view.ReadLoanNotReturnBookPageController">
-    <children>
-        <BorderPane layoutX="67.0" layoutY="57.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <top>
-                <AnchorPane prefHeight="65.0" prefWidth="200.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
-                    <children>
-                        <Pane layoutX="72.0" layoutY="20.0" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #032d4d;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                        <Label fx:id="Menu" layoutX="20.0" layoutY="36.0" text="MENU" textFill="#b7b7b7">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
-                        <Label fx:id="MenuBack" layoutX="20.0" layoutY="36.0" text="MENU" textFill="#b7b7b7">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
-                    </children>
-                </AnchorPane>
-            </top>
-            <left>
-                <AnchorPane fx:id="slider" prefHeight="362.0" prefWidth="130.0" style="-fx-background-color: #0A4969;" BorderPane.alignment="CENTER">
-                    <children>
-                        <VBox layoutX="38.0" layoutY="67.0" prefHeight="282.0" prefWidth="70.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="53.0">
-                            <children>
-                                <JFXButton alignment="BASELINE_LEFT" prefHeight="38.0" prefWidth="176.0" text="도서대여" textFill="WHITE">
-                                    <font>
-                                        <Font name="System Bold" size="15.0" />
-                                    </font>
-                                </JFXButton>
-                                <JFXButton alignment="BASELINE_LEFT" prefHeight="38.0" prefWidth="176.0" text="대여정보" textFill="WHITE">
-                                    <font>
-                                        <Font name="System Bold" size="15.0" />
-                                    </font>
-                                </JFXButton>
-                                <JFXButton alignment="BASELINE_LEFT" prefHeight="38.0" prefWidth="176.0" text="나의부서대여현황" textFill="WHITE">
-                                    <font>
-                                        <Font name="System Bold" size="15.0" />
-                                    </font>
-                                </JFXButton>
-                                <JFXButton alignment="BASELINE_LEFT" prefHeight="38.0" prefWidth="176.0" text="도서신청" textFill="WHITE">
-                                    <font>
-                                        <Font name="System Bold" size="15.0" />
-                                    </font>
-                                </JFXButton>
-                            </children></VBox>
-                    </children>
-                    <opaqueInsets>
-                        <Insets />
-                    </opaqueInsets></AnchorPane>
-            </left>
-            <center>
-                <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                    <children>
-                        <TableView fx:id="table_book" layoutX="40.0" layoutY="139.0" prefHeight="256.0" prefWidth="535.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="139.0">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" stylesheets="@../../style/user/readLoanNotReturnBookPage.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.checkmate.user.controller.view.ReadLoanNotReturnBookPageController">
+    <top>
+        <AnchorPane prefHeight="0.0" prefWidth="1000.0" BorderPane.alignment="CENTER" />
+    </top>
+    <left>
+        <AnchorPane prefHeight="650.0" prefWidth="82.0" styleClass="left-pane" BorderPane.alignment="CENTER">
+            <ImageView fitHeight="110.0" fitWidth="158.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                <Image url="@../../../images/checkmate_logo.png" />
+            </ImageView>
+            <Text fx:id="tdName" layoutX="10.0" layoutY="605.0" styleClass="user-info-text" text="부서명 팀명" />
+            <Hyperlink fx:id="userNameLink" layoutX="30.0" layoutY="560.0" styleClass="user-name-link" text="홍길동" />
+            <Text layoutX="81.0" layoutY="580.0" styleClass="user-info-text" text="사원님" />
+            <FontAwesomeIconView fill="#f2f0d5" glyphName="USER" layoutX="10.0" layoutY="578.0" size="20" />
+            <Line endX="12.5" layoutX="141.0" layoutY="585.0" startX="-132.2000274658203" styleClass="line" />
+            <ImageView fitHeight="217.0" fitWidth="153.0" layoutX="5.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true">
+                <Image url="@../../../icons/side_menu_bu2.png" />
+            </ImageView>
+            <Button layoutX="15.0" layoutY="21.0" mnemonicParsing="false" onAction="#goHome" prefHeight="97.0" prefWidth="148.0" styleClass="home-button" />
+            <JFXButton alignment="CENTER_RIGHT" layoutX="11.0" layoutY="145.0" onAction="#goToBookLoan" prefHeight="35.0" prefWidth="142.0" styleClass="side-button" text="도서 대여" />
+            <JFXButton alignment="CENTER_RIGHT" layoutX="10.0" layoutY="195.0" onAction="#goToLoanManage" prefHeight="37.0" prefWidth="144.0" styleClass="active-side-button" text="대여 정보" />
+            <JFXButton alignment="CENTER_RIGHT" layoutX="8.0" layoutY="245.0" onAction="#goToMyLoanBook" prefHeight="43.0" prefWidth="149.0" styleClass="side-button" text="대여 현황" />
+            <JFXButton alignment="CENTER_RIGHT" layoutX="11.0" layoutY="302.0" onAction="#goToBookApply" prefHeight="38.0" prefWidth="143.0" styleClass="side-button" text="도서 신청" />
+        </AnchorPane>
+    </left>
+    <center>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="center-pane" BorderPane.alignment="CENTER">
+            <BorderPane prefHeight="650.0" prefWidth="837.0">
+                <top>
+                    <AnchorPane prefHeight="107.0" prefWidth="882.0" styleClass="top-pane" BorderPane.alignment="CENTER">
+                        <Text fx:id="title" layoutX="278.0" layoutY="61.0" styleClass="title" text="CheckMate" />
+                        <Text fx:id="subTitle" layoutX="395.0" layoutY="89.0" styleClass="subtitle" text="책과 함께하는 친구 같은 공간" />
+                        <Button layoutX="799.0" layoutY="4.0" mnemonicParsing="false" onAction="#exit" prefHeight="30.0" prefWidth="33.0" styleClass="exit-button">
+                            <graphic>
+                                <FontAwesomeIconView fill="#05aff2" glyphName="CLOSE" size="20.0" />
+                            </graphic>
+                        </Button>
+                    </AnchorPane>
+                </top>
+                <left>
+                    <AnchorPane prefHeight="457.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
+                </left>
+                <right>
+                    <AnchorPane prefHeight="457.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
+                </right>
+                <bottom>
+                    <AnchorPane prefHeight="0.0" prefWidth="674.0" BorderPane.alignment="CENTER" />
+                </bottom>
+                <center>
+                    <AnchorPane prefHeight="550.0" prefWidth="834.0" styleClass="center-inner-pane" BorderPane.alignment="CENTER">
+                        <ImageView fitHeight="50.0" fitWidth="178.0" layoutX="335.0" layoutY="462.0" pickOnBounds="true" preserveRatio="true">
+                            <Image url="@../../../images/company_logo.jpg" />
+                        </ImageView>
+                        <TableView fx:id="table_book" layoutX="30.0" layoutY="44.0" prefHeight="285.0" prefWidth="778.0" styleClass="table-view">
                             <columns>
-                                <TableColumn fx:id="select" prefWidth="75.0" style="-fx-alignment: center;" text="선택" />
-                                <TableColumn fx:id="bName" prefWidth="75.0" style="-fx-alignment: center;" text="제목" />
-                                <TableColumn fx:id="publisher" prefWidth="75.0" style="-fx-alignment: center;" text="출판사" />
-                                <TableColumn fx:id="author" prefWidth="75.0" style="-fx-alignment: center;" text="저자" />
-                                <TableColumn fx:id="loanDate" prefWidth="75.0" style="-fx-alignment: center;" text="대출일자" />
-                                <TableColumn fx:id="returnPreDate" prefWidth="75.0" style="-fx-alignment: center;" text="반납예정일자" />
+                                <TableColumn fx:id="select" prefWidth="30.0" styleClass="table-column" text="선택" />
+                                <TableColumn fx:id="bName" prefWidth="111.0" styleClass="table-column" text="제목" />
+                                <TableColumn fx:id="publisher" prefWidth="139.0" styleClass="table-column" text="출판사" />
+                                <TableColumn fx:id="author" prefWidth="120.0" styleClass="table-column" text="저자" />
+                                <TableColumn fx:id="loanDate" prefWidth="120.0" styleClass="table-column" text="대출일자" />
+                                <TableColumn fx:id="returnPreDate" prefWidth="130.0" styleClass="table-column" text="반납예정일자" />
                             </columns>
+                            <columnResizePolicy>
+                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                            </columnResizePolicy>
                         </TableView>
-                        <Pane layoutY="28.0" prefHeight="5.0" prefWidth="200.0" style="-fx-background-color: black;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                        <Text layoutX="48.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="대여정보">
+                        <Text fx:id="subTitle2" layoutX="25.0" layoutY="33.0" styleClass="subtitle2" text="대여 정보" textAlignment="CENTER">
                             <font>
-                                <Font name="Bodoni MT" size="14.0" />
+                                <Font name="System Bold" size="12.0" />
                             </font>
                         </Text>
-                        <JFXButton layoutX="566.0" layoutY="421.0" onAction="#returnLoanBookBtn" text="반납하기" />
-                        <JFXButton layoutX="470.0" layoutY="86.0" onAction="#readDoneBookBtn" text="내가 읽은 책" />
-                        <Hyperlink fx:id="overdueLink" layoutX="329.0" layoutY="461.0" onAction="#moveOverduePage" />
-                    </children>
-                </AnchorPane>
-            </center>
-        </BorderPane>
-    </children>
-</AnchorPane>
+                        <Line endX="675.0" layoutX="124.0" layoutY="70.0" startX="-94.0" styleClass="table-line" />
+                        <JFXButton layoutX="736.0" layoutY="329.0" onAction="#returnLoanBookBtn" style="-fx-background-color: #364959;" text="반납하기" textFill="WHITE" />
+                        <JFXButton layoutX="715.0" layoutY="14.0" onAction="#readDoneBookBtn" style="-fx-background-color: #364959;" text="내가 읽은 책" textFill="WHITE" />
+                        <Hyperlink fx:id="overdueLink" layoutX="155.0" layoutY="15.0" onAction="#moveOverduePage" />
+                    </AnchorPane>
+                </center>
+            </BorderPane>
+        </AnchorPane>
+    </center>
+    <right>
+        <AnchorPane prefHeight="509.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
+    </right>
+</BorderPane>

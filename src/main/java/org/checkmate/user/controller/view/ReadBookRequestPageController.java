@@ -103,7 +103,7 @@ public class ReadBookRequestPageController implements Initializable  {
     @FXML
     public void goToMyLoanBook(ActionEvent actionEvent) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene(MAIN_FX.getFilePath());
+        sm.moveScene(READ_TM_LOAN_STATUS_FX.getFilePath());
     }
 
     @FXML

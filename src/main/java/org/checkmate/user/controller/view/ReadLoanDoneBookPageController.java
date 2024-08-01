@@ -1,13 +1,15 @@
 package org.checkmate.user.controller.view;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
+import org.checkmate.common.controller.view.SceneManager;
 import org.checkmate.common.util.LoginSession;
-import org.checkmate.user.controller.server.BookController;
 import org.checkmate.user.dto.response.ReadLoanStatusResponseDto;
 import org.checkmate.user.service.BookService;
 import org.checkmate.user.service.BookServiceImpl;
@@ -17,24 +19,21 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import static org.checkmate.user.util.FilePath.*;
+
 /**
  * 내가 읽은 책 컨트롤러
  * HISTORY1: 최초 생성                              [권혁규  2024.07.29]
  */
 public class ReadLoanDoneBookPageController implements Initializable {
     private final BookService bookService;
-    private final BookController bookController;
 
     public ReadLoanDoneBookPageController() {
         bookService = new BookServiceImpl();
-        bookController = new BookController();
     }
 
-    @FXML
-    private Label Menu;
-    @FXML private Label MenuBack;
-    @FXML private AnchorPane slider;
-    @FXML private TextField searchName;
+    @FXML private Hyperlink userNameLink;
+    @FXML private Text tdName;
     @FXML private TableView<ReadLoanStatusResponseDto> table_book;
     @FXML private TableColumn<ReadLoanStatusResponseDto, String> bName;
     @FXML private TableColumn<ReadLoanStatusResponseDto, String> publisher;
@@ -54,7 +53,12 @@ public class ReadLoanDoneBookPageController implements Initializable {
     }
 
     private void loadDate() throws SQLException, SQLException {
-        String loginId = LoginSession.getInstance().getUserInfo().getLoginId();
+        LoginSession session = LoginSession.getInstance();
+        var userInfo = session.getUserInfo();
+        var loginId= session.getUserInfo().getLoginId();
+        userNameLink.setText(userInfo.getEName());
+        tdName.setText(userInfo.getDName() + "\n" + userInfo.getTName());
+
         bName.setCellValueFactory(new PropertyValueFactory<ReadLoanStatusResponseDto, String>("bName"));
         publisher.setCellValueFactory(new PropertyValueFactory<ReadLoanStatusResponseDto, String>("publisher"));
         author.setCellValueFactory(new PropertyValueFactory<ReadLoanStatusResponseDto, String>("author"));
@@ -62,5 +66,40 @@ public class ReadLoanDoneBookPageController implements Initializable {
         returnDate.setCellValueFactory(new PropertyValueFactory<ReadLoanStatusResponseDto, Date>("returnDate"));
         bookList = bookService.findAllReadMyBooks(loginId);
         table_book.setItems(bookList);
+    }
+
+    @FXML
+    public void goHome(ActionEvent actionEvent) {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(MAIN_FX.getFilePath());
+    }
+
+    @FXML
+    public void goToBookLoan(ActionEvent actionEvent) {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(READ_RENT_LOAN_BOOK_FX.getFilePath());
+    }
+
+    @FXML
+    public void goToLoanManage(ActionEvent actionEvent) {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(READ_NOT_RENT_LOAN_BOOK_FX.getFilePath());
+    }
+
+    @FXML
+    public void goToMyLoanBook(ActionEvent actionEvent) {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(READ_TM_LOAN_STATUS_FX.getFilePath());
+    }
+
+    @FXML
+    public void goToBookApply(ActionEvent actionEvent) {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(READ_REQUEST_BOOK_FX.getFilePath());
+    }
+
+    @FXML
+    public void exit(ActionEvent actionEvent) {
+        Platform.exit();
     }
 }

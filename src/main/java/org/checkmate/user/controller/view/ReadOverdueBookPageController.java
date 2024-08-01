@@ -1,5 +1,6 @@
 package org.checkmate.user.controller.view;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -8,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import org.checkmate.common.controller.view.SceneManager;
 import org.checkmate.common.util.LoginSession;
 import org.checkmate.user.controller.server.BookController;
@@ -21,7 +23,7 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import static javafx.scene.control.Alert.AlertType.WARNING;
-import static org.checkmate.user.util.FilePath.READ_OVERDUE_LOAN_BOOK_FX;
+import static org.checkmate.user.util.FilePath.*;
 
 /**
  * 대여정보(연체중) 컨트롤러
@@ -30,17 +32,13 @@ import static org.checkmate.user.util.FilePath.READ_OVERDUE_LOAN_BOOK_FX;
 public class ReadOverdueBookPageController implements Initializable  {
 
     private final BookService bookService;
-    private final BookController bookController;
 
     public ReadOverdueBookPageController() {
         bookService = new BookServiceImpl();
-        bookController = new BookController();
     }
 
-    @FXML private Label Menu;
-    @FXML private Label MenuBack;
-    @FXML private AnchorPane slider;
-    @FXML private TextField searchName;
+    @FXML private Hyperlink userNameLink;
+    @FXML private Text tdName;
     @FXML private TableView<ReadLoanStatusResponseDto> table_book;
     @FXML private TableColumn<ReadLoanStatusResponseDto, String> bName;
     @FXML private TableColumn<ReadLoanStatusResponseDto, String> publisher;
@@ -61,7 +59,12 @@ public class ReadOverdueBookPageController implements Initializable  {
     }
 
     private void loadDate() throws SQLException, SQLException {
-        String loginId= LoginSession.getInstance().getUserInfo().getLoginId();
+        LoginSession session = LoginSession.getInstance();
+        var userInfo = session.getUserInfo();
+        var loginId= session.getUserInfo().getLoginId();
+        userNameLink.setText(userInfo.getEName());
+        tdName.setText(userInfo.getDName() + "\n" + userInfo.getTName());
+
         select.setCellValueFactory(new PropertyValueFactory<ReadLoanStatusResponseDto, CheckBox>("select"));
         bName.setCellValueFactory(new PropertyValueFactory<ReadLoanStatusResponseDto, String>("bName"));
         publisher.setCellValueFactory(new PropertyValueFactory<ReadLoanStatusResponseDto, String>("publisher"));
@@ -100,5 +103,40 @@ public class ReadOverdueBookPageController implements Initializable  {
         alert.setHeaderText("대여정보");
         alert.setContentText(msg);
         alert.show();
+    }
+
+    @FXML
+    public void goHome(ActionEvent actionEvent) {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(MAIN_FX.getFilePath());
+    }
+
+    @FXML
+    public void goToBookLoan(ActionEvent actionEvent) {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(READ_RENT_LOAN_BOOK_FX.getFilePath());
+    }
+
+    @FXML
+    public void goToLoanManage(ActionEvent actionEvent) {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(READ_NOT_RENT_LOAN_BOOK_FX.getFilePath());
+    }
+
+    @FXML
+    public void goToMyLoanBook(ActionEvent actionEvent) {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(READ_TM_LOAN_STATUS_FX.getFilePath());
+    }
+
+    @FXML
+    public void goToBookApply(ActionEvent actionEvent) {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(READ_REQUEST_BOOK_FX.getFilePath());
+    }
+
+    @FXML
+    public void exit(ActionEvent actionEvent) {
+        Platform.exit();
     }
 }
