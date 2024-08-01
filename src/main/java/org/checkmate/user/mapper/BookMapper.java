@@ -116,20 +116,22 @@ public class BookMapper {
     /**
      * 나의 부서 대여 현황을 위해 필요한 데이터 가져오기 위한 DataBase Connection 로직
      *
-     * @param teamId 부서 번호
+     * @param teamNo 부서 번호
      * @return List<TeamMemberLoanStatusDegree> 필요한 요청에 대한 응답 객체를 담은 List 타입 객체
      * @throws DatabaseException DataBase 예외
      */
-    public List<TeamMemberLoanStatusDegree> findTeamMemberLoanStatus(Long teamId) {
+    public List<TeamMemberLoanStatusDegree> findTeamMemberLoanStatus(Long teamNo) {
+        System.out.println("[ HELLO This is BookMapper ] findTeamMemberLoanStatus IN!! ");
         List<TeamMemberLoanStatusDegree> list = new ArrayList<>();
         String query = prop.getProperty("findTeamMemberLoanStatus");
+        System.out.println("[ >>> ] Query xml File's load Success! ");
 
         try (
                 Connection connection = DBConnector.getInstance().getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(query)
         ) {
-            preparedStatement.setLong(1, teamId);
-
+            preparedStatement.setLong(1, teamNo);
+            System.out.println(" >>> ? ");
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 TeamMemberLoanStatusDegree dto = TeamMemberLoanStatusDegree.builder()

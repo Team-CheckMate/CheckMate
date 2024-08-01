@@ -1,41 +1,35 @@
 package org.checkmate.admin.controller.view;
 
+import static org.checkmate.admin.util.FilePath.BOOK_LOAN_STATUS_FX;
+import static org.checkmate.admin.util.FilePath.BOOK_MANAGEMENT_FX;
+import static org.checkmate.admin.util.FilePath.MANAGEMENT_FX;
 import static org.checkmate.admin.util.FilePath.RENT_STATUS_CHART_DEPARTMENTS_FX;
 import static org.checkmate.admin.util.FilePath.RENT_STATUS_CHART_TEAMS_FX;
 
-import javafx.animation.TranslateTransition;
-import javafx.application.Platform;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import javafx.util.Callback;
-import javafx.util.Duration;
-import org.checkmate.admin.controller.server.BookController;
-import org.checkmate.admin.dto.response.BookReadLoanStatusResponseDto;
-import org.checkmate.admin.dto.response.ReadBookLoanRecordsResponseDto;
-import org.checkmate.admin.service.BookManagementService;
-import org.checkmate.admin.service.BookManagementServiceImpl;
-import org.checkmate.common.controller.view.SceneManager;
-
-
-import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.ResourceBundle;
-import org.checkmate.common.util.LoginSession;
+import javafx.animation.TranslateTransition;
 
+import javafx.application.Platform;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
+import javafx.util.Callback;
+import org.checkmate.admin.controller.server.BookController;
+import org.checkmate.admin.dto.response.ReadBookLoanRecordsResponseDto;
+import org.checkmate.common.controller.view.SceneManager;
 
 /**
  * 도서 대여 현황
@@ -50,7 +44,6 @@ public class BookRentStatusPageController implements Initializable  {
         bookController = new BookController();
     }
 
-    @FXML private Hyperlink userNameLink;
     @FXML private Text searchCount;
     @FXML private TextField searchContent;
     @FXML private TableView<ReadBookLoanRecordsResponseDto> table_book_loan_records;
@@ -87,13 +80,13 @@ public class BookRentStatusPageController implements Initializable  {
     @FXML
     private void goToBookManage(ActionEvent event) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/admin/bookManagementPage.fxml");
+        sm.moveScene(BOOK_MANAGEMENT_FX.getFilePath());
     }
 
     @FXML
     private void goToLoanStatus(ActionEvent event) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/admin/applyStatusViewPage.fxml"); //변경
+        sm.moveScene(BOOK_LOAN_STATUS_FX.getFilePath()); //변경
     }
 
     @FXML
@@ -107,7 +100,6 @@ public class BookRentStatusPageController implements Initializable  {
         SceneManager sm = SceneManager.getInstance();
         sm.moveScene("/org/checkmate/view/layouts/admin/applyStatusViewPage.fxml");
     }
-
 
     @FXML
     private void createUserBtn(ActionEvent event) {
@@ -225,5 +217,10 @@ public class BookRentStatusPageController implements Initializable  {
     public void moveToCheckChartByTeams(ActionEvent actionEvent) {
         SceneManager sm = SceneManager.getInstance();
         sm.moveScene(RENT_STATUS_CHART_TEAMS_FX.getFilePath());
+    }
+
+    public void goHome(ActionEvent event) {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(MANAGEMENT_FX.getFilePath());
     }
 }
