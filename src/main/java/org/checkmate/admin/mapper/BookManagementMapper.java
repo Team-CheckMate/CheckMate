@@ -288,7 +288,7 @@ public class BookManagementMapper {
      * @throws SQLException SQL 서버 에러
      */
     public String update_return_date(Long blrId) throws SQLException{
-        String query = prop.getProperty("update_return_date");
+        String query = prop.getProperty("update_book_status");
         int updateRows = 0;
         try (
             Connection connection = DBConnector.getInstance().getConnection();
