@@ -5,7 +5,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import org.checkmate.common.controller.view.SceneManager;
 import org.checkmate.common.util.LoginSession;
 import org.checkmate.user.service.BookService;
@@ -29,13 +31,18 @@ public class CreateBookRequestPageController implements Initializable {
         bookService = new BookServiceImpl();
     }
 
+    @FXML private Hyperlink userNameLink;
+    @FXML private Text tdName;
     @FXML private TextField bName;
     @FXML private TextField publisher;
     @FXML private TextField author;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        LoginSession session = LoginSession.getInstance();
+        var userInfo = session.getUserInfo();
+        userNameLink.setText(userInfo.getEName());
+        tdName.setText(userInfo.getDName() + "\n" + userInfo.getTName());
     }
 
     @FXML
