@@ -1,11 +1,17 @@
 package org.checkmate.user.controller.view;
 
 import static javafx.scene.control.Alert.AlertType.WARNING;
+import static org.checkmate.user.util.FilePath.BOOK_LOAN;
+import static org.checkmate.user.util.FilePath.LOAN_MANAGE;
+import static org.checkmate.user.util.FilePath.MAIN_FX;
+import static org.checkmate.user.util.FilePath.READ_REQUEST_BOOK_FX;
+import static org.checkmate.user.util.FilePath.READ_TM_LOAN_STATUS_FX;
 
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,18 +19,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
-
+import javafx.scene.text.Text;
+import lombok.RequiredArgsConstructor;
 import org.checkmate.common.controller.view.SceneManager;
-import org.checkmate.user.controller.server.BookController;
-import org.checkmate.common.service.LoginService;
-import org.checkmate.common.service.LoginServiceImpl;
 import org.checkmate.common.util.LoginSession;
 import org.checkmate.user.controller.server.BookController;
 import org.checkmate.user.dto.request.CreateBookLoanRequestDto;
@@ -39,73 +42,67 @@ import org.checkmate.user.service.BookServiceImpl;
  * 도서대여 컨트롤러
  * HISTORY1: 최초 생성                              [권혁규  2024.07.29]
  */
+@RequiredArgsConstructor
 public class ReadLoanBookPageController implements Initializable {
 
-    private final BookService bookService;
-    private final BookController bookController;
+    private final BookService bookService = new BookServiceImpl();
+    private final BookController bookController = new BookController();
 
-    public ReadLoanBookPageController() {
-        bookService = new BookServiceImpl();
-        bookController = new BookController();
-    }
-
-    @FXML
-    private Label Menu;
-
-    @FXML
-    private Label MenuBack;
-
-    @FXML
-    private AnchorPane slider;
-
-    @FXML
-    private TextField searchName;
-
-    @FXML
-    private TableView<ReadLoanStatusResponseDto> table_book;
-
-    @FXML
-    private TableColumn<ReadLoanStatusResponseDto, String> bName;
-
-    @FXML
-    private TableColumn<ReadLoanStatusResponseDto, String> publisher;
-
-    @FXML
-    private TableColumn<ReadLoanStatusResponseDto, String> author;
-
-    @FXML
-    private TableColumn<ReadLoanStatusResponseDto, Boolean> lStatus;
-
-    @FXML
-    private TableColumn<ReadLoanStatusResponseDto, Date> date;
-
-    @FXML
-    private TableColumn<ReadLoanStatusResponseDto, CheckBox> select;
+    @FXML private Hyperlink userNameLink;
+    @FXML private Text tdName;
+    @FXML private TextField searchName;
+    @FXML private TableView<ReadLoanStatusResponseDto> table_book;
+    @FXML private TableColumn<ReadLoanStatusResponseDto, String> bName;
+    @FXML private TableColumn<ReadLoanStatusResponseDto, String> publisher;
+    @FXML private TableColumn<ReadLoanStatusResponseDto, String> author;
+    @FXML private TableColumn<ReadLoanStatusResponseDto, Boolean> lStatus;
+    @FXML private TableColumn<ReadLoanStatusResponseDto, Date> date;
+    @FXML private TableColumn<ReadLoanStatusResponseDto, CheckBox> select;
 
     ObservableList<ReadLoanStatusResponseDto> bookList;
 
-    //사이드바 이동
-    @FXML private void goToBookLoan(ActionEvent event)
-    {
+    @FXML
+    private void exit(ActionEvent event) {
+        Platform.exit();
+    }
+
+    @FXML
+    public void goHome(ActionEvent event) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/user/readLoanBookPage.fxml");
+        sm.moveScene(MAIN_FX.getFilePath());
     }
-    @FXML private void goToLoanManage(ActionEvent event)
-    {
+
+    @FXML
+    private void goToBookLoan(ActionEvent event) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/user/readLoanBookPage.fxml"); //변경
+        sm.moveScene(BOOK_LOAN.getFilePath());
     }
-    @FXML private void goToMyLoanBook(ActionEvent event)
-    {
+
+    @FXML
+    private void goToLoanManage(ActionEvent event) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/user/readLoanBookPage.fxml");
+        sm.moveScene(LOAN_MANAGE.getFilePath());
     }
-    @FXML private void goToBookApply(ActionEvent event)
-    {SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/user/readLoanBookPage.fxml");
+
+    @FXML
+    private void goToMyLoanBook(ActionEvent event) {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(READ_TM_LOAN_STATUS_FX.getFilePath());
     }
+
+    @FXML
+    private void goToBookApply(ActionEvent event) {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(READ_REQUEST_BOOK_FX.getFilePath());
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        var instance = LoginSession.getInstance();
+        var userInfo = instance.getUserInfo();
+        userNameLink.setText(userInfo.getEName());
+        tdName.setText(userInfo.getDName() + '\n' + userInfo.getTName());
+
         try {
             loadDate();
         } catch (SQLException e) {
@@ -115,7 +112,8 @@ public class ReadLoanBookPageController implements Initializable {
     }
 
     private void loadDate() throws SQLException, SQLException {
-        select.setCellValueFactory(new PropertyValueFactory<ReadLoanStatusResponseDto, CheckBox>("select"));
+        select.setCellValueFactory(
+                new PropertyValueFactory<ReadLoanStatusResponseDto, CheckBox>("select"));
 //        select.setCellFactory(new Callback<>() {
 //            public TableCell<BookLoanStatus, CheckBox> call(TableColumn<BookLoanStatus, CheckBox> param) {
 //              return new TableCell<>() {
@@ -135,10 +133,14 @@ public class ReadLoanBookPageController implements Initializable {
 //              };
 //            }
 //        });
-        bName.setCellValueFactory(new PropertyValueFactory<ReadLoanStatusResponseDto, String>("bName"));
-        publisher.setCellValueFactory(new PropertyValueFactory<ReadLoanStatusResponseDto, String>("publisher"));
-        author.setCellValueFactory(new PropertyValueFactory<ReadLoanStatusResponseDto, String>("author"));
-        lStatus.setCellValueFactory(new PropertyValueFactory<ReadLoanStatusResponseDto, Boolean>("lStatus"));
+        bName.setCellValueFactory(
+                new PropertyValueFactory<ReadLoanStatusResponseDto, String>("bName"));
+        publisher.setCellValueFactory(
+                new PropertyValueFactory<ReadLoanStatusResponseDto, String>("publisher"));
+        author.setCellValueFactory(
+                new PropertyValueFactory<ReadLoanStatusResponseDto, String>("author"));
+        lStatus.setCellValueFactory(
+                new PropertyValueFactory<ReadLoanStatusResponseDto, Boolean>("lStatus"));
         //대여상태 값이 boolean이어서 텍스트로 변환작업
         lStatus.setCellFactory(column -> new TableCell<ReadLoanStatusResponseDto, Boolean>() {
             @Override
@@ -151,7 +153,8 @@ public class ReadLoanBookPageController implements Initializable {
                 }
             }
         });
-        date.setCellValueFactory(new PropertyValueFactory<ReadLoanStatusResponseDto, Date>("returnPreDate"));
+        date.setCellValueFactory(
+                new PropertyValueFactory<ReadLoanStatusResponseDto, Date>("returnPreDate"));
         //BookMapper bm = new BookMapper();
         bookList = bookService.findAllBooks();
         table_book.setItems(bookList);
@@ -167,11 +170,11 @@ public class ReadLoanBookPageController implements Initializable {
     @FXML
     public void createLoanBookBtn(ActionEvent actionEvent) throws SQLException {
         String loginId = LoginSession.getInstance().getUserInfo().getLoginId();
-        ObservableList<ReadLoanStatusResponseDto> selectedBooks  = FXCollections.observableArrayList();
+        ObservableList<ReadLoanStatusResponseDto> selectedBooks = FXCollections.observableArrayList();
 
-        for(ReadLoanStatusResponseDto bean : bookList) {
-            if(bean.getSelect().isSelected()) {
-                selectedBooks .add(bean);
+        for (ReadLoanStatusResponseDto bean : bookList) {
+            if (bean.getSelect().isSelected()) {
+                selectedBooks.add(bean);
                 System.out.println("도서 대여 정보 = " + bean);
             }
         }
