@@ -6,6 +6,7 @@ import static org.checkmate.user.util.FilePath.MAIN_FX;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,6 +16,7 @@ import javafx.scene.control.TextField;
 import lombok.NoArgsConstructor;
 import org.checkmate.common.controller.server.LoginController;
 import org.checkmate.common.dto.response.UserInfo;
+import org.checkmate.common.exception.DatabaseException;
 import org.checkmate.common.exception.ValidationException;
 import org.checkmate.common.util.LoginSession;
 import org.checkmate.common.util.PasswordEncoder;
@@ -32,10 +34,13 @@ public class LoginPageController {
 
     private final LoginController loginController = new LoginController();
 
-    @FXML private TextField loginIdField;
-    @FXML private PasswordField loginPwField;
+    @FXML
+    private TextField loginIdField;
+    @FXML
+    private PasswordField loginPwField;
 
-    @FXML private void exit(ActionEvent event) {
+    @FXML
+    private void exit(ActionEvent event) {
         Platform.exit();
     }
 
@@ -43,13 +48,15 @@ public class LoginPageController {
     public void loginBtnClick(ActionEvent actionEvent) throws NoSuchAlgorithmException {
         validateUserFields();
 
-        UserInfo userInfo = loginController.getUserInfo(
-                loginIdField.getText(),
-                PasswordEncoder.encrypt(loginPwField.getText())
-        );
-
-        LoginSession instance = LoginSession.getInstance(userInfo);
+        UserInfo userInfo = null;
         try {
+            userInfo = loginController.getUserInfo(
+                    loginIdField.getText(),
+                    PasswordEncoder.encrypt(loginPwField.getText())
+            );
+
+            LoginSession instance = LoginSession.getInstance(userInfo);
+
             if (Objects.equals(userInfo.getRole(), "ADMIN")) {
                 System.out.println("관리자 로그인");
                 SceneManager sm = SceneManager.getInstance();
@@ -61,7 +68,7 @@ public class LoginPageController {
             }
             assert instance != null;
             System.out.println(instance.getUserInfo().toString());
-        } catch (ValidationException e) {
+        } catch (DatabaseException | ValidationException e) {
             showAlert(e.getMessage());
         }
     }
@@ -81,6 +88,7 @@ public class LoginPageController {
 
     private void isNotEmpty(TextField field, String message) {
         if (field.getText().trim().isEmpty()) {
+            showAlert(message);
             throw new ValidationException(message);
         }
     }
