@@ -1,9 +1,9 @@
 package org.checkmate.user.controller.view;
 
-import static org.checkmate.user.util.FilePath.BOOK_APPLY;
 import static org.checkmate.user.util.FilePath.BOOK_LOAN;
 import static org.checkmate.user.util.FilePath.LOAN_MANAGE;
 import static org.checkmate.user.util.FilePath.MAIN_FX;
+import static org.checkmate.user.util.FilePath.READ_REQUEST_BOOK_FX;
 import static org.checkmate.user.util.FilePath.READ_TM_LOAN_STATUS_FX;
 import static org.checkmate.user.util.FilePath.UPDATE_PW_FX;
 
@@ -80,7 +80,7 @@ public class ReadMyInformationPageController implements Initializable {
     @FXML
     private void goToBookApply(ActionEvent event) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene(BOOK_APPLY.getFilePath());
+        sm.moveScene(READ_REQUEST_BOOK_FX.getFilePath());
     }
 
 }
