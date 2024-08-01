@@ -1,16 +1,22 @@
 package org.checkmate.user.controller.view;
 
+import static org.checkmate.user.util.FilePath.BOOK_LOAN;
+import static org.checkmate.user.util.FilePath.CREATE_REQUEST_BOOK_FX;
+import static org.checkmate.user.util.FilePath.LOAN_MANAGE;
+import static org.checkmate.user.util.FilePath.MAIN_FX;
 import static org.checkmate.user.util.FilePath.READ_MY_INFO_FX;
+import static org.checkmate.user.util.FilePath.READ_TM_LOAN_STATUS_FX;
 
-import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -28,40 +34,53 @@ public class UpdatePasswordPageController implements Initializable {
 
     private final LoginService loginService = new LoginServiceImpl();
 
-    @FXML private Text username;
+    @FXML private Hyperlink userNameLink;
+    @FXML private Text dtName;
     @FXML private TextField nowPw;
     @FXML private PasswordField changePw;
     @FXML private PasswordField checkChangePw;
 
     @FXML
-    private void exit(javafx.event.ActionEvent event) {
+    private void exit(ActionEvent event) {
         Platform.exit();
     }
-    //사이드바 이동
-    @FXML private void goToBookLoan(javafx.event.ActionEvent event)
-    {
+
+    @FXML
+    public void goHome(ActionEvent event) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/user/readLoanBookPage.fxml");
+        sm.moveScene(MAIN_FX.getFilePath());
     }
-    @FXML private void goToLoanManage(javafx.event.ActionEvent event)
-    {
+
+    @FXML
+    private void goToBookLoan(ActionEvent event) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/user/readLoanBookPage.fxml"); //변경
+        sm.moveScene(BOOK_LOAN.getFilePath());
     }
-    @FXML private void goToMyLoanBook(javafx.event.ActionEvent event)
-    {
+
+    @FXML
+    private void goToLoanManage(ActionEvent event) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/user/readLoanBookPage.fxml");
+        sm.moveScene(LOAN_MANAGE.getFilePath());
     }
-    @FXML private void goToBookApply(javafx.event.ActionEvent event)
-    {SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/user/readLoanBookPage.fxml");
+
+    @FXML
+    private void goToMyLoanBook(ActionEvent event) {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(READ_TM_LOAN_STATUS_FX.getFilePath());
     }
+
+    @FXML
+    private void goToBookApply(ActionEvent event) {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(CREATE_REQUEST_BOOK_FX.getFilePath());
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        var session = LoginSession.getInstance();
-        var memberInfo = session.getUserInfo();
-        username.setText(memberInfo.getEName());
+        var instance = LoginSession.getInstance();
+        var userInfo = instance.getUserInfo();
+        userNameLink.setText(userInfo.getEName());
+        dtName.setText(userInfo.getDName() + "\n" + userInfo.getTName());
     }
 
     public boolean userField(TextField nowPw, PasswordField changePw, PasswordField checkChangePw) {
