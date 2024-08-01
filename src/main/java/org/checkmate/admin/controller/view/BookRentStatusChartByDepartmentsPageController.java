@@ -55,8 +55,8 @@ public class BookRentStatusChartByDepartmentsPageController {
 
   @FXML
   public void initialize() throws SQLException {
-    BookManagementMapper bm = new BookManagementMapper();
-    bm.readPivotDepartmentsBookLoanRecords();
+
+    bookController.readDepartmentsBookLoanRecords();
 
     XYChart.Series<String, Number> series = new XYChart.Series<>();
     series.setName("대여한 책 개수");
@@ -82,19 +82,6 @@ public class BookRentStatusChartByDepartmentsPageController {
         @Override
         public void handle(MouseEvent e) {
           try {
-//                        percentageLabel.setTranslateX(e.getSceneX()-percentageLabel.getLayoutX());
-//                        percentageLabel.setTranslateX(e.getSceneY()-percentageLabel.getLayoutY());
-//                        percentageLabel.setText(String.valueOf(data.getPieValue())+"%");
-            double newX1 = e.getSceneX() - (percentageLabel.getWidth() / 2);
-            double newY1 = e.getSceneY() - (percentageLabel.getHeight() / 2);
-
-            // 현재 위치를 이동시키기 위해 setTranslateX/Y 사용
-            percentageLabel.setTranslateX(newX1);
-            percentageLabel.setTranslateY(newY1);
-
-            // 데이터 값 설정
-            percentageLabel.setText(String.format("%.2f%%", data.getPieValue()));
-            System.out.println("Pie chart clicked");
             Bounds b1 = data.getNode().getBoundsInLocal();
 
             double newX = (b1.getWidth()) / 2.0 + b1.getMinX();

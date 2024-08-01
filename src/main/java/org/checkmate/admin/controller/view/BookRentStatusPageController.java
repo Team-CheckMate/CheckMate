@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -132,7 +133,7 @@ public class BookRentStatusPageController implements Initializable {
         new PropertyValueFactory<ReadBookLoanRecordsResponseDto, Date>("returnDate"));
     status.setCellValueFactory(
         new PropertyValueFactory<ReadBookLoanRecordsResponseDto, String>("status"));
-    bookLoanRecordsList = bookController.readAllBookLoanRecordsAdmin();
+    ObservableList<ReadBookLoanRecordsResponseDto> bookLoanRecordsList = FXCollections.observableArrayList(bookController.readAllBookLoanRecordsAdmin());
     table_book_loan_records.setItems(bookLoanRecordsList);
     int count = bookLoanRecordsList.size();
     searchCount.setText("총 : " + count + " 건");
@@ -217,7 +218,7 @@ public class BookRentStatusPageController implements Initializable {
         new PropertyValueFactory<ReadBookLoanRecordsResponseDto, Date>("returnDate"));
     status.setCellValueFactory(
         new PropertyValueFactory<ReadBookLoanRecordsResponseDto, String>("status"));
-    bookLoanRecordsList = bookController.readBookLoanRecordByNameAdmin(searchContent.getText());
+    ObservableList<ReadBookLoanRecordsResponseDto> bookLoanRecordsList = FXCollections.observableArrayList(bookController.readBookLoanRecordByNameAdmin(searchContent.getText()));
     table_book_loan_records.setItems(bookLoanRecordsList);
     int count = bookLoanRecordsList.size();
     searchCount.setText("총 : " + count + " 건");
