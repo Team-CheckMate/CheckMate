@@ -1,5 +1,6 @@
 package org.checkmate.user.controller.view;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -7,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import org.checkmate.common.controller.view.SceneManager;
 import org.checkmate.common.util.LoginSession;
 import org.checkmate.user.controller.server.BookController;
@@ -20,8 +22,7 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-import static org.checkmate.user.util.FilePath.CREATE_REQUEST_BOOK_FX;
-import static org.checkmate.user.util.FilePath.READ_OVERDUE_LOAN_BOOK_FX;
+import static org.checkmate.user.util.FilePath.*;
 
 /**
  * 도서신청 목록 컨트롤러
@@ -35,10 +36,8 @@ public class ReadBookRequestPageController implements Initializable  {
         bookService = new BookServiceImpl();
     }
 
-    @FXML private Label Menu;
-    @FXML private Label MenuBack;
-    @FXML private AnchorPane slider;
-    @FXML private TextField searchName;
+    @FXML private Hyperlink userNameLink;
+    @FXML private Text tdName;
     @FXML private TableView<ReadBookRequestResponseDto> table_book;
     @FXML private TableColumn<ReadBookRequestResponseDto, Long> rownum;
     @FXML private TableColumn<ReadBookRequestResponseDto, String> loginId;
@@ -60,6 +59,10 @@ public class ReadBookRequestPageController implements Initializable  {
     }
 
     private void loadDate() throws SQLException, SQLException {
+        LoginSession session = LoginSession.getInstance();
+        var userInfo = session.getUserInfo();
+        userNameLink.setText(userInfo.getEName());
+        tdName.setText(userInfo.getDName() + "\n" + userInfo.getTName());
         rownum.setCellValueFactory(new PropertyValueFactory<ReadBookRequestResponseDto, Long>("rownum"));
         loginId.setCellValueFactory(new PropertyValueFactory<ReadBookRequestResponseDto, String>("loginId"));
         eName.setCellValueFactory(new PropertyValueFactory<ReadBookRequestResponseDto, String>("eName"));
@@ -77,5 +80,40 @@ public class ReadBookRequestPageController implements Initializable  {
     public void bookRequestBtn(ActionEvent actionEvent) {
         SceneManager sm = SceneManager.getInstance();
         sm.moveScene(CREATE_REQUEST_BOOK_FX.getFilePath());
+    }
+
+    @FXML
+    public void goHome(ActionEvent actionEvent) {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(MAIN_FX.getFilePath());
+    }
+
+    @FXML
+    public void goToBookLoan(ActionEvent actionEvent) {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(READ_RENT_LOAN_BOOK_FX.getFilePath());
+    }
+
+    @FXML
+    public void goToLoanManage(ActionEvent actionEvent) {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(READ_NOT_RENT_LOAN_BOOK_FX.getFilePath());
+    }
+
+    @FXML
+    public void goToMyLoanBook(ActionEvent actionEvent) {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(MAIN_FX.getFilePath());
+    }
+
+    @FXML
+    public void goToBookApply(ActionEvent actionEvent) {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(READ_REQUEST_BOOK_FX.getFilePath());
+    }
+
+    @FXML
+    public void exit(ActionEvent actionEvent) {
+        Platform.exit();
     }
 }

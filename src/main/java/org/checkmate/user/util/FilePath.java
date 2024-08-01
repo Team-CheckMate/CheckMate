@@ -23,8 +23,6 @@ public enum FilePath {
 
     MY_LOAN_BOOK("/org/checkmate/view/layouts/user/readLoanBookPage.fxml"),
 
-    BOOK_APPLY("/org/checkmate/view/layouts/user/"),
-
     READ_RENT_LOAN_BOOK_FX("/org/checkmate/view/layouts/user/readLoanBookPage.fxml"),
     READ_NOT_RENT_LOAN_BOOK_FX("/org/checkmate/view/layouts/user/readLoanNotReturnBookPage.fxml"),
     READ_DONE_LOAN_BOOK_FX("/org/checkmate/view/layouts/user/readLoanDoneBookPage.fxml"),

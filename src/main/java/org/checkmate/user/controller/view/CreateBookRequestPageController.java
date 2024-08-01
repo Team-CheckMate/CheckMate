@@ -1,10 +1,12 @@
 package org.checkmate.user.controller.view;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import org.checkmate.common.controller.view.SceneManager;
 import org.checkmate.common.util.LoginSession;
 import org.checkmate.user.service.BookService;
 import org.checkmate.user.service.BookServiceImpl;
@@ -13,6 +15,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import static javafx.scene.control.Alert.AlertType.WARNING;
+import static org.checkmate.user.util.FilePath.*;
 
 /**
  * 도서신청 컨트롤러
@@ -33,9 +36,6 @@ public class CreateBookRequestPageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-    }
-    @FXML
-    public void exit(ActionEvent actionEvent) {
     }
 
     @FXML
@@ -60,12 +60,44 @@ public class CreateBookRequestPageController implements Initializable {
     }
 
 
-
     public void showAlert(String msg) {
         Alert alert = new Alert(WARNING);
         alert.setTitle("도서");
         alert.setHeaderText("도서 신청");
         alert.setContentText(msg);
         alert.show();
+    }
+
+    @FXML
+    public void goHome(ActionEvent actionEvent) {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(MAIN_FX.getFilePath());
+    }
+
+    @FXML
+    public void goToBookLoan(ActionEvent actionEvent) {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(READ_RENT_LOAN_BOOK_FX.getFilePath());
+    }
+
+    @FXML
+    public void goToLoanManage(ActionEvent actionEvent) {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(READ_NOT_RENT_LOAN_BOOK_FX.getFilePath());
+    }
+
+    @FXML
+    public void goToMyLoanBook(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void goToBookApply(ActionEvent actionEvent) {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(READ_REQUEST_BOOK_FX.getFilePath());
+    }
+
+    @FXML
+    public void exit(ActionEvent actionEvent) {
+        Platform.exit();
     }
 }

@@ -1,8 +1,5 @@
 package org.checkmate.user.controller.view;
 
-import static org.checkmate.user.util.FilePath.READ_MY_INFO_FX;
-import static org.checkmate.user.util.FilePath.READ_TM_LOAN_STATUS_FX;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -12,6 +9,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Hyperlink;
 import org.checkmate.common.controller.view.SceneManager;
 import org.checkmate.common.util.LoginSession;
+
+import static org.checkmate.user.util.FilePath.*;
 
 public class MainPageController implements Initializable {
 
@@ -45,7 +44,7 @@ public class MainPageController implements Initializable {
     @FXML
     public void loanStatus(ActionEvent actionEvent) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/user/sidebarSamplePage.fxml");
+        sm.moveScene(READ_NOT_RENT_LOAN_BOOK_FX.getFilePath());
     }
 
     // 부서현황
@@ -59,7 +58,7 @@ public class MainPageController implements Initializable {
     @FXML
     public void reqPayment(ActionEvent actionEvent) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/user/sidebarSamplePage.fxml");
+        sm.moveScene(READ_REQUEST_BOOK_FX.getFilePath());
     }
 
     @Override
