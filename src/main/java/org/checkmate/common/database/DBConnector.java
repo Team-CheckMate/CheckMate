@@ -30,7 +30,6 @@ public class DBConnector {
 
     public Connection getConnection() throws SQLException {
         Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-        connection.setAutoCommit(false);
         return connection;
     }
 
