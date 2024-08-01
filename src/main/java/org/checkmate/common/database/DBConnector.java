@@ -11,7 +11,7 @@ import java.sql.SQLException;
  */
 public class DBConnector {
 
-    private static final String URL = "jdbc:oracle:thin:@localhost:1521/xe";
+    private static final String URL = "jdbc:oracle:thin:@112.221.184.60:11521/xe";
     private static final String USERNAME = "checkmate";
     private static final String PASSWORD = "checkmate";
 
