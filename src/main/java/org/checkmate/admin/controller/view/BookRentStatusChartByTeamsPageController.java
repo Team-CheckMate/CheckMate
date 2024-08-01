@@ -23,69 +23,76 @@ import java.sql.SQLException;
 
 public class BookRentStatusChartByTeamsPageController {
 
-    private final BookController bookController;
+  private final BookController bookController;
 
-    // 기본 생성자
-    public BookRentStatusChartByTeamsPageController() {
-        bookController = new BookController();
+  // 기본 생성자
+  public BookRentStatusChartByTeamsPageController() {
+    bookController = new BookController();
+  }
+
+  @FXML private BarChart<String, Number> barChart;
+  @FXML private PieChart pieChart;
+  private boolean isBarChartVisible = true;
+  ObservableList<ReadBookLoanRecordsForChartResponseDto> bookLoanRecordsForChartList;
+
+  @FXML
+  public void initialize() throws SQLException {
+    bookLoanRecordsForChartList = bookController.readTeamsBookLoanRecords();
+    // List<responseDto>를 ObservableList로 변환
+    ObservableList<XYChart.Data<String, Number>> chartData = FXCollections.observableArrayList();
+    for (ReadBookLoanRecordsForChartResponseDto record : bookLoanRecordsForChartList) {
+      chartData.add(new XYChart.Data<>(record.getName(), record.getCount()));
     }
 
-    @FXML private BarChart<String, Number> barChart;
-    @FXML private PieChart pieChart;
-    private boolean isBarChartVisible = true;
-    ObservableList<ReadBookLoanRecordsForChartResponseDto> bookLoanRecordsForChartList;
+    // Series 생성 및 데이터 설정
+    XYChart.Series<String, Number> series = new XYChart.Series<>();
+    series.setName("대여한 책 개수");
+    series.setData(chartData);
 
-    @FXML
-    public void initialize() throws SQLException {
-        bookLoanRecordsForChartList = bookController.readTeamsBookLoanRecords();
-        // List<responseDto>를 ObservableList로 변환
-        ObservableList<XYChart.Data<String, Number>> chartData = FXCollections.observableArrayList();
-        for (ReadBookLoanRecordsForChartResponseDto record : bookLoanRecordsForChartList) {
-            chartData.add(new XYChart.Data<>(record.getName(), record.getCount()));
-        }
+    // 시리즈 추가
+    barChart.getData().add(series);
 
-        // Series 생성 및 데이터 설정
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
-        series.setName("대여한 책 개수");
-        series.setData(chartData);
+    ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+    for (ReadBookLoanRecordsForChartResponseDto record : bookLoanRecordsForChartList) {
+      pieChartData.add(new PieChart.Data(record.getName(), record.getCount()));
+    }
+    pieChart.setData(pieChartData);
 
-        // 시리즈 추가
-        barChart.getData().add(series);
+  }
 
-        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-        for (ReadBookLoanRecordsForChartResponseDto record : bookLoanRecordsForChartList) {
-            pieChartData.add(new PieChart.Data(record.getName(), record.getCount()));
-        }
-        pieChart.setData(pieChartData);
+  @FXML private void exit(ActionEvent event) {
+    Platform.exit();
+  }
 
-    }
-    @FXML private void exit(ActionEvent event) {
-        Platform.exit();
-    }
-    //사이드바 이동
-    @FXML private void goToBookManage(ActionEvent event)
-    {
-        SceneManager sm = SceneManager.getInstance();
-        sm.moveScene(BOOK_MANAGEMENT_FX.getFilePath());
-    }
-    @FXML private void goToLoanStatus(ActionEvent event)
-    {
-        SceneManager sm = SceneManager.getInstance();
-        sm.moveScene(BOOK_LOAN_STATUS_FX.getFilePath()); //변경
-    }
-    @FXML private void goToUserManage(ActionEvent event)
-    {
-        SceneManager sm = SceneManager.getInstance();
-        sm.moveScene(USER_MANAGEMENT_FX.getFilePath());
-    }
-    @FXML private void goToApplyStatus(ActionEvent event)
-    {SceneManager sm = SceneManager.getInstance();
-        sm.moveScene(BOOK_APPLY_FX.getFilePath());
-    }
-    @FXML
-    private void toggleChart(ActionEvent actionEvent) {
-        isBarChartVisible = !isBarChartVisible;
-        barChart.setVisible(isBarChartVisible);
-        pieChart.setVisible(!isBarChartVisible);
-    }
+  //사이드바 이동
+  @FXML
+  private void goToBookManage(ActionEvent event) {
+    SceneManager sm = SceneManager.getInstance();
+    sm.moveScene(BOOK_MANAGEMENT_FX.getFilePath());
+  }
+
+  @FXML
+  private void goToLoanStatus(ActionEvent event) {
+    SceneManager sm = SceneManager.getInstance();
+    sm.moveScene(BOOK_LOAN_STATUS_FX.getFilePath()); //변경
+  }
+
+  @FXML
+  private void goToUserManage(ActionEvent event) {
+    SceneManager sm = SceneManager.getInstance();
+    sm.moveScene(USER_MANAGEMENT_FX.getFilePath());
+  }
+
+  @FXML
+  private void goToApplyStatus(ActionEvent event) {
+    SceneManager sm = SceneManager.getInstance();
+    sm.moveScene(BOOK_APPLY_FX.getFilePath());
+  }
+
+  @FXML
+  private void toggleChart(ActionEvent actionEvent) {
+    isBarChartVisible = !isBarChartVisible;
+    barChart.setVisible(isBarChartVisible);
+    pieChart.setVisible(!isBarChartVisible);
+  }
 }
