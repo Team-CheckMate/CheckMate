@@ -1,5 +1,6 @@
 package org.checkmate.common.database;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -10,10 +11,6 @@ import java.sql.SQLException;
  * HISTORY2: autoCommit false 설정                  [이준희  2024.07.23]
  */
 public class DBConnector {
-
-    private static final String URL = "jdbc:oracle:thin:@localhost:1521/xe";
-    private static final String USERNAME = "checkmate";
-    private static final String PASSWORD = "checkmate";
 
     private static volatile DBConnector instance;
 
@@ -29,8 +26,13 @@ public class DBConnector {
     }
 
     public Connection getConnection() throws SQLException {
+        Dotenv dotenv = Dotenv.configure()
+            .directory(System.getProperty("user.dir") + "/security")
+            .load();
+        String URL = dotenv.get("DB_URL");
+        String USERNAME = dotenv.get("DB_USERNAME");
+        String PASSWORD = dotenv.get("DB_PASSWORD");
         Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-        connection.setAutoCommit(false);
         return connection;
     }
 
