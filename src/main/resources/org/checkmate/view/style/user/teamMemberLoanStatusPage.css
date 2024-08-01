@@ -36,20 +36,32 @@
   -fx-fill: #035aa6;
 }
 
-.admin {
+.user-name-link {
   -fx-font-family: 'BM EULJIRO';
   -fx-font-size: 15px;
   -fx-border-width: 0;
   -fx-text-fill: WHITE;
 }
 
-.admin-info-text {
+.user-info-text {
   -fx-font-family: 'BM EULJIRO';
-  -fx-font-size: 13px;
+  -fx-font-size: 15px;
   -fx-fill: #f2f0d5;
 }
 
+#goHome {
+  -fx-font-family: 'BM EULJIRO';
+}
+
+#tdName {
+  -fx-font-size: 13px;
+}
+
 .home-button {
+  -fx-background-color: transparent;
+}
+
+.exit-button {
   -fx-background-color: transparent;
 }
 
@@ -83,7 +95,7 @@
   -fx-text-fill: black; /* 기본 텍스트 색상 */
 }
 
- /* 선택된 TableRowCell 스타일 설정 */
+/* 선택된 TableRowCell 스타일 설정 */
 .table-row-cell:selected {
   -fx-background-color: #97cefd; /* 선택된 행의 배경색 */
 }
@@ -109,6 +121,8 @@
   -fx-stroke-width: 1;
 }
 
-.exit-button {
-  -fx-background-color: transparent;
+.analysis {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 13px;
+  -fx-fill: #364959;
 }

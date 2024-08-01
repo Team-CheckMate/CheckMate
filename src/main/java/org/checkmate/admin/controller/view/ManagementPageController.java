@@ -1,13 +1,15 @@
 package org.checkmate.admin.controller.view;
 
+import static org.checkmate.admin.util.FilePath.BOOK_APPLY_FX;
+import static org.checkmate.admin.util.FilePath.BOOK_MANAGEMENT_FX;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 import org.checkmate.common.controller.view.SceneManager;
 
 public class ManagementPageController implements Initializable  {
@@ -27,11 +29,11 @@ public class ManagementPageController implements Initializable  {
 
     }
 
-    // 대여 관리
+    // 도서 관리
     @FXML
     public void books_manager_btn(ActionEvent actionEvent) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/admin/bookManagementPage.fxml");
+        sm.moveScene(BOOK_MANAGEMENT_FX.getFilePath());
     }
 
     // 대여현황
@@ -49,7 +51,7 @@ public class ManagementPageController implements Initializable  {
     // 사원현황
     public void user_status_btn(ActionEvent actionEvent) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/admin/applyStatusViewPage.fxml");
+        sm.moveScene(BOOK_APPLY_FX.getFilePath());
     }
 
 }

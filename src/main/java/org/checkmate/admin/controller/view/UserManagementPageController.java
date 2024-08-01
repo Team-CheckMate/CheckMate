@@ -1,12 +1,22 @@
 package org.checkmate.admin.controller.view;
 
+import static org.checkmate.user.util.FilePath.MAIN_FX;
+
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
@@ -15,10 +25,6 @@ import org.checkmate.admin.dto.response.AdminMemberResponseDto;
 import org.checkmate.admin.service.MemberService;
 import org.checkmate.admin.service.MemberServiceImpl;
 import org.checkmate.common.controller.view.SceneManager;
-import java.net.URL;
-import java.sql.SQLException;
-import java.util.ResourceBundle;
-import org.checkmate.common.util.LoginSession;
 
 
 public class UserManagementPageController implements Initializable {
@@ -88,16 +94,11 @@ public class UserManagementPageController implements Initializable {
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-
-
-    userNameLink.setText("관리자");
     try {
       loadDate();
-
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
-
   }
 
 
@@ -205,6 +206,12 @@ public class UserManagementPageController implements Initializable {
     searchCount.setText("총 : " + count + " 건");
     addButtonToTable();
 
+  }
+
+  @FXML
+  public void goHome(ActionEvent event) {
+    SceneManager sm = SceneManager.getInstance();
+    sm.moveScene(MAIN_FX.getFilePath());
   }
 
 }

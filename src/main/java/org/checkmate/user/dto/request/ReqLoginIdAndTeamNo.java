@@ -12,9 +12,9 @@ import lombok.Getter;
 @Getter
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class ReqLoginIdAndTeamId {
+public class ReqLoginIdAndTeamNo {
 
     private String loginId; // 사원 번호
-    private Long teamId; // 팀 식별자
+    private Long teamNo; // 팀 식별자
 
 }

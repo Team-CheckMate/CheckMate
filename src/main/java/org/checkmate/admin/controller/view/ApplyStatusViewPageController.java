@@ -1,23 +1,30 @@
 package org.checkmate.admin.controller.view;
 
+import static org.checkmate.admin.util.FilePath.BOOK_APPLY_FX;
+import static org.checkmate.admin.util.FilePath.BOOK_LOAN_STATUS_FX;
+import static org.checkmate.admin.util.FilePath.BOOK_MANAGEMENT_FX;
+import static org.checkmate.user.util.FilePath.MAIN_FX;
+
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
 import javafx.util.Callback;
 import org.checkmate.admin.dto.response.ApplyStatusResponseDto;
 import org.checkmate.admin.service.ApplyService;
 import org.checkmate.admin.service.ApplyServiceImpl;
 import org.checkmate.common.controller.view.SceneManager;
-import java.net.URL;
-import java.sql.SQLException;
-import java.util.ResourceBundle;
-import org.checkmate.common.util.LoginSession;
 
 
 public class ApplyStatusViewPageController implements Initializable {
@@ -26,7 +33,6 @@ public class ApplyStatusViewPageController implements Initializable {
         applyService = new ApplyServiceImpl() ;
     }
 
-    @FXML private Hyperlink userNameLink;
     @FXML private TableView<ApplyStatusResponseDto> table_admin_user;
     @FXML private TableColumn<ApplyStatusResponseDto, String> loginId;
     @FXML private TableColumn<ApplyStatusResponseDto, String> eName;
@@ -44,12 +50,12 @@ public class ApplyStatusViewPageController implements Initializable {
     @FXML private void goToBookManage(ActionEvent event)
     {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/admin/bookManagementPage.fxml");
+        sm.moveScene(BOOK_MANAGEMENT_FX.getFilePath());
     }
     @FXML private void goToLoanStatus(ActionEvent event)
     {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/admin/applyStatusViewPage.fxml"); //변경
+        sm.moveScene(BOOK_LOAN_STATUS_FX.getFilePath()); //변경
     }
     @FXML private void goToUserManage(ActionEvent event)
     {
@@ -58,12 +64,16 @@ public class ApplyStatusViewPageController implements Initializable {
     }
     @FXML private void goToApplyStatus(ActionEvent event)
     {SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/admin/applyStatusViewPage.fxml");
+        sm.moveScene(BOOK_APPLY_FX.getFilePath());
     }
 
+    @FXML
+    public void goHome(ActionEvent event) {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(MAIN_FX.getFilePath());
+    }
 
     ObservableList<ApplyStatusResponseDto> applyList;
-
 
     //메세지 출력
     public void Msg(String msg) {
@@ -76,7 +86,6 @@ public class ApplyStatusViewPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        userNameLink.setText("관리자");
         try {
             loadDate();
         } catch (Exception e) {
