@@ -28,6 +28,7 @@ public enum FilePath {
 
     BOOK_APPLY_FX("/org/checkmate/view/layouts/admin/applyStatusViewPage.fxml");
 
+
     private final String filePath;
 
     FilePath(String filePath) {
