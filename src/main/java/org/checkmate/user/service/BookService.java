@@ -21,5 +21,5 @@ public interface BookService {
     int getOverdueBookCount(String loginId);
     ObservableList<ReadLoanStatusResponseDto> findOverdueLoanBook(String loginId);
     boolean createBookRequest(String loginId, String bName, String publisher, String author);
-    ObservableList<ReadBookRequestResponseDto> findAllBookRequest(String deptNo);
+    ObservableList<ReadBookRequestResponseDto> findAllBookRequest(long deptNo);
 }

@@ -101,7 +101,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public ObservableList<ReadBookRequestResponseDto> findAllBookRequest(String deptNo) {
+    public ObservableList<ReadBookRequestResponseDto> findAllBookRequest(long deptNo) {
         return bookMapper.findAllBookRequest(deptNo);
     }
 

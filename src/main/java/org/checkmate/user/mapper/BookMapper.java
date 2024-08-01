@@ -315,14 +315,14 @@ public class BookMapper {
         return isSuccess;
     }
 
-    public ObservableList<ReadBookRequestResponseDto> findAllBookRequest(String deptNo) {
+    public ObservableList<ReadBookRequestResponseDto> findAllBookRequest(long deptNo) {
         ObservableList<ReadBookRequestResponseDto> books = FXCollections.observableArrayList();
         String query = prop.getProperty("findAllBookRequest");
         try (
                 Connection connection = DBConnector.getInstance().getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(query)
         ) {
-            preparedStatement.setString(1, deptNo);
+            preparedStatement.setLong(1, deptNo);
             try(ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     ReadBookRequestResponseDto book = ReadBookRequestResponseDto.builder()

@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import org.checkmate.common.controller.view.SceneManager;
+import org.checkmate.common.util.LoginSession;
 import org.checkmate.user.controller.server.BookController;
 import org.checkmate.user.dto.response.ReadBookRequestResponseDto;
 import org.checkmate.user.dto.response.ReadLoanStatusResponseDto;
@@ -66,9 +67,9 @@ public class ReadBookRequestPageController implements Initializable  {
         publisher.setCellValueFactory(new PropertyValueFactory<ReadBookRequestResponseDto, String>("publisher"));
         author.setCellValueFactory(new PropertyValueFactory<ReadBookRequestResponseDto, String>("author"));
         status.setCellValueFactory(new PropertyValueFactory<ReadBookRequestResponseDto, String>("status"));
-
+        long deptNo = LoginSession.getInstance().getUserInfo().getDeptNo();
         //BookMapper bm = new BookMapper();
-        bookList = bookService.findAllBookRequest("1");
+        bookList = bookService.findAllBookRequest(deptNo);
         table_book.setItems(bookList);
     }
 
