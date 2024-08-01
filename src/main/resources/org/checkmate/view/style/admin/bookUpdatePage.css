@@ -1,0 +1,156 @@
+#title {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 48px;
+  -fx-fill: #035aa6;
+}
+
+#subTitle {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 14px;
+  -fx-fill: #05aff2;
+}
+
+.root {
+  -fx-font-family: 'BM EULJIRO';
+}
+
+#username {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 15px;
+}
+
+#bookTitle {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 15px;
+  -fx-fill: #035aa6;
+}
+
+#publisher {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 15px;
+  -fx-fill: #035aa6;
+}
+
+#isbn {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 15px;
+  -fx-fill: #035aa6;
+}
+
+#author {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 15px;
+  -fx-fill: #035aa6;
+}
+
+#translator {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 15px;
+}
+
+#tName {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 15px;
+}
+
+#subTitle2 {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 20px;
+  -fx-fill: #035aa6;
+}
+
+#text1 {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 15px;
+  -fx-fill: #035aa6;
+}
+
+#text2 {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 15px;
+  -fx-fill: #035aa6;
+}
+
+#text3 {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 15px;
+  -fx-fill: #035aa6;
+}
+
+#text4 {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 15px;
+  -fx-fill: #035aa6;
+}
+
+#text5 {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 15px;
+  -fx-fill: #035aa6;
+}
+
+#text6 {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 15px;
+  -fx-fill: #035aa6;
+}
+
+#text {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 15px;
+  -fx-fill: #035aa6;
+}
+
+.exit-button {
+  -fx-background-color: transparent;
+}
+
+.update-button {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-background-color: #035AA6;
+  -fx-text-fill: WHITE;
+}
+
+#nowPw {
+  -fx-background-color: transparent;
+  -fx-border-width: 0px 0px 2px 0px;
+  -fx-border-color: #05AFF2;
+  -fx-font-size: 15px;
+}
+
+#updatePwd {
+  -fx-background-color: transparent;
+  -fx-border-width: 0px 0px 2px 0px;
+  -fx-border-color: #05AFF2;
+  -fx-font-size: 15px;
+}
+
+#updatePwdChk {
+  -fx-background-color: transparent;
+  -fx-border-width: 0px 0px 2px 0px;
+  -fx-border-color: #05AFF2;
+  -fx-font-size: 15px;
+}
+
+.shot_button {
+  -fx-background-color: #035AA6;
+  -fx-text-fill: WHITE;
+  -fx-font-size: 18px;
+}
+
+.side-button {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 18px;
+  -fx-fill: #FFFFFF;
+}
+
+#userNameLink {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 15px;
+}
+
+.user-info-text {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 15px;
+  -fx-fill: #f2f0d5;
+}
