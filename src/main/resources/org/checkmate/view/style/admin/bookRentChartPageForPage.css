@@ -1,0 +1,59 @@
+.root {
+  -fx-font-family: 'BM EULJIRO';
+}
+
+#title {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 48px;
+  -fx-fill: #035aa6;
+}
+
+#subTitle {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 14px;
+  -fx-fill: #05aff2;
+}
+
+#subTitle2 {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 20px;
+  -fx-fill: #035aa6;
+}
+
+#userNameLink {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 15px;
+}
+
+.user-info-text {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 15px;
+  -fx-fill: #f2f0d5;
+}
+
+#goToBookLoan {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 18px
+}
+
+#goHome {
+  -fx-font-family: 'BM EULJIRO';
+}
+
+#tdName {
+  -fx-font-size: 13px
+}
+
+.home-button {
+  -fx-background-color: transparent;
+}
+
+.exit-button {
+  -fx-background-color: transparent;
+}
+
+.side-button {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 18px;
+  -fx-fill: #FFFFFF;
+}

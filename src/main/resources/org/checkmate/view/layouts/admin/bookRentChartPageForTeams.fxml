@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.*?>
-<?import javafx.geometry.*?>
+<?import de.jensd.fx.glyphs.fontawesome.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
 
-<?import javafx.scene.chart.BarChart?>
-<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.PieChart?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-<?import javafx.scene.shape.Line?>
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.checkmate.admin.controller.view.BookRentStatusChartByTeamsPageController">
     <children>
-        <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" stylesheets="@../../style/user/templatePage.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+        <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" stylesheets="@../../style/admin/bookRentChartPageForPage.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
             <top>
                 <AnchorPane prefHeight="0.0" prefWidth="1000.0" BorderPane.alignment="CENTER" />
             </top>
@@ -33,13 +32,13 @@
                         <Line endX="22.0" layoutX="140.0" layoutY="585.0" startX="-132.2000274658203" stroke="#f6c5a1" strokeWidth="2.0" />
                         <ImageView fitHeight="253.0" fitWidth="170.0" layoutX="4.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../../../icons/side_menu_bu.png" />
+                                <Image url="@../../../icons/side_menu_bu2.png" />
                             </image>
                         </ImageView>
                         <JFXButton alignment="TOP_RIGHT" layoutX="9.0" layoutY="170.0" onAction="#goToBookManage" prefHeight="37.0" prefWidth="160.0" styleClass="side-button" text="도서 관리" textFill="#FFFFFF" />
-                        <JFXButton alignment="TOP_RIGHT" layoutX="10.0" layoutY="225.0" onAction="#goToLoanStatus" prefHeight="37.0" prefWidth="160.0" styleClass="side-button" text="대여 현황" textFill="#FFFFFF" />
+                        <JFXButton alignment="TOP_RIGHT" layoutX="10.0" layoutY="225.0" onAction="#goToLoanStatus" prefHeight="37.0" prefWidth="160.0" styleClass="active-side-button" text="대여 현황" textFill="#FFFFFF" />
                         <JFXButton alignment="TOP_RIGHT" layoutX="8.0" layoutY="280.0" onAction="#goToUserManage" prefHeight="46.0" prefWidth="165.0" styleClass="side-button" text="사원 관리" textFill="#FFFFFF" />
-                        <JFXButton alignment="TOP_RIGHT" layoutX="10.0" layoutY="343.0" onAction="#goToApplyStatus" prefHeight="42.0" prefWidth="160.0" style="-fx-border-color: #e0ffff; -fx-border-width: 3;" styleClass="side-button" text="신청 현황" textFill="#FFFFFF" />
+                        <JFXButton alignment="TOP_RIGHT" layoutX="10.0" layoutY="343.0" onAction="#goToApplyStatus" prefHeight="42.0" prefWidth="160.0"  styleClass="side-button" text="신청 현황" textFill="#FFFFFF" />
                         <Button layoutX="15.0" layoutY="21.0" mnemonicParsing="false" prefHeight="97.0" prefWidth="148.0" styleClass="home-button" />
                     </children>
                 </AnchorPane>
@@ -68,7 +67,7 @@
                             </top>
                         </BorderPane>
                     </children>
-                    <Button  layoutX="60.0" layoutY="150.0" onAction="#toggleChart" text="차트 형식 변환" />
+                    <Button layoutX="60.0" layoutY="150.0" onAction="#toggleChart" text="차트 형식 변환" />
                     <children>
                         <Text fx:id="subTitle2" layoutX="48.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="팀별 통계">
                             <font>
