@@ -83,14 +83,14 @@
   -fx-text-fill: black; /* 기본 텍스트 색상 */
 }
 
-/* 선택된 TableRowCell 스타일 설정 */
+ /* 선택된 TableRowCell 스타일 설정 */
 .table-row-cell:selected {
-  -fx-background-color: #364959; /* 선택된 행의 배경색 */
+  -fx-background-color: #97cefd; /* 선택된 행의 배경색 */
 }
 
 /* 선택된 TableCell 스타일 설정 */
 .table-cell:selected {
-  -fx-background-color: #364959; /* 선택된 셀의 배경색 */
+  -fx-background-color: #97cefd; /* 선택된 셀의 배경색 */
 }
 
 /* 일반 TableRowCell 스타일 설정 (선택되지 않았을 때) */
