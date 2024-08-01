@@ -94,7 +94,6 @@ public class BookManagementPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        userNameLink.setText("관리자");
         try {
             loadDate();
         } catch (SQLException e) {

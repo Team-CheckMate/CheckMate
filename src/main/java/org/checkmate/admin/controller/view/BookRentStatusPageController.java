@@ -10,8 +10,6 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.ResourceBundle;
-import javafx.animation.TranslateTransition;
-
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -67,14 +65,11 @@ public class BookRentStatusPageController implements Initializable  {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        userNameLink.setText("관리자");
         try {
             loadData();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     @FXML

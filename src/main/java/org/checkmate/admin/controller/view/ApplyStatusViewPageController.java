@@ -20,7 +20,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
 import javafx.util.Callback;
 import org.checkmate.admin.dto.response.ApplyStatusResponseDto;
 import org.checkmate.admin.service.ApplyService;
@@ -34,7 +33,6 @@ public class ApplyStatusViewPageController implements Initializable {
         applyService = new ApplyServiceImpl() ;
     }
 
-    @FXML private Hyperlink userNameLink;
     @FXML private TableView<ApplyStatusResponseDto> table_admin_user;
     @FXML private TableColumn<ApplyStatusResponseDto, String> loginId;
     @FXML private TableColumn<ApplyStatusResponseDto, String> eName;
