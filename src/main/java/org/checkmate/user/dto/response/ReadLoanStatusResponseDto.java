@@ -13,6 +13,7 @@ import lombok.ToString;
  * 도서 대여 정보 응답 객체
  * HISTORY1: 최초 생성                                         [송헌욱  2024.07.25]
  * HISTORY2: 필드 추가                                         [권혁규  2024.07.29]
+ * HISTORY2: 필드 추가                                      [권혁규  2024.07.30]
  */
 @Getter
 @ToString
@@ -20,6 +21,7 @@ import lombok.ToString;
 public class ReadLoanStatusResponseDto {
 
     private Long bookId; // 고유 식별자
+    private Long blrId; //
     private String ISBN; // ISBN
     private String bName; // 책이름
     private String author; // 저자
@@ -31,9 +33,10 @@ public class ReadLoanStatusResponseDto {
     private CheckBox select; //checkbox
 
     @Builder
-    public ReadLoanStatusResponseDto(Long bookId, String ISBN, String bName, String author, String publisher,
+    public ReadLoanStatusResponseDto(Long bookId, Long blrId, String ISBN, String bName, String author, String publisher,
                                      Boolean lStatus, Date loanDate, Date returnPreDate, Date returnDate, CheckBox select) {
         this.bookId = bookId;
+        this.blrId = blrId;
         this.ISBN = ISBN;
         this.bName = bName;
         this.author = author;
@@ -54,8 +57,9 @@ public class ReadLoanStatusResponseDto {
             return false;
         }
         ReadLoanStatusResponseDto that = (ReadLoanStatusResponseDto) object;
-        return Objects.equals(bookId, that.bookId) && Objects.equals(ISBN,
-                that.ISBN) && Objects.equals(bName, that.bName) && Objects.equals(
+        return Objects.equals(bookId, that.bookId) && Objects.equals(blrId, that.blrId) &&
+                Objects.equals(ISBN, that.ISBN) &&
+                Objects.equals(bName, that.bName) && Objects.equals(
                 author, that.author) && Objects.equals(publisher, that.publisher)
                 && Objects.equals(lStatus, that.lStatus) && Objects.equals(
                 loanDate, that.loanDate)
@@ -65,7 +69,7 @@ public class ReadLoanStatusResponseDto {
 
     @Override
     public int hashCode() {
-        return Objects.hash(bookId, ISBN, bName, author, publisher, lStatus, loanDate, returnPreDate, returnDate, select);
+        return Objects.hash(bookId, blrId, ISBN, bName, author, publisher, lStatus, loanDate, returnPreDate, returnDate, select);
     }
 
 }

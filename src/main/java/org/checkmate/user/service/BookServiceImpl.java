@@ -7,11 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.checkmate.user.dto.request.CreateBookLoanRequestDto;
 import org.checkmate.user.dto.request.ReadSearchLoanStatusRequestDto;
 import org.checkmate.user.dto.request.ReqLoginIdAndTeamNo;
-import org.checkmate.user.dto.response.CreateBookLoanResponseDto;
-import org.checkmate.user.dto.response.ReadLoanStatusResponseDto;
-import org.checkmate.user.dto.response.ReadSearchLoanStatusResponseDto;
-import org.checkmate.user.dto.response.TeamMemberLoanStatusDegree;
-import org.checkmate.user.dto.response.TeamMemberLoanStatusForView;
+import org.checkmate.user.dto.response.*;
 import org.checkmate.user.mapper.BookMapper;
 
 @RequiredArgsConstructor
@@ -68,4 +64,45 @@ public class BookServiceImpl implements BookService {
                 .list(record)
                 .build();
     }
+
+    @Override
+    public ObservableList<ReadLoanStatusResponseDto> findLoanBookNotReturnByLoginId(String loginId) {
+        return bookMapper.findLoanBookNotReturnByLoginId(loginId);
+    }
+
+    @Override
+    public void updateReturnLoanBook(ObservableList<ReadLoanStatusResponseDto> selectedBooks) {
+        bookMapper.updateReturnLoanBook(selectedBooks);
+    }
+
+    @Override
+    public void updateReturnOverdueLoanBook(String loginId, ObservableList<ReadLoanStatusResponseDto> selectedBooks) {
+        bookMapper.updateReturnOverdueLoanBook(loginId, selectedBooks);
+    }
+
+    @Override
+    public ObservableList<ReadLoanStatusResponseDto> findAllReadMyBooks(String loginId) {
+        return bookMapper.findAllReadMyBooks(loginId);
+    }
+
+    @Override
+    public int getOverdueBookCount(String loginId) {
+        return bookMapper.getOverdueBookCount(loginId);
+    }
+
+    @Override
+    public ObservableList<ReadLoanStatusResponseDto> findOverdueLoanBook(String loginId) {
+        return bookMapper.findOverdueLoanBook(loginId);
+    }
+
+    @Override
+    public boolean createBookRequest(String loginId, String bName, String publisher, String author) {
+        return bookMapper.createBookRequest(loginId, bName, publisher, author);
+    }
+
+    @Override
+    public ObservableList<ReadBookRequestResponseDto> findAllBookRequest(long deptNo) {
+        return bookMapper.findAllBookRequest(deptNo);
+    }
+
 }
