@@ -1,21 +1,25 @@
 package org.checkmate.user.controller.view;
 
+import static org.checkmate.user.util.FilePath.BOOK_APPLY;
+import static org.checkmate.user.util.FilePath.BOOK_LOAN;
+import static org.checkmate.user.util.FilePath.LOAN_MANAGE;
+import static org.checkmate.user.util.FilePath.MAIN_FX;
+import static org.checkmate.user.util.FilePath.READ_TM_LOAN_STATUS_FX;
 import static org.checkmate.user.util.FilePath.UPDATE_PW_FX;
 
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.text.Text;
 import lombok.RequiredArgsConstructor;
 import org.checkmate.common.controller.view.SceneManager;
 import org.checkmate.common.service.LoginService;
 import org.checkmate.common.service.LoginServiceImpl;
 import org.checkmate.common.util.LoginSession;
-import org.checkmate.user.dto.response.ReadMyInformationResponseDto;
 
 /**
  * TODO: 주석 달기
@@ -27,21 +31,16 @@ public class ReadMyInformationPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        LoginSession loginSession = LoginSession.getInstance();
-        try {
-            ReadMyInformationResponseDto myPageInfo = loginService.getMypageInfo(
-                    loginSession.getUserInfo().getLoginId());
-            username.setText(loginSession.getUserInfo().getEName());
-            empNo.setText(myPageInfo.getLoginId());
-            tName.setText(myPageInfo.getTeamName());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        var instance = LoginSession.getInstance();
+        var userInfo = instance.getUserInfo();
+        userNameLink.setText(userInfo.getEName());
+        empNo.setText(userInfo.getLoginId());
+        tdName.setText(userInfo.getDName() + " / " + userInfo.getTName());
     }
 
-    @FXML private Text username;
+    @FXML private Hyperlink userNameLink;
     @FXML private Text empNo;
-    @FXML private Text tName;
+    @FXML private Text tdName;
 
     @FXML
     private void exit(ActionEvent event) {
@@ -54,24 +53,34 @@ public class ReadMyInformationPageController implements Initializable {
         sm.moveScene(UPDATE_PW_FX.getFilePath());
     }
 
-    //사이드바 이동
-    @FXML private void goToBookLoan(ActionEvent event)
-    {
+    @FXML
+    public void goHome(ActionEvent event) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/user/readLoanBookPage.fxml");
+        sm.moveScene(MAIN_FX.getFilePath());
     }
-    @FXML private void goToLoanManage(ActionEvent event)
-    {
+
+    @FXML
+    private void goToBookLoan(ActionEvent event) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/user/readLoanBookPage.fxml"); //변경
+        sm.moveScene(BOOK_LOAN.getFilePath());
     }
-    @FXML private void goToMyLoanBook(ActionEvent event)
-    {
+
+    @FXML
+    private void goToLoanManage(ActionEvent event) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/user/readLoanBookPage.fxml");
+        sm.moveScene(LOAN_MANAGE.getFilePath());
     }
-    @FXML private void goToBookApply(ActionEvent event)
-    {SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/user/readLoanBookPage.fxml");
+
+    @FXML
+    private void goToMyLoanBook(ActionEvent event) {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(READ_TM_LOAN_STATUS_FX.getFilePath());
     }
+
+    @FXML
+    private void goToBookApply(ActionEvent event) {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(BOOK_APPLY.getFilePath());
+    }
+
 }
