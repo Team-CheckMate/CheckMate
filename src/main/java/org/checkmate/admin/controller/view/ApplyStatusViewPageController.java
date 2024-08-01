@@ -3,6 +3,7 @@ package org.checkmate.admin.controller.view;
 import static org.checkmate.admin.util.FilePath.BOOK_APPLY_FX;
 import static org.checkmate.admin.util.FilePath.BOOK_LOAN_STATUS_FX;
 import static org.checkmate.admin.util.FilePath.BOOK_MANAGEMENT_FX;
+import static org.checkmate.admin.util.FilePath.USER_MANAGEMENT_FX;
 import static org.checkmate.user.util.FilePath.MAIN_FX;
 
 import java.net.URL;
@@ -47,6 +48,7 @@ public class ApplyStatusViewPageController implements Initializable {
     }
 
     //사이드바 이동
+    //사이드바 이동
     @FXML private void goToBookManage(ActionEvent event)
     {
         SceneManager sm = SceneManager.getInstance();
@@ -60,10 +62,11 @@ public class ApplyStatusViewPageController implements Initializable {
     @FXML private void goToUserManage(ActionEvent event)
     {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/admin/userManagementPage.fxml");
+        sm.moveScene(USER_MANAGEMENT_FX.getFilePath());
     }
     @FXML private void goToApplyStatus(ActionEvent event)
-    {SceneManager sm = SceneManager.getInstance();
+    {
+        SceneManager sm = SceneManager.getInstance();
         sm.moveScene(BOOK_APPLY_FX.getFilePath());
     }
 

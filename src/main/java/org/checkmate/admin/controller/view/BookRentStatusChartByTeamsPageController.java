@@ -1,5 +1,11 @@
 package org.checkmate.admin.controller.view;
 
+import static org.checkmate.admin.util.FilePath.BOOK_APPLY_FX;
+import static org.checkmate.admin.util.FilePath.BOOK_LOAN_STATUS_FX;
+import static org.checkmate.admin.util.FilePath.BOOK_MANAGEMENT_FX;
+import static org.checkmate.admin.util.FilePath.USER_MANAGEMENT_FX;
+
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,6 +17,7 @@ import org.checkmate.admin.controller.server.BookController;
 import org.checkmate.admin.dto.response.ReadBookLoanRecordsForChartResponseDto;
 import org.checkmate.admin.service.BookManagementService;
 import org.checkmate.admin.service.BookManagementServiceImpl;
+import org.checkmate.common.controller.view.SceneManager;
 
 import java.sql.SQLException;
 
@@ -52,7 +59,29 @@ public class BookRentStatusChartByTeamsPageController {
         pieChart.setData(pieChartData);
 
     }
-
+    @FXML private void exit(ActionEvent event) {
+        Platform.exit();
+    }
+    //사이드바 이동
+    @FXML private void goToBookManage(ActionEvent event)
+    {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(BOOK_MANAGEMENT_FX.getFilePath());
+    }
+    @FXML private void goToLoanStatus(ActionEvent event)
+    {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(BOOK_LOAN_STATUS_FX.getFilePath()); //변경
+    }
+    @FXML private void goToUserManage(ActionEvent event)
+    {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(USER_MANAGEMENT_FX.getFilePath());
+    }
+    @FXML private void goToApplyStatus(ActionEvent event)
+    {SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(BOOK_APPLY_FX.getFilePath());
+    }
     @FXML
     private void toggleChart(ActionEvent actionEvent) {
         isBarChartVisible = !isBarChartVisible;

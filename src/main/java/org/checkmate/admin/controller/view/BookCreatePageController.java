@@ -1,6 +1,10 @@
 package org.checkmate.admin.controller.view;
 
 import static javafx.scene.control.Alert.AlertType.*;
+import static org.checkmate.admin.util.FilePath.BOOK_APPLY_FX;
+import static org.checkmate.admin.util.FilePath.BOOK_LOAN_STATUS_FX;
+import static org.checkmate.admin.util.FilePath.BOOK_MANAGEMENT_FX;
+import static org.checkmate.admin.util.FilePath.USER_MANAGEMENT_FX;
 
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
@@ -45,24 +49,26 @@ public class BookCreatePageController implements Initializable {
         Platform.exit();
     }
     //사이드바 이동
+    //사이드바 이동
     @FXML private void goToBookManage(ActionEvent event)
     {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/admin/bookManagementPage.fxml");
+        sm.moveScene(BOOK_MANAGEMENT_FX.getFilePath());
     }
     @FXML private void goToLoanStatus(ActionEvent event)
     {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/admin/applyStatusViewPage.fxml"); //변경
+        sm.moveScene(BOOK_LOAN_STATUS_FX.getFilePath()); //변경
     }
     @FXML private void goToUserManage(ActionEvent event)
     {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/admin/userManagementPage.fxml");
+        sm.moveScene(USER_MANAGEMENT_FX.getFilePath());
     }
     @FXML private void goToApplyStatus(ActionEvent event)
-    {SceneManager sm = SceneManager.getInstance();
-        sm.moveScene("/org/checkmate/view/layouts/admin/applyStatusViewPage.fxml");
+    {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(BOOK_APPLY_FX.getFilePath());
     }
 
     @Override
