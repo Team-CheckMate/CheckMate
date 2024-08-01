@@ -5,10 +5,7 @@ import javafx.collections.ObservableList;
 import org.checkmate.user.dto.request.CreateBookLoanRequestDto;
 import org.checkmate.user.dto.request.ReadSearchLoanStatusRequestDto;
 import org.checkmate.user.dto.request.ReqLoginIdAndTeamNo;
-import org.checkmate.user.dto.response.CreateBookLoanResponseDto;
-import org.checkmate.user.dto.response.ReadLoanStatusResponseDto;
-import org.checkmate.user.dto.response.ReadSearchLoanStatusResponseDto;
-import org.checkmate.user.dto.response.TeamMemberLoanStatusForView;
+import org.checkmate.user.dto.response.*;
 
 public interface BookService {
 
@@ -17,4 +14,12 @@ public interface BookService {
     CreateBookLoanResponseDto createLoanBook(CreateBookLoanRequestDto requestDto);
     ReadSearchLoanStatusResponseDto findByBookName(ReadSearchLoanStatusRequestDto requestDto) throws SQLException;
     TeamMemberLoanStatusForView findByTeamMemberLoanStatus(ReqLoginIdAndTeamNo requestDto);
+    ObservableList<ReadLoanStatusResponseDto> findLoanBookNotReturnByLoginId(String loginId);
+    void updateReturnLoanBook(ObservableList<ReadLoanStatusResponseDto> selectedBooks);
+    void updateReturnOverdueLoanBook(String loginId, ObservableList<ReadLoanStatusResponseDto> selectedBooks);
+    ObservableList<ReadLoanStatusResponseDto> findAllReadMyBooks(String loginId);
+    int getOverdueBookCount(String loginId);
+    ObservableList<ReadLoanStatusResponseDto> findOverdueLoanBook(String loginId);
+    boolean createBookRequest(String loginId, String bName, String publisher, String author);
+    ObservableList<ReadBookRequestResponseDto> findAllBookRequest(String deptNo);
 }

@@ -182,9 +182,9 @@ public class ReadLoanBookPageController implements Initializable {
         }
 
         CreateBookLoanRequestDto requestDto = CreateBookLoanRequestDto.builder()
-                                                .loginId(loginId)
-                                                .bookList(selectedBooks )
-                                                .build();
+                .loginId(loginId)
+                .bookList(selectedBooks)
+                .build();
         CreateBookLoanResponseDto responseDto = bookController.createLoanBook(requestDto);
         showAlert(responseDto.getMessage());
     }
