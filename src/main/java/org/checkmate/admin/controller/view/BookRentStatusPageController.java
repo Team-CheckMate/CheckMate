@@ -7,6 +7,7 @@ import static org.checkmate.admin.util.FilePath.MANAGEMENT_FX;
 import static org.checkmate.admin.util.FilePath.RENT_STATUS_CHART_DEPARTMENTS_FX;
 import static org.checkmate.admin.util.FilePath.RENT_STATUS_CHART_TEAMS_FX;
 import static org.checkmate.admin.util.FilePath.USER_MANAGEMENT_FX;
+import static org.checkmate.user.util.FilePath.MAIN_ADMIN;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -73,7 +74,14 @@ public class BookRentStatusPageController implements Initializable {
     }
   }
 
+
   //사이드바 이동
+  @FXML
+  public void goHome(ActionEvent event) {
+    SceneManager sm = SceneManager.getInstance();
+    sm.moveScene(MAIN_ADMIN.getFilePath());
+  }
+
   @FXML
   private void goToBookManage(ActionEvent event) {
     SceneManager sm = SceneManager.getInstance();
@@ -236,8 +244,4 @@ public class BookRentStatusPageController implements Initializable {
     sm.moveScene(RENT_STATUS_CHART_TEAMS_FX.getFilePath());
   }
 
-  public void goHome(ActionEvent event) {
-    SceneManager sm = SceneManager.getInstance();
-    sm.moveScene(MANAGEMENT_FX.getFilePath());
-  }
 }

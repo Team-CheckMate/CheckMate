@@ -8,6 +8,8 @@ public enum FilePath {
     MAIN_FX("/org/checkmate/view/layouts/user/mainPage.fxml"),
     MAIN_ST("/org/checkmate/view/style/user/mainPage.css"),
 
+    MAIN_ADMIN("/org/checkmate/view/layouts/admin/managementPage.fxml"),
+
     READ_MY_INFO_FX("/org/checkmate/view/layouts/user/readMyInformationPage.fxml"),
     READ_MY_INFO_ST("/org/checkmate/view/style/user/readMyInformationPage.css"),
 
