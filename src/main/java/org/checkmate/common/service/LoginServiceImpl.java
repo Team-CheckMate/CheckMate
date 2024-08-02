@@ -25,7 +25,7 @@ public class LoginServiceImpl implements LoginService {
         );
 
         if (userInfo.isEmpty()) {
-            throw new DatabaseException("[Database Exception] 조회된 회원이 없습니다.");
+            throw new DatabaseException("조회된 회원이 없습니다.");
         }
 
         UserInfo user = userInfo.get();

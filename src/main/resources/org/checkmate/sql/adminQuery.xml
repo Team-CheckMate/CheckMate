@@ -94,8 +94,8 @@
     </entry>
 
 <!--    도서 반납 처리-->
-    <entry key="update_return_date">
-        {call update_return_date (?)}
+    <entry key="update_book_status">
+        {call update_book_status (?)}
     </entry>
     <!--    도서현황 삭제-->
     <entry key="deleteSelectedBookLoanRecord">
