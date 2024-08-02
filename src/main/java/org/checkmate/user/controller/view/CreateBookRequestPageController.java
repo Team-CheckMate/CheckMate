@@ -61,11 +61,12 @@ public class CreateBookRequestPageController implements Initializable {
         boolean isSuccess = bookService.createBookRequest(loginId,bName.getText(), publisher.getText(), author.getText());
         if(isSuccess) {
             showAlert("도서 신청을 완료했습니다.");
+            SceneManager sm = SceneManager.getInstance();
+            sm.moveScene(READ_REQUEST_BOOK_FX.getFilePath());
         } else {
             showAlert("이미 신청처리된 도서가 존재하거나 등록 완료된 도서입니다.");
         }
     }
-
 
     public void showAlert(String msg) {
         Alert alert = new Alert(WARNING);

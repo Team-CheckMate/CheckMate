@@ -46,6 +46,7 @@ public class ReadLoanNotReturnBookPageController implements Initializable {
     @FXML private TableColumn<ReadLoanStatusResponseDto, CheckBox> select;
     @FXML private TextArea overdueTextArea;
     @FXML private Hyperlink overdueLink;
+    @FXML private Text totalCnt;
 
     ObservableList<ReadLoanStatusResponseDto> bookList;
 
@@ -97,7 +98,7 @@ public class ReadLoanNotReturnBookPageController implements Initializable {
         returnPreDate.setCellValueFactory(new PropertyValueFactory<ReadLoanStatusResponseDto, Date>("returnPreDate"));
         bookList = bookService.findLoanBookNotReturnByLoginId(loginId);
         table_book.setItems(bookList);
-        //totalCnt.setText("총 대여 건수 : " + bookList.size());
+        totalCnt.setText("총 : " + bookList.size() + "건");
     }
 
     private void showAlert(String msg) {
@@ -127,13 +128,10 @@ public class ReadLoanNotReturnBookPageController implements Initializable {
 
     private void setCheckOverdue(int overdueCnt) {
         if(overdueCnt > 0) {
-//            overdueTextArea.setVisible(true);
-//            overdueTextArea.setText("반납 기한이 지난 도서가 존재합니다.(" + overdueCnt + "권)\n 즉시, 반납 부탁드립니다.");
             overdueLink.setVisible(true);
             overdueLink.setText("반납 기한이 지난 도서가 존재합니다.(" + overdueCnt + "권) 즉시, 반납 부탁드립니다.");
         } else {
             overdueLink.setVisible(false);
-//            overdueTextArea.setVisible(false);
         }
     }
 

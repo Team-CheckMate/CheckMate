@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" stylesheets="@../../style/user/readLoanBookPage.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.checkmate.user.controller.view.ReadLoanBookPageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" stylesheets="@../../style/user/readLoanBookPage.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.checkmate.user.controller.view.ReadLoanBookPageController">
     <top>
         <AnchorPane prefHeight="0.0" prefWidth="1000.0" BorderPane.alignment="CENTER" />
     </top>
@@ -85,10 +85,11 @@
                                 <Font name="System Bold" size="12.0" />
                             </font>
                         </Text>
-                        <JFXButton layoutX="716.0" layoutY="457.0" onAction="#createLoanBookBtn" style="-fx-background-color: #364959;" text="대여 하기" textFill="WHITE" />
-                        <TextField fx:id="searchName" layoutX="614.0" layoutY="10.0" prefHeight="25.0" prefWidth="133.0" style="-fx-background-color: transperant; -fx-border-color: #364959; -fx-border-width: 0 0 2 0;" />
+                        <JFXButton layoutX="718.0" layoutY="425.0" onAction="#createLoanBookBtn" style="-fx-background-color: #364959;" text="대여 하기" textFill="WHITE" />
+                        <TextField fx:id="searchName" layoutX="614.0" layoutY="10.0" prefHeight="25.0" prefWidth="133.0" promptText="도서 제목 입력" style="-fx-background-color: transperant; -fx-border-color: #364959; -fx-border-width: 0 0 2 0;" />
                         <JFXButton fx:id="searchBtn" ellipsisString="" layoutX="752.0" layoutY="11.0" onAction="#searchBtn" prefHeight="23.0" prefWidth="48.0" style="-fx-background-color: #364959;" text="검색" textFill="WHITE" />
                         <Line endX="675.0" layoutX="124.0" layoutY="70.0" startX="-94.0" styleClass="table-line" />
+                    <Text fx:id="totalCnt" fill="#364959" layoutX="30.0" layoutY="445.0" strokeType="OUTSIDE" strokeWidth="0.0" />
                     </AnchorPane>
                 </center>
             </BorderPane>

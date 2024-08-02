@@ -40,6 +40,7 @@ public class ReadLoanDoneBookPageController implements Initializable {
     @FXML private TableColumn<ReadLoanStatusResponseDto, String> author;
     @FXML private TableColumn<ReadLoanStatusResponseDto, Date> loanDate;
     @FXML private TableColumn<ReadLoanStatusResponseDto, Date> returnDate;
+    @FXML private Text totalCnt;
 
     ObservableList<ReadLoanStatusResponseDto> bookList;
 
@@ -66,6 +67,7 @@ public class ReadLoanDoneBookPageController implements Initializable {
         returnDate.setCellValueFactory(new PropertyValueFactory<ReadLoanStatusResponseDto, Date>("returnDate"));
         bookList = bookService.findAllReadMyBooks(loginId);
         table_book.setItems(bookList);
+        totalCnt.setText("총 : " + bookList.size() + "건");
     }
 
     @FXML
