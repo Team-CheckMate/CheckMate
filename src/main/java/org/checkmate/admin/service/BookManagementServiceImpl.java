@@ -72,7 +72,7 @@ public class BookManagementServiceImpl implements BookManagementService {
      * @throws SQLException DataBase 에러
      */
     @Override
-    public List<BookReadLoanStatusResponseDto> readBooksByBookName(String bookName) throws SQLException {
+    public ObservableList<BookReadLoanStatusResponseDto> readBooksByBookName(String bookName) throws SQLException {
         return bookMapper.readBooksByBookName(bookName);
     }
 
@@ -89,7 +89,7 @@ public class BookManagementServiceImpl implements BookManagementService {
     }
 
     @Override
-    public List<ReadBookLoanRecordsResponseDto> readAllBookLoanRecordsAdmin() throws SQLException {
+    public ObservableList<ReadBookLoanRecordsResponseDto> readAllBookLoanRecordsAdmin() throws SQLException {
         return bookMapper.readAllBookLoanRecordsAdmin();
     }
 
@@ -99,12 +99,12 @@ public class BookManagementServiceImpl implements BookManagementService {
     }
 
     @Override
-    public List<ReadBookLoanRecordsForChartResponseDto> readTeamsBookLoanRecords() throws SQLException {
+    public ObservableList<ReadBookLoanRecordsForChartResponseDto> readTeamsBookLoanRecords() throws SQLException {
         return bookMapper.readTeamsBookLoanRecords();
     }
 
     @Override
-    public List<ReadBookLoanRecordsResponseDto> readBookLoanRecordByNameAdmin(String eName) throws SQLException {
+    public ObservableList<ReadBookLoanRecordsResponseDto> readBookLoanRecordByNameAdmin(String eName) throws SQLException {
         return bookMapper.readBookLoanRecordByNameAdmin(eName);
     }
 

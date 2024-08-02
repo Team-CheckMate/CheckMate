@@ -4,8 +4,6 @@ import static org.checkmate.admin.util.FilePath.BOOK_APPLY_FX;
 import static org.checkmate.admin.util.FilePath.BOOK_LOAN_STATUS_FX;
 import static org.checkmate.admin.util.FilePath.BOOK_MANAGEMENT_FX;
 import static org.checkmate.admin.util.FilePath.USER_MANAGEMENT_FX;
-import static org.checkmate.user.util.FilePath.MAIN_ADMIN;
-import static org.checkmate.user.util.FilePath.MAIN_FX;
 
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
@@ -63,13 +61,6 @@ public class BookUpdatePageController implements Initializable {
   }
 
   private boolean lStatus;
-
-  @FXML
-  public void goHome(ActionEvent event) {
-    SceneManager sm = SceneManager.getInstance();
-    sm.moveScene(MAIN_ADMIN.getFilePath());
-  }
-
 
   //사이드바 이동
   @FXML
@@ -149,21 +140,37 @@ public class BookUpdatePageController implements Initializable {
     alert.show();
   }
 
+  private BookUpdateRequestDto createRequestDto() {
+    Long bookId = this.bookId;
+    String bookTitle = this.bookTitle.getText();
+    String isbn = this.isbn.getText();
+    String author = this.author.getText();
+    String translator = this.translator.getText();
+    String publisher = this.publisher.getText();
+    int lStatusInt = TypeFormatter.BooleanToInteger(lStatus);
+    String category = (String) this.categories.getValue();
+    int category_num = StringSplit.getCategoryNum(category, ".");
+
+    validateUserFields();
+
+    return BookUpdateRequestDto.builder()
+        .bookId(bookId)
+        .bookTitle(bookTitle)
+        .isbn(isbn)
+        .author(author)
+        .translator(translator)
+        .publisher(publisher)
+        .l_status(lStatusInt)
+        .category_num(category_num)
+        .build();
+  }
+
   @FXML
   public void register(ActionEvent actionEvent) throws NoSuchAlgorithmException, SQLException {
     System.out.println("등록버튼실행됨");
     try {
-      Long bookId = this.bookId;
-      String bookTitle = this.bookTitle.getText();
-      String isbn = this.isbn.getText();
-      String author = this.author.getText();
-      String translator = this.translator.getText();
-      String publisher = this.publisher.getText();
-      int lStatusInt = TypeFormatter.BooleanToInteger(lStatus);
-      String category = (String) this.categories.getValue();
-      int category_num = StringSplit.getCategoryNum(category, ".");
-      validateUserFields();
-      bookController.updateBook(bookId,bookTitle,isbn,author,translator,publisher,lStatusInt,category_num);
+      BookUpdateRequestDto requestDto = createRequestDto();
+      bookController.updateBook(createRequestDto());
     } catch (ValidationException | SQLException e) {
       showAlert(e.getMessage());
     }

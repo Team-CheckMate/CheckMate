@@ -2,72 +2,23 @@
   -fx-font-family: 'BM EULJIRO';
 }
 
-.left-pane {
-  -fx-background-color: #364959;
-}
-
-.center-pane {
-  -fx-background-color: #FFFFFF;
-}
-
-.top-pane {
-  -fx-background-color: #F2F2F2;
-}
-
-.center-inner-pane {
-  -fx-background-color: #FFFFFF;
-}
-
-.title {
+#title {
   -fx-font-family: 'BM EULJIRO';
   -fx-font-size: 48px;
   -fx-fill: #035aa6;
 }
 
-.subtitle {
+#subTitle {
   -fx-font-family: 'BM EULJIRO';
   -fx-font-size: 14px;
   -fx-fill: #05aff2;
 }
 
-.subtitle2 {
+#subTitle2 {
   -fx-font-family: 'BM EULJIRO';
   -fx-font-size: 20px;
   -fx-fill: #035aa6;
 }
-
-.admin {
-  -fx-font-family: 'BM EULJIRO';
-  -fx-font-size: 15px;
-  -fx-border-width: 0;
-  -fx-text-fill: WHITE;
-}
-
-.admin-info-text {
-  -fx-font-family: 'BM EULJIRO';
-  -fx-font-size: 13px;
-  -fx-fill: #f2f0d5;
-}
-
-.home-button {
-  -fx-background-color: transparent;
-}
-
-.side-button {
-  -fx-font-family: 'BM EULJIRO';
-  -fx-font-size: 18px;
-  -fx-text-fill: #FFFFFF;
-}
-
-.active-side-button {
-  -fx-font-family: 'BM EULJIRO';
-  -fx-font-size: 18px;
-  -fx-text-fill: #FFFFFF;
-  -fx-border-color: #e0ffff;
-  -fx-border-width: 3;
-}
-
-
 
 #userNameLink {
   -fx-font-family: 'BM EULJIRO';
@@ -105,14 +56,4 @@
   -fx-font-family: 'BM EULJIRO';
   -fx-font-size: 18px;
   -fx-fill: #FFFFFF;
-}
-.chartBtn{
-  -fx-background-color:#364959;
-  -fx-font-family: 'BM EULJIRO';
-
-}
-
-.line {
-  -fx-stroke: #f6c5a1;
-  -fx-stroke-width: 2;
 }

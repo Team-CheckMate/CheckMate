@@ -161,8 +161,8 @@ public class BookManagementMapper {
      * @return FindAllBooksAdminResponseDto 응답객체
      * @throws SQLException SQL 서버 에러
      */
-    public List<BookReadLoanStatusResponseDto> readBooksByBookName(String bookName) throws SQLException {
-        List<BookReadLoanStatusResponseDto> books = new ArrayList<>();
+    public ObservableList<BookReadLoanStatusResponseDto> readBooksByBookName(String bookName) throws SQLException {
+        ObservableList<BookReadLoanStatusResponseDto> books = FXCollections.observableArrayList();
         String query = prop.getProperty("ReadBooksByBookName");
         try (
             Connection connection = DBConnector.getInstance().getConnection();
@@ -220,8 +220,8 @@ public class BookManagementMapper {
      * @return ReadBookLoanRecordsResponseDto 응답객체
      * @throws SQLException SQL 서버 에러
      */
-    public List<ReadBookLoanRecordsResponseDto> readAllBookLoanRecordsAdmin() throws SQLException {
-        List<ReadBookLoanRecordsResponseDto> book_loan_records = new ArrayList<>();
+    public ObservableList<ReadBookLoanRecordsResponseDto> readAllBookLoanRecordsAdmin() throws SQLException {
+        ObservableList<ReadBookLoanRecordsResponseDto> book_loan_records = FXCollections.observableArrayList();
         String query = prop.getProperty("readAllBookLoanRecordsAdmin");
         try (
                 Connection connection = DBConnector.getInstance().getConnection();
@@ -254,8 +254,8 @@ public class BookManagementMapper {
      * @return ReadBookLoanRecordsResponseDto 응답객체
      * @throws SQLException SQL 서버 에러
      */
-    public List<ReadBookLoanRecordsResponseDto> readBookLoanRecordByNameAdmin(String eName) throws SQLException {
-        List<ReadBookLoanRecordsResponseDto> book_loan_records = new ArrayList<>();
+    public ObservableList<ReadBookLoanRecordsResponseDto> readBookLoanRecordByNameAdmin(String eName) throws SQLException {
+        ObservableList<ReadBookLoanRecordsResponseDto> book_loan_records = FXCollections.observableArrayList();
         String query = prop.getProperty("readBookLoanRecordByNameAdmin");
         try (
             Connection connection = DBConnector.getInstance().getConnection();
@@ -352,8 +352,8 @@ public class BookManagementMapper {
      * @return ReadBookLoanRecordsForChartResponseDto 응답객체
      * @throws SQLException SQL 서버 에러
      */
-    public List<ReadBookLoanRecordsForChartResponseDto> readTeamsBookLoanRecords() throws SQLException {
-        List<ReadBookLoanRecordsForChartResponseDto> book_loan_records_for_chart = new ArrayList<>();
+    public ObservableList<ReadBookLoanRecordsForChartResponseDto> readTeamsBookLoanRecords() throws SQLException {
+        ObservableList<ReadBookLoanRecordsForChartResponseDto> book_loan_records_for_chart = FXCollections.observableArrayList();
         String query = prop.getProperty("readTeamsBookLoanRecords");
         try (
                 Connection connection = DBConnector.getInstance().getConnection();

@@ -73,6 +73,9 @@ public class UserManagementMapper {
                 preparedStatement.setString(1,loginId);
             return preparedStatement.executeUpdate();
         }
+        catch (SQLException e){
+            throw new RuntimeException(e);
+        }
 
     }
     /**

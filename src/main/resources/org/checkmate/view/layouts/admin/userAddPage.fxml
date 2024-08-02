@@ -15,6 +15,11 @@
     <left>
         <AnchorPane prefHeight="650.0" prefWidth="190.0" style="-fx-background-color: #364959;" BorderPane.alignment="CENTER">
             <children>
+                <ImageView fitHeight="110.0" fitWidth="158.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../images/checkmate_logo.png" />
+                    </image>
+                </ImageView>
                 <Hyperlink fx:id="userNameLink" layoutX="27.0" layoutY="560.0" style="-fx-border-width: 0;" text="홍길동" textFill="WHITE" />
                 <FontAwesomeIconView fill="#f2f0d5" glyphName="USER" layoutX="10.0" layoutY="580.0" size="20" />
                 <Line endX="22.0" layoutX="140.0" layoutY="585.0" startX="-132.2000274658203" stroke="#f6c5a1" strokeWidth="2.0" />
@@ -27,14 +32,7 @@
                 <JFXButton alignment="TOP_RIGHT" layoutX="9.0" layoutY="227.0" onAction="#goToLoanStatus" prefHeight="37.0" prefWidth="160.0" styleClass="side-button" text="대여 현황" textFill="#FFFFFF" />
                 <JFXButton alignment="TOP_RIGHT" layoutX="8.0" layoutY="280.0" onAction="#goToUserManage" prefHeight="46.0" prefWidth="165.0" style="-fx-border-color: #e0ffff; -fx-border-width: 3;" styleClass="side-button" text="사원 관리" textFill="#FFFFFF" />
                 <JFXButton alignment="TOP_RIGHT" layoutX="9.0" layoutY="345.0" onAction="#goToApplyStatus" prefHeight="37.0" prefWidth="160.0" styleClass="side-button" text="신청 현황" textFill="#FFFFFF" />
-                <Button onAction="#goHome" layoutX="15.0" layoutY="21.0" mnemonicParsing="false" prefHeight="97.0" prefWidth="148.0" styleClass="home-button">
-               <graphic>
-                      <ImageView fitHeight="110.0" fitWidth="158.0" pickOnBounds="true" preserveRatio="true">
-                          <image>
-                              <Image url="@../../../images/checkmate_logo.png" />
-                          </image>
-                      </ImageView>
-               </graphic></Button>
+                <Button layoutX="15.0" layoutY="21.0" mnemonicParsing="false" prefHeight="97.0" prefWidth="148.0" styleClass="home-button" />
             </children>
         </AnchorPane>
     </left>

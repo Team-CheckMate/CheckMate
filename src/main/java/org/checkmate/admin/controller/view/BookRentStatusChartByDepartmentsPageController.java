@@ -4,7 +4,6 @@ import static org.checkmate.admin.util.FilePath.BOOK_APPLY_FX;
 import static org.checkmate.admin.util.FilePath.BOOK_LOAN_STATUS_FX;
 import static org.checkmate.admin.util.FilePath.BOOK_MANAGEMENT_FX;
 import static org.checkmate.admin.util.FilePath.USER_MANAGEMENT_FX;
-import static org.checkmate.user.util.FilePath.MAIN_ADMIN;
 
 import com.jfoenix.controls.JFXButton;
 
@@ -51,12 +50,13 @@ public class BookRentStatusChartByDepartmentsPageController {
 
   @FXML private BarChart<String, Number> barChart;
   @FXML private PieChart pieChart;
+  @FXML Label percentageLabel;
   private boolean isBarChartVisible = true;
 
   @FXML
   public void initialize() throws SQLException {
-
-    bookController.readDepartmentsBookLoanRecords();
+    BookManagementMapper bm = new BookManagementMapper();
+    bm.readPivotDepartmentsBookLoanRecords();
 
     XYChart.Series<String, Number> series = new XYChart.Series<>();
     series.setName("대여한 책 개수");
@@ -74,12 +74,27 @@ public class BookRentStatusChartByDepartmentsPageController {
             .add(new PieChart.Data(departments.getDepartmentName(), departments.getCount()));
       }
     }
+    percentageLabel.setTextFill(Color.BLACK);
+    percentageLabel.setStyle("-fx-font: 20 arial;");
 
     for (final PieChart.Data data : pieChart.getData()) {
       data.getNode().addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent e) {
           try {
+//                        percentageLabel.setTranslateX(e.getSceneX()-percentageLabel.getLayoutX());
+//                        percentageLabel.setTranslateX(e.getSceneY()-percentageLabel.getLayoutY());
+//                        percentageLabel.setText(String.valueOf(data.getPieValue())+"%");
+            double newX1 = e.getSceneX() - (percentageLabel.getWidth() / 2);
+            double newY1 = e.getSceneY() - (percentageLabel.getHeight() / 2);
+
+            // 현재 위치를 이동시키기 위해 setTranslateX/Y 사용
+            percentageLabel.setTranslateX(newX1);
+            percentageLabel.setTranslateY(newY1);
+
+            // 데이터 값 설정
+            percentageLabel.setText(String.format("%.2f%%", data.getPieValue()));
+            System.out.println("Pie chart clicked");
             Bounds b1 = data.getNode().getBoundsInLocal();
 
             double newX = (b1.getWidth()) / 2.0 + b1.getMinX();
@@ -109,12 +124,6 @@ public class BookRentStatusChartByDepartmentsPageController {
   }
 
   //사이드바 이동
-  @FXML
-  public void goHome(ActionEvent event) {
-    SceneManager sm = SceneManager.getInstance();
-    sm.moveScene(MAIN_ADMIN.getFilePath());
-  }
-
   @FXML
   private void goToBookManage(ActionEvent event) {
     SceneManager sm = SceneManager.getInstance();

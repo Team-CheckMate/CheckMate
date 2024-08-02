@@ -9,9 +9,9 @@
 
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.chart.BarChart?>
-<?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.PieChart?>
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.checkmate.admin.controller.view.BookRentStatusChartByTeamsPageController">
     <children>
@@ -20,24 +20,27 @@
                 <AnchorPane prefHeight="0.0" prefWidth="1000.0" BorderPane.alignment="CENTER" />
             </top>
             <left>
-                <AnchorPane prefHeight="650.0" prefWidth="82.0" styleClass="left-pane" BorderPane.alignment="CENTER">
-                    <Text layoutX="10.0" layoutY="605.0" styleClass="admin-info-text" text="인사팀" />
-                    <Text fill="WHITE" layoutX="32.0" layoutY="576.0" styleClass="admin" text="관리자" />
-                    <FontAwesomeIconView fill="#f2f0d5" glyphName="USER" layoutX="10.0" layoutY="578.0" size="20" />
-                    <Line endX="12.5" layoutX="141.0" layoutY="585.0" startX="-132.2000274658203" styleClass="line" />
-                    <ImageView fitHeight="217.0" fitWidth="153.0" layoutX="8.0" layoutY="141.0" pickOnBounds="true" preserveRatio="true">
-                        <Image url="@../../../icons/side_menu_bu2.png" />
-                    </ImageView>
-                    <Button layoutX="15.0" layoutY="21.0" mnemonicParsing="false" onAction="#goHome" prefHeight="97.0" prefWidth="148.0" styleClass="home-button">
-                        <graphic>
-                            <ImageView fitHeight="110.0" fitWidth="158.0" pickOnBounds="true" preserveRatio="true">
+                <AnchorPane prefHeight="650.0" prefWidth="190.0" style="-fx-background-color: #364959;" BorderPane.alignment="CENTER">
+                    <children>
+                        <ImageView fitHeight="110.0" fitWidth="158.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
                                 <Image url="@../../../images/checkmate_logo.png" />
-                            </ImageView>
-                        </graphic></Button>
-                    <JFXButton alignment="CENTER_RIGHT" layoutX="11.0" layoutY="145.0" onAction="#goToBookManage" prefHeight="35.0" prefWidth="142.0" styleClass="side-button" text="도서 관리" />
-                    <JFXButton alignment="CENTER_RIGHT" layoutX="10.0" layoutY="195.0" onAction="#goToLoanStatus" prefHeight="37.0" prefWidth="141.0" styleClass="active-side-button" text="대여 현황" />
-                    <JFXButton alignment="CENTER_RIGHT" layoutX="8.0" layoutY="245.0" onAction="#goToUserManage" prefHeight="43.0" prefWidth="143.0" styleClass="side-button" text="사원 관리" />
-                    <JFXButton alignment="CENTER_RIGHT" layoutX="11.0" layoutY="302.0" onAction="#goToApplyStatus" prefHeight="38.0" prefWidth="143.0" styleClass="side-button" text="신청 현황" />
+                            </image>
+                        </ImageView>
+                        <Hyperlink fx:id="userNameLink" layoutX="27.0" layoutY="560.0" style="-fx-border-width: 0;" text="홍길동" textFill="WHITE" />
+                        <FontAwesomeIconView fill="#f2f0d5" glyphName="USER" layoutX="10.0" layoutY="580.0" size="20" />
+                        <Line endX="22.0" layoutX="140.0" layoutY="585.0" startX="-132.2000274658203" stroke="#f6c5a1" strokeWidth="2.0" />
+                        <ImageView fitHeight="253.0" fitWidth="170.0" layoutX="4.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../../icons/side_menu_bu2.png" />
+                            </image>
+                        </ImageView>
+                        <JFXButton alignment="TOP_RIGHT" layoutX="9.0" layoutY="170.0" onAction="#goToBookManage" prefHeight="37.0" prefWidth="160.0" styleClass="side-button" text="도서 관리" textFill="#FFFFFF" />
+                        <JFXButton alignment="TOP_RIGHT" layoutX="10.0" layoutY="225.0" onAction="#goToLoanStatus" prefHeight="37.0" prefWidth="160.0" styleClass="active-side-button" text="대여 현황" textFill="#FFFFFF" />
+                        <JFXButton alignment="TOP_RIGHT" layoutX="8.0" layoutY="280.0" onAction="#goToUserManage" prefHeight="46.0" prefWidth="165.0" styleClass="side-button" text="사원 관리" textFill="#FFFFFF" />
+                        <JFXButton alignment="TOP_RIGHT" layoutX="10.0" layoutY="343.0" onAction="#goToApplyStatus" prefHeight="42.0" prefWidth="160.0"  styleClass="side-button" text="신청 현황" textFill="#FFFFFF" />
+                        <Button layoutX="15.0" layoutY="21.0" mnemonicParsing="false" prefHeight="97.0" prefWidth="148.0" styleClass="home-button" />
+                    </children>
                 </AnchorPane>
             </left>
             <center>
@@ -45,21 +48,28 @@
                     <children>
                         <BorderPane prefHeight="658.0" prefWidth="818.0">
                             <top>
-                                <AnchorPane prefHeight="107.0" prefWidth="882.0" styleClass="top-pane" BorderPane.alignment="CENTER">
-                                    <Text fx:id="title" layoutX="278.0" layoutY="61.0" styleClass="title" text="CheckMate" />
-                                    <Text fx:id="subTitle" layoutX="395.0" layoutY="89.0" styleClass="subtitle" text="책과 함께하는 친구 같은 공간" />
-                                    <Button layoutX="799.0" layoutY="4.0" mnemonicParsing="false" onAction="#exit" prefHeight="30.0" prefWidth="33.0" styleClass="exit-button">
-                                        <graphic>
-                                            <FontAwesomeIconView fill="#05aff2" glyphName="CLOSE" size="20.0" />
-                                        </graphic>
-                                    </Button>
+                                <AnchorPane prefHeight="107.0" prefWidth="674.0" style="-fx-background-color: #F2F2F2;" BorderPane.alignment="CENTER">
+                                    <children>
+                                        <Text fx:id="title" layoutX="220.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CheckMate" />
+                                        <Text fx:id="subTitle" layoutX="337.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="책과 함께하는 친구 같은 공간" />
+                                        <Button layoutX="767.0" layoutY="20.0" mnemonicParsing="false" onAction="#exit" styleClass="exit-button">
+                                            <graphic>
+                                                <FontAwesomeIconView fill="#05aff2" glyphName="CLOSE" size="20.0" />
+                                            </graphic>
+                                        </Button>
+                                        <ImageView fitHeight="50.0" fitWidth="178.0" layoutX="319.0" layoutY="600.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../../images/company_logo.jpg" />
+                                            </image>
+                                        </ImageView>
+                                    </children>
                                 </AnchorPane>
                             </top>
                         </BorderPane>
                     </children>
-                    <Button layoutX="60.0" layoutY="150.0" onAction="#toggleChart" styleClass="chartBtn" text="차트 형식 변환" textFill="WHITE" />
+                    <Button layoutX="60.0" layoutY="150.0" onAction="#toggleChart" text="차트 형식 변환" />
                     <children>
-                        <Text styleClass="subtitle2" layoutX="48.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="팀별 통계">
+                        <Text fx:id="subTitle2" layoutX="48.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="팀별 통계">
                             <font>
                                 <Font name="Bodoni MT" size="14.0" />
                             </font>

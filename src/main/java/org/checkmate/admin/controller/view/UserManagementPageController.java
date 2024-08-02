@@ -4,7 +4,6 @@ import static org.checkmate.admin.util.FilePath.BOOK_APPLY_FX;
 import static org.checkmate.admin.util.FilePath.BOOK_LOAN_STATUS_FX;
 import static org.checkmate.admin.util.FilePath.BOOK_MANAGEMENT_FX;
 import static org.checkmate.admin.util.FilePath.USER_MANAGEMENT_FX;
-import static org.checkmate.user.util.FilePath.MAIN_ADMIN;
 import static org.checkmate.user.util.FilePath.MAIN_FX;
 
 import java.net.URL;
@@ -57,12 +56,6 @@ public class UserManagementPageController implements Initializable {
   ObservableList<AdminMemberResponseDto> memberList;
 
   //사이드바 이동
-  @FXML
-  public void goHome(ActionEvent event) {
-    SceneManager sm = SceneManager.getInstance();
-    sm.moveScene(MAIN_ADMIN.getFilePath());
-  }
-
   @FXML
   private void goToBookManage(ActionEvent event) {
     SceneManager sm = SceneManager.getInstance();
@@ -170,7 +163,7 @@ public class UserManagementPageController implements Initializable {
                 result = adminMemberService.deleteUser(data.getLoginId());
 
               } catch (SQLException e) {
-                Msg("삭제 불가능합니다");
+                throw new RuntimeException(e);
               }
               String msg = result != 0 ? "삭제되었습니다" : "삭제 실패하였습니다";
               Msg("사원번호 " + data.getLoginId() + msg);
@@ -217,6 +210,11 @@ public class UserManagementPageController implements Initializable {
 
   }
 
+  @FXML
+  public void goHome(ActionEvent event) {
+    SceneManager sm = SceneManager.getInstance();
+    sm.moveScene(MAIN_FX.getFilePath());
+  }
 
 }
 

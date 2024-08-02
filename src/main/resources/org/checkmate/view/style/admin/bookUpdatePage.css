@@ -1,77 +1,109 @@
-.root {
-  -fx-font-family: 'BM EULJIRO';
-}
-
-.left-pane {
-  -fx-background-color: #364959;
-}
-
-.center-pane {
-  -fx-background-color: #FFFFFF;
-}
-
-.top-pane {
-  -fx-background-color: #F2F2F2;
-}
-
-.center-inner-pane {
-  -fx-background-color: #FFFFFF;
-}
-
-.title {
+#title {
   -fx-font-family: 'BM EULJIRO';
   -fx-font-size: 48px;
   -fx-fill: #035aa6;
 }
 
-.subTitle {
+#subTitle {
   -fx-font-family: 'BM EULJIRO';
   -fx-font-size: 14px;
   -fx-fill: #05aff2;
 }
 
-.subTitle2 {
+.root {
+  -fx-font-family: 'BM EULJIRO';
+}
+
+#username {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 15px;
+}
+
+#bookTitle {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 15px;
+  -fx-fill: #035aa6;
+}
+
+#publisher {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 15px;
+  -fx-fill: #035aa6;
+}
+
+#isbn {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 15px;
+  -fx-fill: #035aa6;
+}
+
+#author {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 15px;
+  -fx-fill: #035aa6;
+}
+
+#translator {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 15px;
+}
+
+#tName {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 15px;
+}
+
+#subTitle2 {
   -fx-font-family: 'BM EULJIRO';
   -fx-font-size: 20px;
   -fx-fill: #035aa6;
 }
 
-.admin {
+#text1 {
   -fx-font-family: 'BM EULJIRO';
   -fx-font-size: 15px;
-  -fx-border-width: 0;
-  -fx-text-fill: WHITE;
+  -fx-fill: #035aa6;
 }
 
-.admin-info-text {
+#text2 {
   -fx-font-family: 'BM EULJIRO';
-  -fx-font-size: 13px;
-  -fx-fill: #f2f0d5;
+  -fx-font-size: 15px;
+  -fx-fill: #035aa6;
 }
 
-.home-button {
-  -fx-background-color: transparent;
-}
-
-.side-button {
+#text3 {
   -fx-font-family: 'BM EULJIRO';
-  -fx-font-size: 18px;
-  -fx-text-fill: #FFFFFF;
+  -fx-font-size: 15px;
+  -fx-fill: #035aa6;
 }
 
-.table-view {
-  -fx-background-color: #FFFFFF; /*transparent; */
+#text4 {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 15px;
+  -fx-fill: #035aa6;
 }
 
-/* 기본 TableColumn 스타일 설정 */
-.table-column {
-  -fx-background-color: #FFFFFF; /* 기본 배경색 */
+#text5 {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 15px;
+  -fx-fill: #035aa6;
+}
+
+#text6 {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 15px;
+  -fx-fill: #035aa6;
+}
+
+#text {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 15px;
+  -fx-fill: #035aa6;
 }
 
 .exit-button {
   -fx-background-color: transparent;
 }
-
 
 .update-button {
   -fx-font-family: 'BM EULJIRO';
@@ -79,6 +111,26 @@
   -fx-text-fill: WHITE;
 }
 
+#nowPw {
+  -fx-background-color: transparent;
+  -fx-border-width: 0px 0px 2px 0px;
+  -fx-border-color: #05AFF2;
+  -fx-font-size: 15px;
+}
+
+#updatePwd {
+  -fx-background-color: transparent;
+  -fx-border-width: 0px 0px 2px 0px;
+  -fx-border-color: #05AFF2;
+  -fx-font-size: 15px;
+}
+
+#updatePwdChk {
+  -fx-background-color: transparent;
+  -fx-border-width: 0px 0px 2px 0px;
+  -fx-border-color: #05AFF2;
+  -fx-font-size: 15px;
+}
 
 .shot_button {
   -fx-background-color: #035AA6;
@@ -92,31 +144,13 @@
   -fx-fill: #FFFFFF;
 }
 
+#userNameLink {
+  -fx-font-family: 'BM EULJIRO';
+  -fx-font-size: 15px;
+}
 
 .user-info-text {
   -fx-font-family: 'BM EULJIRO';
   -fx-font-size: 15px;
   -fx-fill: #f2f0d5;
-}
-
-.input_field {
-  -fx-background-color: transparent;
-  -fx-border-width: 0px 0px 2px 0px;
-  -fx-border-color: #05AFF2;
-  -fx-font-family: 'BM EULJIRO';
-}
-
-.book{
-  -fx-font-family: 'BM EULJIRO';
-  -fx-font-size: 15px;
-  -fx-fill:  #035AA6;
-
-}
-#register{
-  -fx-font-family: 'BM EULJIRO';
-}
-
-#categories{
-  -fx-font-family: 'BM EULJIRO';
-
 }

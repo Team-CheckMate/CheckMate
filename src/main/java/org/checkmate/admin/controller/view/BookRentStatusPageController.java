@@ -7,14 +7,12 @@ import static org.checkmate.admin.util.FilePath.MANAGEMENT_FX;
 import static org.checkmate.admin.util.FilePath.RENT_STATUS_CHART_DEPARTMENTS_FX;
 import static org.checkmate.admin.util.FilePath.RENT_STATUS_CHART_TEAMS_FX;
 import static org.checkmate.admin.util.FilePath.USER_MANAGEMENT_FX;
-import static org.checkmate.user.util.FilePath.MAIN_ADMIN;
 
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -75,14 +73,7 @@ public class BookRentStatusPageController implements Initializable {
     }
   }
 
-
   //사이드바 이동
-  @FXML
-  public void goHome(ActionEvent event) {
-    SceneManager sm = SceneManager.getInstance();
-    sm.moveScene(MAIN_ADMIN.getFilePath());
-  }
-
   @FXML
   private void goToBookManage(ActionEvent event) {
     SceneManager sm = SceneManager.getInstance();
@@ -141,7 +132,7 @@ public class BookRentStatusPageController implements Initializable {
         new PropertyValueFactory<ReadBookLoanRecordsResponseDto, Date>("returnDate"));
     status.setCellValueFactory(
         new PropertyValueFactory<ReadBookLoanRecordsResponseDto, String>("status"));
-    ObservableList<ReadBookLoanRecordsResponseDto> bookLoanRecordsList = FXCollections.observableArrayList(bookController.readAllBookLoanRecordsAdmin());
+    bookLoanRecordsList = bookController.readAllBookLoanRecordsAdmin();
     table_book_loan_records.setItems(bookLoanRecordsList);
     int count = bookLoanRecordsList.size();
     searchCount.setText("총 : " + count + " 건");
@@ -226,7 +217,7 @@ public class BookRentStatusPageController implements Initializable {
         new PropertyValueFactory<ReadBookLoanRecordsResponseDto, Date>("returnDate"));
     status.setCellValueFactory(
         new PropertyValueFactory<ReadBookLoanRecordsResponseDto, String>("status"));
-    ObservableList<ReadBookLoanRecordsResponseDto> bookLoanRecordsList = FXCollections.observableArrayList(bookController.readBookLoanRecordByNameAdmin(searchContent.getText()));
+    bookLoanRecordsList = bookController.readBookLoanRecordByNameAdmin(searchContent.getText());
     table_book_loan_records.setItems(bookLoanRecordsList);
     int count = bookLoanRecordsList.size();
     searchCount.setText("총 : " + count + " 건");
@@ -245,4 +236,8 @@ public class BookRentStatusPageController implements Initializable {
     sm.moveScene(RENT_STATUS_CHART_TEAMS_FX.getFilePath());
   }
 
+  public void goHome(ActionEvent event) {
+    SceneManager sm = SceneManager.getInstance();
+    sm.moveScene(MANAGEMENT_FX.getFilePath());
+  }
 }

@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import de.jensd.fx.glyphs.fontawesome.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" stylesheets="@../../style/admin/applyStatusViewPage.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.checkmate.admin.controller.view.ApplyStatusViewPageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" stylesheets="@../../style/admin/applyStatusViewPage.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.checkmate.admin.controller.view.ApplyStatusViewPageController">
     <top>
         <AnchorPane prefHeight="0.0" prefWidth="1000.0" BorderPane.alignment="CENTER" />
     </top>
     <left>
         <AnchorPane prefHeight="650.0" prefWidth="82.0" styleClass="left-pane" BorderPane.alignment="CENTER">
+            <ImageView fitHeight="110.0" fitWidth="158.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                <Image url="@../../../images/checkmate_logo.png" />
+            </ImageView>
             <Text layoutX="10.0" layoutY="605.0" styleClass="admin-info-text" text="인사팀" />
             <Text fill="WHITE" layoutX="32.0" layoutY="576.0" styleClass="admin" text="관리자" />
             <FontAwesomeIconView fill="#f2f0d5" glyphName="USER" layoutX="10.0" layoutY="578.0" size="20" />
@@ -21,12 +29,7 @@
             <ImageView fitHeight="217.0" fitWidth="153.0" layoutX="5.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true">
                 <Image url="@../../../icons/side_menu_bu2.png" />
             </ImageView>
-            <Button layoutX="15.0" layoutY="21.0" mnemonicParsing="false" onAction="#goHome" prefHeight="97.0" prefWidth="148.0" styleClass="home-button">
-            <graphic>
-                  <ImageView fitHeight="110.0" fitWidth="158.0" pickOnBounds="true" preserveRatio="true">
-                      <Image url="@../../../images/checkmate_logo.png" />
-                  </ImageView>
-            </graphic></Button>
+            <Button layoutX="15.0" layoutY="21.0" mnemonicParsing="false" onAction="#goHome" prefHeight="97.0" prefWidth="148.0" styleClass="home-button" />
             <JFXButton alignment="CENTER_RIGHT" layoutX="11.0" layoutY="145.0" onAction="#goToBookManage" prefHeight="35.0" prefWidth="142.0" styleClass="side-button" text="도서 관리" />
             <JFXButton alignment="CENTER_RIGHT" layoutX="10.0" layoutY="195.0" onAction="#goToLoanStatus" prefHeight="37.0" prefWidth="141.0" styleClass="side-button" text="대여 현황" />
             <JFXButton alignment="CENTER_RIGHT" layoutX="8.0" layoutY="245.0" onAction="#goToUserManage" prefHeight="43.0" prefWidth="143.0" styleClass="side-button" text="사원 관리" />
