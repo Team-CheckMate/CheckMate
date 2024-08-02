@@ -21,6 +21,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 import org.checkmate.admin.controller.server.BookController;
 import org.checkmate.admin.dto.response.ReadBookLoanRecordsForChartResponseDto;
+import org.checkmate.admin.dto.response.ReadBookLoanRecordsResponseDto;
 import org.checkmate.admin.service.BookManagementService;
 import org.checkmate.admin.service.BookManagementServiceImpl;
 import org.checkmate.common.controller.view.SceneManager;
@@ -43,7 +44,7 @@ public class BookRentStatusChartByTeamsPageController {
 
   @FXML
   public void initialize() throws SQLException {
-    bookLoanRecordsForChartList = bookController.readTeamsBookLoanRecords();
+    ObservableList<ReadBookLoanRecordsForChartResponseDto> bookLoanRecordsForChartList = FXCollections.observableArrayList(bookController.readTeamsBookLoanRecords());
     // List<responseDto>를 ObservableList로 변환
     ObservableList<XYChart.Data<String, Number>> chartData = FXCollections.observableArrayList();
     for (ReadBookLoanRecordsForChartResponseDto record : bookLoanRecordsForChartList) {

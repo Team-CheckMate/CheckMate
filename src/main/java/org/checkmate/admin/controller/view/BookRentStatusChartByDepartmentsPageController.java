@@ -55,8 +55,8 @@ public class BookRentStatusChartByDepartmentsPageController {
 
   @FXML
   public void initialize() throws SQLException {
-    BookManagementMapper bm = new BookManagementMapper();
-    bm.readPivotDepartmentsBookLoanRecords();
+
+    bookController.readDepartmentsBookLoanRecords();
 
     XYChart.Series<String, Number> series = new XYChart.Series<>();
     series.setName("대여한 책 개수");

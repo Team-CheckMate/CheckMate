@@ -235,7 +235,7 @@ public class BookManagementPageController implements Initializable {
         new PropertyValueFactory<BookReadLoanStatusResponseDto, Date>("addDate"));
     eName.setCellValueFactory(
         new PropertyValueFactory<BookReadLoanStatusResponseDto, String>("eName"));
-    bookList = bookController.ReadBooksByBookName(bookName);
+    ObservableList<BookReadLoanStatusResponseDto> bookList = FXCollections.observableArrayList(bookController.ReadBooksByBookName(bookName));
     table_book.setItems(bookList);
     int count = bookList.size();
 
