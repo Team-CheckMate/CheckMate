@@ -46,6 +46,7 @@ public class ReadBookRequestPageController implements Initializable  {
     @FXML private TableColumn<ReadBookRequestResponseDto, String> publisher;
     @FXML private TableColumn<ReadBookRequestResponseDto, String> author;
     @FXML private TableColumn<ReadBookRequestResponseDto, String> status;
+    @FXML private Text totalCnt;
 
     ObservableList<ReadBookRequestResponseDto> bookList;
 
@@ -74,6 +75,7 @@ public class ReadBookRequestPageController implements Initializable  {
         //BookMapper bm = new BookMapper();
         bookList = bookService.findAllBookRequest(deptNo);
         table_book.setItems(bookList);
+        totalCnt.setText("총 : " + bookList.size() + "건");
     }
 
     @FXML

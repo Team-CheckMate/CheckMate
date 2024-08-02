@@ -46,6 +46,7 @@ public class ReadOverdueBookPageController implements Initializable  {
     @FXML private TableColumn<ReadLoanStatusResponseDto, Date> loanDate;
     @FXML private TableColumn<ReadLoanStatusResponseDto, Date> returnPreDate;
     @FXML private TableColumn<ReadLoanStatusResponseDto, CheckBox> select;
+    @FXML private Text totalCnt;
 
     ObservableList<ReadLoanStatusResponseDto> bookList;
 
@@ -73,6 +74,7 @@ public class ReadOverdueBookPageController implements Initializable  {
         returnPreDate.setCellValueFactory(new PropertyValueFactory<ReadLoanStatusResponseDto, Date>("returnPreDate"));
         bookList = bookService.findOverdueLoanBook(loginId);
         table_book.setItems(bookList);
+        totalCnt.setText("총 : " + bookList.size() + "건");
     }
 
     //반납하기 버튼
@@ -93,6 +95,7 @@ public class ReadOverdueBookPageController implements Initializable  {
             return;
         }
         bookService.updateReturnOverdueLoanBook(loginId, selectedBooks);
+        showAlert("반납을 완료했습니다.");
         SceneManager sm = SceneManager.getInstance();
         sm.moveScene(READ_OVERDUE_LOAN_BOOK_FX.getFilePath());
     }

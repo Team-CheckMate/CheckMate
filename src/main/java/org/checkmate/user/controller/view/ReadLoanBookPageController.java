@@ -54,6 +54,7 @@ public class ReadLoanBookPageController implements Initializable {
     @FXML private TableColumn<ReadLoanStatusResponseDto, Boolean> lStatus;
     @FXML private TableColumn<ReadLoanStatusResponseDto, Date> date;
     @FXML private TableColumn<ReadLoanStatusResponseDto, CheckBox> select;
+    @FXML private Text totalCnt;
 
     ObservableList<ReadLoanStatusResponseDto> bookList;
 
@@ -154,13 +155,16 @@ public class ReadLoanBookPageController implements Initializable {
         //BookMapper bm = new BookMapper();
         bookList = bookService.findAllBooks();
         table_book.setItems(bookList);
+        totalCnt.setText("총 : " + bookList.size() +"건");
     }
 
     @FXML
     public void searchBtn(ActionEvent actionEvent) throws SQLException {
         ReadSearchLoanStatusResponseDto responseDto = bookService.findByBookName(
                 ReadSearchLoanStatusRequestDto.builder().searchName(searchName.getText()).build());
-        table_book.setItems(responseDto.getBooklist());
+        bookList = responseDto.getBooklist();
+        table_book.setItems(bookList);
+        totalCnt.setText("총 : " + bookList.size() +"건");
     }
 
     @FXML
@@ -170,6 +174,10 @@ public class ReadLoanBookPageController implements Initializable {
 
         for (ReadLoanStatusResponseDto bean : bookList) {
             if (bean.getSelect().isSelected()) {
+                if(bean.getLStatus()) {
+                    showAlert(bean.getBName() + "은 대여불가이므로 대여할 수 없습니다.");
+                    return;
+                }
                 selectedBooks.add(bean);
                 System.out.println("도서 대여 정보 = " + bean);
             }
@@ -178,7 +186,12 @@ public class ReadLoanBookPageController implements Initializable {
         if (selectedBooks.isEmpty()) {
             showAlert("대여할 도서가 선택되지 않았습니다.");
             return;
+        } else if (selectedBooks.size() > 3) {
+            showAlert("총 3권까지 대여하실 수 있습니다.");
+            return;
         }
+
+
 
         CreateBookLoanRequestDto requestDto = CreateBookLoanRequestDto.builder()
                 .loginId(loginId)
@@ -186,6 +199,9 @@ public class ReadLoanBookPageController implements Initializable {
                 .build();
         CreateBookLoanResponseDto responseDto = bookController.createLoanBook(requestDto);
         showAlert(responseDto.getMessage());
+
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(BOOK_LOAN.getFilePath());
     }
 
     public void showAlert(String msg) {

@@ -74,6 +74,7 @@ public class BookMapper {
             for (ReadLoanStatusResponseDto bean : requestDto.getBookList()) {
                 callableStatement.setLong(1, bean.getBookId());
                 callableStatement.setString(2, requestDto.getLoginId());
+                callableStatement.setString(3, bean.getBName());
                 callableStatement.execute();
             }
         } catch (SQLException e) {

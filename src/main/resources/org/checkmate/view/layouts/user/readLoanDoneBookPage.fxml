@@ -84,6 +84,7 @@
                             </font>
                         </Text>
                         <Line endX="675.0" layoutX="124.0" layoutY="70.0" startX="-94.0" styleClass="table-line" />
+                        <Text fx:id="totalCnt" fill="#364959" layoutX="30.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" />
                     </AnchorPane>
                 </center>
             </BorderPane>
