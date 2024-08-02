@@ -1,14 +1,12 @@
 package org.checkmate.common.service;
 
 import java.sql.SQLException;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.checkmate.common.dto.request.ReqLoginIdAndPassword;
 import org.checkmate.common.dto.response.UserInfo;
 import org.checkmate.common.exception.DatabaseException;
 import org.checkmate.user.dto.request.UpdatePasswordRequestDto;
-import org.checkmate.user.dto.response.ReadMyInformationResponseDto;
 import org.checkmate.user.dto.response.UpdatePasswordResponseDto;
 import org.checkmate.user.mapper.MemberMapper;
 
@@ -40,13 +38,6 @@ public class LoginServiceImpl implements LoginService {
                 .role(user.getRole())
                 .delayCnt(user.getDelayCnt())
                 .build();
-    }
-
-    @Override
-    public ReadMyInformationResponseDto getMypageInfo(String loginId) throws SQLException {
-            Optional<ReadMyInformationResponseDto> myPageResponsedto = memberMapper.getMyPageInfo_findByLoginId(loginId);
-        ReadMyInformationResponseDto myPageInfo = myPageResponsedto.orElseThrow(() -> new NoSuchElementException("조회된 정보가 없습니다."));
-        return myPageInfo;
     }
 
     @Override
