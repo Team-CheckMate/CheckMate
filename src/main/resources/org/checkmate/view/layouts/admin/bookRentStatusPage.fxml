@@ -74,9 +74,9 @@
                                 <TableColumn fx:id="status" maxWidth="150.0001220703125" minWidth="7.28558349609375" prefWidth="68.64068603515625" styleClass="table-column" text="상태" />
                                 <TableColumn fx:id="manage" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" styleClass="table-column" text="관리" />
                             </columns>
-                            <columnResizePolicy>
-                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                            </columnResizePolicy>
+<!--                            <columnResizePolicy>-->
+<!--                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />-->
+<!--                            </columnResizePolicy>-->
                         </TableView>
                         <Text fx:id="subTitle2" layoutX="25.0" layoutY="33.0" styleClass="subtitle2" text="대여 현황" textAlignment="CENTER">
                             <font>

@@ -21,7 +21,7 @@
         FROM
         BOOKS B
         LEFT JOIN
-        BOOK_LOAN_RECORDS L ON B.BOOK_ID = L.BOOK_ID
+        (SELECT * FROM BOOK_LOAN_RECORDS where return_date is null) L ON B.BOOK_ID = L.BOOK_ID
         LEFT JOIN
         MEMBERS M ON L.login_id = M.login_id
     </entry>

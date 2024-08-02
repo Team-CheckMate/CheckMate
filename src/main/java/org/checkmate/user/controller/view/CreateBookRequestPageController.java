@@ -1,5 +1,14 @@
 package org.checkmate.user.controller.view;
 
+import static javafx.scene.control.Alert.AlertType.WARNING;
+import static org.checkmate.user.util.FilePath.BOOK_LOAN;
+import static org.checkmate.user.util.FilePath.MAIN_FX;
+import static org.checkmate.user.util.FilePath.READ_NOT_RENT_LOAN_BOOK_FX;
+import static org.checkmate.user.util.FilePath.READ_REQUEST_BOOK_FX;
+import static org.checkmate.user.util.FilePath.READ_TM_LOAN_STATUS_FX;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,12 +21,6 @@ import org.checkmate.common.controller.view.SceneManager;
 import org.checkmate.common.util.LoginSession;
 import org.checkmate.user.service.BookService;
 import org.checkmate.user.service.BookServiceImpl;
-
-import java.net.URL;
-import java.util.ResourceBundle;
-
-import static javafx.scene.control.Alert.AlertType.WARNING;
-import static org.checkmate.user.util.FilePath.*;
 
 /**
  * 도서신청 컨트롤러
