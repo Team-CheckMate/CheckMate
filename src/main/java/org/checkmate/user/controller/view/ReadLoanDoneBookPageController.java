@@ -77,25 +77,25 @@ public class ReadLoanDoneBookPageController implements Initializable {
     }
 
     @FXML
-    public void goToBookLoan(ActionEvent actionEvent) {
+    private void goToBookLoan(ActionEvent event) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene(READ_RENT_LOAN_BOOK_FX.getFilePath());
+        sm.moveScene(BOOK_LOAN.getFilePath());
     }
 
     @FXML
-    public void goToLoanManage(ActionEvent actionEvent) {
+    private void goToLoanManage(ActionEvent event) {
         SceneManager sm = SceneManager.getInstance();
         sm.moveScene(READ_NOT_RENT_LOAN_BOOK_FX.getFilePath());
     }
 
     @FXML
-    public void goToMyLoanBook(ActionEvent actionEvent) {
+    private void goToMyLoanBook(ActionEvent event) {
         SceneManager sm = SceneManager.getInstance();
         sm.moveScene(READ_TM_LOAN_STATUS_FX.getFilePath());
     }
 
     @FXML
-    public void goToBookApply(ActionEvent actionEvent) {
+    private void goToBookApply(ActionEvent event) {
         SceneManager sm = SceneManager.getInstance();
         sm.moveScene(READ_REQUEST_BOOK_FX.getFilePath());
     }

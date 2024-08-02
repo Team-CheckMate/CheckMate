@@ -6,6 +6,7 @@ import static org.checkmate.admin.util.FilePath.BOOK_LOAN_STATUS_FX;
 import static org.checkmate.admin.util.FilePath.BOOK_MANAGEMENT_FX;
 import static org.checkmate.admin.util.FilePath.MANAGEMENT_FX;
 import static org.checkmate.admin.util.FilePath.USER_MANAGEMENT_FX;
+import static org.checkmate.user.util.FilePath.MAIN_ADMIN;
 
 import java.io.IOException;
 import java.net.URL;
@@ -67,7 +68,13 @@ public class BookManagementPageController implements Initializable {
   }
 
   //사이드바 이동
-  //사이드바 이동
+
+  @FXML
+  public void goHome(ActionEvent event) {
+    SceneManager sm = SceneManager.getInstance();
+    sm.moveScene(MAIN_ADMIN.getFilePath());
+  }
+
   @FXML
   private void goToBookManage(ActionEvent event) {
     SceneManager sm = SceneManager.getInstance();
@@ -228,7 +235,7 @@ public class BookManagementPageController implements Initializable {
         new PropertyValueFactory<BookReadLoanStatusResponseDto, Date>("addDate"));
     eName.setCellValueFactory(
         new PropertyValueFactory<BookReadLoanStatusResponseDto, String>("eName"));
-    bookList = bookController.ReadBooksByBookName(bookName);
+    ObservableList<BookReadLoanStatusResponseDto> bookList = FXCollections.observableArrayList(bookController.ReadBooksByBookName(bookName));
     table_book.setItems(bookList);
     int count = bookList.size();
 
@@ -236,8 +243,5 @@ public class BookManagementPageController implements Initializable {
     addButtonToTable();
   }
 
-  public void goHome(ActionEvent event) {
-    SceneManager sm = SceneManager.getInstance();
-    sm.moveScene(MANAGEMENT_FX.getFilePath());
-  }
+
 }
