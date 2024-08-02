@@ -26,15 +26,12 @@ public class DBConnector {
     }
 
     public Connection getConnection() throws SQLException {
-//        Dotenv dotenv = Dotenv.configure()
-//            .directory(System.getProperty("user.dir") + "/security")
-//            .load();
-//        String URL = dotenv.get("DB_URL");
-//        String USERNAME = dotenv.get("DB_USERNAME");
-//        String PASSWORD = dotenv.get("DB_PASSWORD");
-        String URL = "jdbc:oracle:thin:@localhost:1521/xe";
-        String USERNAME = "checkmate";
-        String PASSWORD = "checkmate";
+        Dotenv dotenv = Dotenv.configure()
+            .directory(System.getProperty("user.dir") + "/security")
+            .load();
+        String URL = dotenv.get("DB_URL");
+        String USERNAME = dotenv.get("DB_USERNAME");
+        String PASSWORD = dotenv.get("DB_PASSWORD");
         Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         return connection;
     }
