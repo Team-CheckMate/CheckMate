@@ -266,10 +266,8 @@ public class BookMapper {
      * @throws DatabaseException DataBase 예외
      */
     public List<TeamMemberLoanStatusDegree> findTeamMemberLoanStatus(Long teamNo) {
-        System.out.println("[ HELLO This is BookMapper ] findTeamMemberLoanStatus IN!! ");
         List<TeamMemberLoanStatusDegree> list = new ArrayList<>();
         String query = prop.getProperty("findTeamMemberLoanStatus");
-        System.out.println("[ >>> ] Query xml File's load Success! ");
 
         try (
                 Connection connection = DBConnector.getInstance().getConnection();

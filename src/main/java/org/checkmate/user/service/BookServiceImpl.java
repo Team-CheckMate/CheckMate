@@ -44,11 +44,10 @@ public class BookServiceImpl implements BookService {
      */
     @Override
     public TeamMemberLoanStatusForView findByTeamMemberLoanStatus(ReqLoginIdAndTeamNo requestDto) {
-        System.out.println("[ HELLO! ] findByTeamMemberLoanStatus Method");
         int totalLoanBook = 0;
         int totalLastMonthLoanBook = 0;
         int totalLastYearBook = 0;
-        System.out.println(" [ >>>  findByTeamMemberLoanStatus Method] ");
+
         List<TeamMemberLoanStatusDegree> record = bookMapper.findTeamMemberLoanStatus(requestDto.getTeamNo());
 
         for (TeamMemberLoanStatusDegree dto : record) {
