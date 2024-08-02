@@ -5,6 +5,8 @@ import static org.checkmate.user.util.FilePath.CREATE_REQUEST_BOOK_FX;
 import static org.checkmate.user.util.FilePath.LOAN_MANAGE;
 import static org.checkmate.user.util.FilePath.MAIN_FX;
 import static org.checkmate.user.util.FilePath.READ_MY_INFO_FX;
+import static org.checkmate.user.util.FilePath.READ_NOT_RENT_LOAN_BOOK_FX;
+import static org.checkmate.user.util.FilePath.READ_REQUEST_BOOK_FX;
 import static org.checkmate.user.util.FilePath.READ_TM_LOAN_STATUS_FX;
 
 import java.net.URL;
@@ -60,7 +62,7 @@ public class UpdatePasswordPageController implements Initializable {
     @FXML
     private void goToLoanManage(ActionEvent event) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene(LOAN_MANAGE.getFilePath());
+        sm.moveScene(READ_NOT_RENT_LOAN_BOOK_FX.getFilePath());
     }
 
     @FXML
@@ -72,7 +74,7 @@ public class UpdatePasswordPageController implements Initializable {
     @FXML
     private void goToBookApply(ActionEvent event) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene(CREATE_REQUEST_BOOK_FX.getFilePath());
+        sm.moveScene(READ_REQUEST_BOOK_FX.getFilePath());
     }
 
     @Override

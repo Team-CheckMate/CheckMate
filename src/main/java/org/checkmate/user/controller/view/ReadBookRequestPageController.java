@@ -77,13 +77,6 @@ public class ReadBookRequestPageController implements Initializable  {
         table_book.setItems(bookList);
         totalCnt.setText("총 : " + bookList.size() + "건");
     }
-
-    @FXML
-    public void bookRequestBtn(ActionEvent actionEvent) {
-        SceneManager sm = SceneManager.getInstance();
-        sm.moveScene(CREATE_REQUEST_BOOK_FX.getFilePath());
-    }
-
     @FXML
     public void goHome(ActionEvent actionEvent) {
         SceneManager sm = SceneManager.getInstance();
@@ -91,25 +84,32 @@ public class ReadBookRequestPageController implements Initializable  {
     }
 
     @FXML
-    public void goToBookLoan(ActionEvent actionEvent) {
+    public void bookRequestBtn(ActionEvent actionEvent) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene(READ_RENT_LOAN_BOOK_FX.getFilePath());
+        sm.moveScene(CREATE_REQUEST_BOOK_FX.getFilePath());
+    }
+
+
+    @FXML
+    private void goToBookLoan(ActionEvent event) {
+        SceneManager sm = SceneManager.getInstance();
+        sm.moveScene(BOOK_LOAN.getFilePath());
     }
 
     @FXML
-    public void goToLoanManage(ActionEvent actionEvent) {
+    private void goToLoanManage(ActionEvent event) {
         SceneManager sm = SceneManager.getInstance();
         sm.moveScene(READ_NOT_RENT_LOAN_BOOK_FX.getFilePath());
     }
 
     @FXML
-    public void goToMyLoanBook(ActionEvent actionEvent) {
+    private void goToMyLoanBook(ActionEvent event) {
         SceneManager sm = SceneManager.getInstance();
         sm.moveScene(READ_TM_LOAN_STATUS_FX.getFilePath());
     }
 
     @FXML
-    public void goToBookApply(ActionEvent actionEvent) {
+    private void goToBookApply(ActionEvent event) {
         SceneManager sm = SceneManager.getInstance();
         sm.moveScene(READ_REQUEST_BOOK_FX.getFilePath());
     }

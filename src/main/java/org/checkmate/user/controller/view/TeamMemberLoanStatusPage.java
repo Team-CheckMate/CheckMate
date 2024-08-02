@@ -3,6 +3,7 @@ package org.checkmate.user.controller.view;
 import static org.checkmate.user.util.FilePath.BOOK_LOAN;
 import static org.checkmate.user.util.FilePath.LOAN_MANAGE;
 import static org.checkmate.user.util.FilePath.MAIN_FX;
+import static org.checkmate.user.util.FilePath.READ_NOT_RENT_LOAN_BOOK_FX;
 import static org.checkmate.user.util.FilePath.READ_REQUEST_BOOK_FX;
 import static org.checkmate.user.util.FilePath.READ_TM_LOAN_STATUS_FX;
 
@@ -68,7 +69,7 @@ public class TeamMemberLoanStatusPage implements Initializable {
     @FXML
     private void goToLoanManage(ActionEvent event) {
         SceneManager sm = SceneManager.getInstance();
-        sm.moveScene(LOAN_MANAGE.getFilePath());
+        sm.moveScene(READ_NOT_RENT_LOAN_BOOK_FX.getFilePath());
     }
 
     @FXML
