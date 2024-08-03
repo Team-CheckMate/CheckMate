@@ -15,7 +15,6 @@ import org.checkmate.common.service.LoginServiceImpl;
 import org.checkmate.common.util.LoginSession;
 import org.checkmate.common.util.PasswordEncoder;
 import org.checkmate.user.dto.request.ReqLoginIdAndCurPasswordAndUpdatePassword;
-import org.checkmate.user.dto.response.UpdatePasswordResponseDto;
 import org.checkmate.user.mapper.MemberMapper;
 import org.checkmate.user.service.MemberService;
 import org.checkmate.user.service.MemberServiceImpl;
@@ -236,14 +235,15 @@ class MemberServiceTest {
                     .updatePassword(exist)
                     .build();
 
-            CommonResponse<UpdatePasswordResponseDto> updatePassword = memberService.updatePassword(
+            CommonResponse<Boolean> updatePassword = memberService.updatePassword(
                     requestDto
             );
 
             if (!updatePassword.getStatus()) {
                 System.out.println("ROLLBACK: No Point!");
+            } else {
+                System.out.println("ROLLBACK: "+ true);
             }
-            System.out.println("ROLLBACK: "+ updatePassword.getStatus());
         }
 
         @DisplayName("(Green) 현재 비밀번호가 올바르고, 새 비밀번호가 유효하면 비밀번호가 성공적으로 변경된다.")
@@ -259,10 +259,10 @@ class MemberServiceTest {
                     .updatePassword(updatePwd)
                     .build();
 
-            CommonResponse<UpdatePasswordResponseDto> updatePassword = memberService.updatePassword(
+            CommonResponse<Boolean> updatePassword = memberService.updatePassword(
                     requestDto
             );
-
+            System.out.println(updatePassword);
             assertThat(updatePassword).isNotNull();
             assertThat(updatePassword.getStatus()).isTrue();
             assertThat(updatePassword.getMessage()).isEqualTo("비밀번호 변경이 완료되었습니다.");
@@ -281,7 +281,7 @@ class MemberServiceTest {
                     .updatePassword(updatePwd)
                     .build();
 
-            CommonResponse<UpdatePasswordResponseDto> updatePassword = memberService.updatePassword(
+            CommonResponse<Boolean> updatePassword = memberService.updatePassword(
                     requestDto
             );
 

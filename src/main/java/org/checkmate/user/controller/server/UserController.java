@@ -3,7 +3,6 @@ package org.checkmate.user.controller.server;
 import lombok.NoArgsConstructor;
 import org.checkmate.common.dto.response.CommonResponse;
 import org.checkmate.user.dto.request.ReqLoginIdAndCurPasswordAndUpdatePassword;
-import org.checkmate.user.dto.response.UpdatePasswordResponseDto;
 import org.checkmate.user.service.MemberService;
 import org.checkmate.user.service.MemberServiceImpl;
 
@@ -12,7 +11,7 @@ public class UserController {
 
     private final MemberService memberService = new MemberServiceImpl();
 
-    public CommonResponse<UpdatePasswordResponseDto> updatePassword(
+    public CommonResponse<Boolean> updatePassword(
             String loginId, String curPassword,String updatePassword
     ) {
         ReqLoginIdAndCurPasswordAndUpdatePassword requestDto = ReqLoginIdAndCurPasswordAndUpdatePassword.builder()

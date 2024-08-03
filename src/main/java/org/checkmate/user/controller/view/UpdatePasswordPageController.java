@@ -27,7 +27,6 @@ import org.checkmate.common.exception.ValidationException;
 import org.checkmate.common.util.LoginSession;
 import org.checkmate.common.util.PasswordEncoder;
 import org.checkmate.user.controller.server.UserController;
-import org.checkmate.user.dto.response.UpdatePasswordResponseDto;
 
 @RequiredArgsConstructor
 public class UpdatePasswordPageController implements Initializable {
@@ -92,7 +91,7 @@ public class UpdatePasswordPageController implements Initializable {
     public void changePw_btn(javafx.event.ActionEvent actionEvent) throws NoSuchAlgorithmException {
         validateUserFields();
 
-        CommonResponse<UpdatePasswordResponseDto> changeResult = server.updatePassword(
+        CommonResponse<Boolean> changeResult = server.updatePassword(
                 LoginSession.getInstance().getUserInfo().getLoginId(),
                 PasswordEncoder.encrypt(nowPw.getText()),
                 PasswordEncoder.encrypt(changePw.getText())

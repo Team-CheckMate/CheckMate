@@ -144,7 +144,7 @@ public class MemberMapper {
      *         fail(-20001): false (비밀번호 불일치 || 사용자 없음)
      * @throws DatabaseException -20001 이외의 Database Exception
      */
-    public boolean updateMemberPassword(String loginId, String curPassword, String updatePassword) {
+    public Boolean updateMemberPassword(String loginId, String curPassword, String updatePassword) {
         String query = prop.getProperty("updateMemberPasswordByInsert");
 
         try (Connection connection = DBConnector.getInstance().getConnection();

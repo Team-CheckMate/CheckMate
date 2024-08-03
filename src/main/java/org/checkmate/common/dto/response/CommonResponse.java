@@ -3,11 +3,13 @@ package org.checkmate.common.dto.response;
 import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 
 /**
  * 공통 응답 DTO
  */
 @Getter
+@ToString
 public class CommonResponse<T> {
 
     private final Boolean status;

@@ -3,7 +3,6 @@ package org.checkmate.user.service;
 import lombok.RequiredArgsConstructor;
 import org.checkmate.common.dto.response.CommonResponse;
 import org.checkmate.user.dto.request.ReqLoginIdAndCurPasswordAndUpdatePassword;
-import org.checkmate.user.dto.response.UpdatePasswordResponseDto;
 import org.checkmate.user.mapper.MemberMapper;
 
 @RequiredArgsConstructor
@@ -22,14 +21,14 @@ public class MemberServiceImpl implements MemberService {
      *                   - fail: false, message
      */
     @Override
-    public CommonResponse<UpdatePasswordResponseDto> updatePassword(
+    public CommonResponse<Boolean> updatePassword(
             ReqLoginIdAndCurPasswordAndUpdatePassword requestDto) {
 
         String loginId = requestDto.getLoginId();
         String curPassword = requestDto.getCurPassword();
         String updatePassword = requestDto.getUpdatePassword();
 
-        boolean result = memberMapper.updateMemberPassword(loginId, curPassword, updatePassword);
+        Boolean result = memberMapper.updateMemberPassword(loginId, curPassword, updatePassword);
 
         if (!result) {
             return CommonResponse.fail("현재 비밀번호가 다르거나 사용자 정보가 존재하지 않습니다.");
