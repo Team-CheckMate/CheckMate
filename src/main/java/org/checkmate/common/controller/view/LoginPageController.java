@@ -21,15 +21,7 @@ import org.checkmate.common.exception.ValidationException;
 import org.checkmate.common.util.LoginSession;
 import org.checkmate.common.util.PasswordEncoder;
 
-
-/**
- * 로그인 요청 객체
- * HISTORY1: 최초 생성                              [송헌욱  2024.07.22]
- * HISTORY2: JavaFX 조작 메서드 생성                  [권혁규  2024.07.24]
- * HISTORY3: 로그인, pw 암호화 기능 생성               [송헌욱, 이준희  2024.07.24]
- * HISTORY4: Dto, lombok, optional 변경 병합        [송헌욱  2024.07.25]
- */
-@NoArgsConstructor(force = true)
+@NoArgsConstructor
 public class LoginPageController {
 
     private final LoginController loginController = new LoginController();
@@ -48,7 +40,7 @@ public class LoginPageController {
     public void loginBtnClick(ActionEvent actionEvent) throws NoSuchAlgorithmException {
         validateUserFields();
 
-        UserInfo userInfo = null;
+        UserInfo userInfo;
         try {
             userInfo = loginController.getUserInfo(
                     loginIdField.getText(),

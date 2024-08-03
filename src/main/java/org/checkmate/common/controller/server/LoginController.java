@@ -6,7 +6,7 @@ import org.checkmate.common.dto.response.UserInfo;
 import org.checkmate.common.service.LoginService;
 import org.checkmate.common.service.LoginServiceImpl;
 
-@NoArgsConstructor(force = true)
+@NoArgsConstructor
 public class LoginController {
 
     private final LoginService loginService = new LoginServiceImpl();
