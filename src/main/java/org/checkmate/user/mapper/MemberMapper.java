@@ -155,8 +155,8 @@ public class MemberMapper {
             preparedStatement.executeUpdate();
             return true;
         } catch (SQLException e) {
-            if (e.getErrorCode() == -20001) {
-                return false; //
+            if (e.getErrorCode() == 20001) {
+                return false;
             }
             throw new DatabaseException(e.getMessage());
         }

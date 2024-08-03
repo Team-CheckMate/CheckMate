@@ -1,4 +1,4 @@
-package org.checkmate.common.service;
+package org.checkmate.user;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -7,11 +7,18 @@ import static org.mockito.Mockito.when;
 
 import java.util.Optional;
 import org.checkmate.common.dto.request.ReqLoginIdAndPassword;
+import org.checkmate.common.dto.response.CommonResponse;
 import org.checkmate.common.dto.response.UserInfo;
 import org.checkmate.common.exception.DatabaseException;
+import org.checkmate.common.service.LoginService;
+import org.checkmate.common.service.LoginServiceImpl;
 import org.checkmate.common.util.LoginSession;
 import org.checkmate.common.util.PasswordEncoder;
+import org.checkmate.user.dto.request.ReqLoginIdAndCurPasswordAndUpdatePassword;
+import org.checkmate.user.dto.response.UpdatePasswordResponseDto;
 import org.checkmate.user.mapper.MemberMapper;
+import org.checkmate.user.service.MemberService;
+import org.checkmate.user.service.MemberServiceImpl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -31,6 +38,7 @@ class MemberServiceTest {
 
     @InjectMocks
     private LoginService loginService = new LoginServiceImpl();
+    private MemberService memberService = new MemberServiceImpl();
 
     @BeforeEach
     void setUp() {
@@ -193,6 +201,93 @@ class MemberServiceTest {
             assertThat(userInfo.getTName()).isEqualTo(expectUser.getTName());
             assertThat(userInfo.getDName()).isEqualTo(expectUser.getDName());
             assertThat(userInfo.getRole()).isEqualTo(expectUser.getRole());
+        }
+    }
+
+    @Nested
+    @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+    class 비밀번호_변경_테스트 {
+
+        private UserInfo expectUser;
+
+        @BeforeEach
+        void setUp() {
+            expectUser = UserInfo.builder()
+                    .loginId("1106050003")
+                    .teamNo(7L)
+                    .deptNo(3L)
+                    .eName("정다은")
+                    .tName("공개SW기술지원 서비스팀")
+                    .dName("ITO사업본부")
+                    .role("BASIC")
+                    .delayCnt(0)
+                    .build();
+        }
+
+        @AfterEach
+        void rollBackPassword() throws Exception {
+            String loginId = "1106050003";
+            String after = PasswordEncoder.encrypt("0001");
+            String exist = PasswordEncoder.encrypt("0000");
+
+            ReqLoginIdAndCurPasswordAndUpdatePassword requestDto = ReqLoginIdAndCurPasswordAndUpdatePassword.builder()
+                    .loginId(loginId)
+                    .curPassword(after)
+                    .updatePassword(exist)
+                    .build();
+
+            CommonResponse<UpdatePasswordResponseDto> updatePassword = memberService.updatePassword(
+                    requestDto
+            );
+
+            if (!updatePassword.getStatus()) {
+                System.out.println("ROLLBACK: No Point!");
+            }
+            System.out.println("ROLLBACK: "+ updatePassword.getStatus());
+        }
+
+        @DisplayName("(Green) 현재 비밀번호가 올바르고, 새 비밀번호가 유효하면 비밀번호가 성공적으로 변경된다.")
+        @Test
+        void 현재_비밀번호가_올바르고_새_비밀번호가_유효하면_비밀번호가_성공적으로_변경된다() throws Exception {
+            String loginId = "1106050003";
+            String curPwd = PasswordEncoder.encrypt("0000");
+            String updatePwd = PasswordEncoder.encrypt("0001");
+
+            ReqLoginIdAndCurPasswordAndUpdatePassword requestDto = ReqLoginIdAndCurPasswordAndUpdatePassword.builder()
+                    .loginId(loginId)
+                    .curPassword(curPwd)
+                    .updatePassword(updatePwd)
+                    .build();
+
+            CommonResponse<UpdatePasswordResponseDto> updatePassword = memberService.updatePassword(
+                    requestDto
+            );
+
+            assertThat(updatePassword).isNotNull();
+            assertThat(updatePassword.getStatus()).isTrue();
+            assertThat(updatePassword.getMessage()).isEqualTo("비밀번호 변경이 완료되었습니다.");
+        }
+
+        @DisplayName("(Red) 현재 비밀번호가 잘못된 경우 비밀번호 변경이 실패한다.")
+        @Test
+        void 현재_비밀번호가_잘못된_경우_비밀번호_변경이_실패한다() throws Exception {
+            String loginId = "1106050003";
+            String curPwd = PasswordEncoder.encrypt("00000");
+            String updatePwd = PasswordEncoder.encrypt("0001");
+
+            ReqLoginIdAndCurPasswordAndUpdatePassword requestDto = ReqLoginIdAndCurPasswordAndUpdatePassword.builder()
+                    .loginId(loginId)
+                    .curPassword(curPwd)
+                    .updatePassword(updatePwd)
+                    .build();
+
+            CommonResponse<UpdatePasswordResponseDto> updatePassword = memberService.updatePassword(
+                    requestDto
+            );
+
+            assertThat(updatePassword).isNotNull();
+            assertThat(updatePassword.getStatus()).isFalse();
+            assertThat(updatePassword.getMessage()).isEqualTo("현재 비밀번호가 다르거나 사용자 정보가 존재하지 않습니다.");
         }
     }
 

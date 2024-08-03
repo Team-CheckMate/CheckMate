@@ -1,4 +1,4 @@
-package org.checkmate.common.service;
+package org.checkmate.admin;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -10,6 +10,8 @@ import java.util.Optional;
 import org.checkmate.common.dto.request.ReqLoginIdAndPassword;
 import org.checkmate.common.dto.response.UserInfo;
 import org.checkmate.common.exception.DatabaseException;
+import org.checkmate.common.service.LoginService;
+import org.checkmate.common.service.LoginServiceImpl;
 import org.checkmate.common.util.LoginSession;
 import org.checkmate.common.util.PasswordEncoder;
 import org.checkmate.user.mapper.MemberMapper;
