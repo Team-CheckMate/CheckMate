@@ -7,7 +7,6 @@ import static org.mockito.Mockito.when;
 
 import java.util.Optional;
 import org.checkmate.common.dto.request.ReqLoginIdAndPassword;
-import org.checkmate.common.dto.response.CommonResponse;
 import org.checkmate.common.dto.response.UserInfo;
 import org.checkmate.common.exception.DatabaseException;
 import org.checkmate.common.service.LoginService;
@@ -235,11 +234,11 @@ class MemberServiceTest {
                     .updatePassword(exist)
                     .build();
 
-            CommonResponse<Boolean> updatePassword = memberService.updatePassword(
+            Boolean updatePassword = memberService.updatePassword(
                     requestDto
             );
 
-            if (!updatePassword.getStatus()) {
+            if (!updatePassword) {
                 System.out.println("ROLLBACK: No Point!");
             } else {
                 System.out.println("ROLLBACK: "+ true);
@@ -259,13 +258,12 @@ class MemberServiceTest {
                     .updatePassword(updatePwd)
                     .build();
 
-            CommonResponse<Boolean> updatePassword = memberService.updatePassword(
+            Boolean updatePassword = memberService.updatePassword(
                     requestDto
             );
             System.out.println(updatePassword);
             assertThat(updatePassword).isNotNull();
-            assertThat(updatePassword.getStatus()).isTrue();
-            assertThat(updatePassword.getMessage()).isEqualTo("비밀번호 변경이 완료되었습니다.");
+            assertThat(updatePassword).isTrue();
         }
 
         @DisplayName("(Red) 현재 비밀번호가 잘못된 경우 비밀번호 변경이 실패한다.")
@@ -281,13 +279,12 @@ class MemberServiceTest {
                     .updatePassword(updatePwd)
                     .build();
 
-            CommonResponse<Boolean> updatePassword = memberService.updatePassword(
+            Boolean updatePassword = memberService.updatePassword(
                     requestDto
             );
 
             assertThat(updatePassword).isNotNull();
-            assertThat(updatePassword.getStatus()).isFalse();
-            assertThat(updatePassword.getMessage()).isEqualTo("현재 비밀번호가 다르거나 사용자 정보가 존재하지 않습니다.");
+            assertThat(updatePassword).isFalse();
         }
     }
 
