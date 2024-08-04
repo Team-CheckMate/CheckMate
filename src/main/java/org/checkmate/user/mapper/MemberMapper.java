@@ -11,23 +11,25 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.Properties;
+
+import lombok.extern.log4j.Log4j2;
 import org.checkmate.common.database.DBConnector;
 import org.checkmate.common.dto.response.UserInfo;
 import org.checkmate.common.exception.DatabaseException;
 import org.checkmate.user.dto.response.ReadMyInformationResponseDto;
 import org.checkmate.user.entity.Admin;
 
-/**
- * TODO: 주석 달기
- */
+@Log4j2
 public class MemberMapper {
 
     private final Properties prop = new Properties();
 
     private void loadProperties() {
         try {
+            log.info(" <<< [ 🤖 Try to Import Query file from XML Path ]");
             InputStream input = new FileInputStream(ORACLE_QUERY_USER.getFilePath());
             prop.loadFromXML(input);
+            log.info(" >>> [ ✅ Query file loaded Successfully ]");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -47,7 +49,8 @@ public class MemberMapper {
     public Optional<UserInfo> findByLoginIdAndPassword(String loginId, String password) {
         Optional<UserInfo> userInfo = Optional.empty();
         String query = prop.getProperty("findByLoginIdAndPassword");
-        System.out.println("query init");
+
+        log.info(" <<< [ 🤖Executing query to find user by login ID and password. ]");
 
         try (
                 Connection connection = DBConnector.getInstance().getConnection();
@@ -59,9 +62,12 @@ public class MemberMapper {
             preparedStatement.setString(4, password);
 
             try (ResultSet rs = preparedStatement.executeQuery()) {
-                System.out.println("rs.toString() = " + rs.toString());
+                log.info(" >>> [ ✅ Executed query successfully. ]");
+                log.debug(">>> ResultSet: {} ", rs.toString());
+
                 if (rs.next()) {
-                    return Optional.of(UserInfo.builder()
+                    log.info(" <<< [ 🤖 User found, building \"UserInfo\" object... ]");
+                    Optional<UserInfo> build = Optional.of(UserInfo.builder()
                             .loginId(rs.getString("login_id"))
                             .teamNo(rs.getLong("team_no"))
                             .deptNo(rs.getLong("dept_no"))
@@ -70,9 +76,11 @@ public class MemberMapper {
                             .dName(rs.getString("d_name"))
                             .role(rs.getString("role"))
                             .delayCnt(rs.getInt("delay_cnt"))
-                            .build()
-                    );
+                            .build());
+                    log.info(" >>> [ ✅ The build is complete. ]");
+                    return build;
                 }
+
             }
         } catch (SQLException e) {
             throw new DatabaseException(e.getMessage());

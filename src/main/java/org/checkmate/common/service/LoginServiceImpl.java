@@ -2,12 +2,14 @@ package org.checkmate.common.service;
 
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.checkmate.common.dto.request.ReqLoginIdAndPassword;
 import org.checkmate.common.dto.response.UserInfo;
 import org.checkmate.common.exception.DatabaseException;
 import org.checkmate.common.util.LoginSession;
 import org.checkmate.user.mapper.MemberMapper;
 
+@Log4j2
 @RequiredArgsConstructor
 public class LoginServiceImpl implements LoginService {
 
@@ -15,6 +17,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public UserInfo login(ReqLoginIdAndPassword requestDto) {
+        log.info(" <<< [ 📢 Call MemberMapper to requestDTO ]");
         Optional<UserInfo> userInfo = memberMapper.findByLoginIdAndPassword(
                 requestDto.getLoginId(),
                 requestDto.getPassword()
@@ -24,23 +27,11 @@ public class LoginServiceImpl implements LoginService {
             throw new DatabaseException("조회된 회원이 없습니다.");
         }
 
-        // Session 등록
-        System.out.println("Session Register");
+        log.info(" <<< [ 👷🏻 Register \"UserInfo\" for the login session. ]");
         LoginSession.getInstance(userInfo.get());
-        System.out.println("Register Success! -> " + userInfo.get());
+        log.info(" >>> [ ✅ Register Success! - UserName is {} ]",  userInfo.get().getEName());
 
-        UserInfo user = userInfo.get();
-
-        return UserInfo.builder()
-                .loginId(user.getLoginId())
-                .teamNo(user.getTeamNo())
-                .deptNo(user.getDeptNo())
-                .eName(user.getEName())
-                .tName(user.getTName())
-                .dName(user.getDName())
-                .role(user.getRole())
-                .delayCnt(user.getDelayCnt())
-                .build();
+        return userInfo.get();
     }
 
 }
