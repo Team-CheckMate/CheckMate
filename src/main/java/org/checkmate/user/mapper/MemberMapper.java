@@ -11,13 +11,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.Properties;
-
 import lombok.extern.log4j.Log4j2;
 import org.checkmate.common.database.DBConnector;
 import org.checkmate.common.dto.response.UserInfo;
 import org.checkmate.common.exception.DatabaseException;
-import org.checkmate.user.dto.response.ReadMyInformationResponseDto;
-import org.checkmate.user.entity.Admin;
 
 @Log4j2
 public class MemberMapper {
@@ -83,64 +80,11 @@ public class MemberMapper {
 
             }
         } catch (SQLException e) {
+            log.error(" <<< [ ❌ SQLException 발생: {} ]", e.getMessage(), e);
             throw new DatabaseException(e.getMessage());
         }
         return userInfo;
     }
-
-    /**
-     * SQL에 접근하여 관리자의 아이디와 패스워드를 SELECT
-     *
-     * @param loginId  로그인 아이디
-     * @param password 비밀 번호
-     * @return Admin 객체
-     * @throws SQLException SQL 서버 에러
-     */
-    public Optional<Admin> findByLoginIdAndPasswordForAdmin(String loginId, String password)
-            throws SQLException {
-        String query = prop.getProperty("findByLoginIdAndPasswordForAdmin");
-        try (Connection connection = DBConnector.getInstance().getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, loginId);
-            preparedStatement.setString(2, password);
-
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    return Optional.of(Admin.builder()
-                            .role(resultSet.getString("role"))
-                            .build());
-                }
-            }
-        }
-        return Optional.empty();
-    }
-
-    /**
-     * SQL에 접근하여 이용자의 사원번호와 소속 TEAM을 조회하는 기능
-     *
-     * @param loginId 로그인 아이디 = 사원번호
-     * @return ReadMyInformationResponseDto 객체
-     * @throws SQLException SQL 서버 에러
-     */
-    public Optional<ReadMyInformationResponseDto> getMyPageInfo_findByLoginId(String loginId)
-            throws SQLException {
-        String query = prop.getProperty("findMyPageInfo");
-        try (Connection connection = DBConnector.getInstance().getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, loginId);
-
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    return Optional.of(new ReadMyInformationResponseDto(
-                            resultSet.getString("emp_no"),
-                            resultSet.getString("t_name")
-                    ));
-                }
-            }
-        }
-        return Optional.empty();
-    }
-
 
     /**
      * 사용자 Password 변경 처리
