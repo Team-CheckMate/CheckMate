@@ -43,15 +43,18 @@ public class LoginPageController {
 
         UserInfo userInfo;
         try {
-            log.info(" <<< [ 📢 Call LoginController to \"{}\", \"{}\" ]", loginIdField.getText(), loginPwField.getText());
-            userInfo = loginController.getUserInfo(
+            log.info(" <<< [ 📢 Call LoginController to \"{}\", \"{}\" ]",
+                    loginIdField.getText(),
+                    loginPwField.getText()
+            );
+            loginController.login(
                     loginIdField.getText(),
                     PasswordEncoder.encrypt(loginPwField.getText())
             );
-
             log.info(" <<< [ 📢 LoginSession Call ]");
             LoginSession instance = LoginSession.getInstance();
-            log.info(" >>> [ ✅ LoginSession Successfully called! ]");
+            log.info(" >>> [ ✅ LoginSession Successfully called! Get \"UserInfo\" ]");
+            userInfo = instance.getUserInfo();
 
             if (Objects.equals(userInfo.getRole(), "ADMIN")) {
                 log.info(" >>> [ 🪪 Role is \"{}\" ]", userInfo.getRole());
@@ -62,7 +65,6 @@ public class LoginPageController {
                 SceneManager sm = SceneManager.getInstance();
                 sm.moveScene(MAIN_FX.getFilePath());
             }
-            assert instance != null;
         } catch (DatabaseException | ValidationException e) {
             showAlert(e.getMessage());
         }

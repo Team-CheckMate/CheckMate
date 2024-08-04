@@ -16,7 +16,7 @@ public class LoginServiceImpl implements LoginService {
     private final MemberMapper memberMapper = new MemberMapper();
 
     @Override
-    public UserInfo login(ReqLoginIdAndPassword requestDto) {
+    public void login(ReqLoginIdAndPassword requestDto) {
         log.info(" <<< [ 📢 Call MemberMapper to requestDTO ]");
         Optional<UserInfo> userInfo = memberMapper.findByLoginIdAndPassword(
                 requestDto.getLoginId(),
@@ -30,8 +30,6 @@ public class LoginServiceImpl implements LoginService {
         log.info(" <<< [ 👷🏻 Register \"UserInfo\" for the login session. ]");
         LoginSession.getInstance(userInfo.get());
         log.info(" >>> [ ✅ Register Success! - UserName is {} ]",  userInfo.get().getEName());
-
-        return userInfo.get();
     }
 
 }
