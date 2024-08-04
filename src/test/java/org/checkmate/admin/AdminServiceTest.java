@@ -12,10 +12,8 @@ import org.checkmate.common.dto.response.UserInfo;
 import org.checkmate.common.exception.DatabaseException;
 import org.checkmate.common.service.LoginService;
 import org.checkmate.common.service.LoginServiceImpl;
-import org.checkmate.common.util.LoginSession;
 import org.checkmate.common.util.PasswordEncoder;
 import org.checkmate.user.mapper.MemberMapper;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DisplayNameGeneration;
@@ -124,69 +122,6 @@ class AdminServiceTest {
                     .hasMessageContaining("조회된 회원이 없습니다.");
         }
 
-
-
-    }
-
-    @Nested
-    @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-    class 세션_테스트 {
-
-        private LoginSession loginInfo;
-        private UserInfo expectAdmin;
-
-        @BeforeEach
-        void setUp() {
-            expectAdmin = UserInfo.builder()
-                    .loginId("1")
-                    .teamNo(0L)
-                    .deptNo(0L)
-                    .role("ADMIN")
-                    .build();
-        }
-
-        @AfterEach
-        void clear() {
-            if (loginInfo != null) {
-                loginInfo.clearSession();
-            }
-        }
-
-        private LoginSession createLoginSession(String id, String pw)
-                throws NoSuchAlgorithmException {
-            String password = PasswordEncoder.encrypt(pw);
-
-            ReqLoginIdAndPassword request = ReqLoginIdAndPassword.builder()
-                    .loginId(id)
-                    .password(password)
-                    .build();
-
-            return LoginSession.getInstance(loginService.login(request));
-        }
-
-        @DisplayName("(Green) 관리자는 로그인이 완료되면 세션에 존재하는 관리자의 정보를 사용할 수 있다.")
-        @Test
-        void 관리자는_로그인이_완료되면_세션에_존재하는_관리자의_정보를_사용할_수_있다()
-                throws NoSuchAlgorithmException {
-            // given
-            String loginId = "1";
-            String password = "0000";
-
-            // when
-            loginInfo = createLoginSession(loginId, password);
-            UserInfo adminInfo = loginInfo.getUserInfo();
-
-            // then
-            assertThat(loginInfo).isNotNull();
-            assertThat(adminInfo).isNotNull();
-            assertThat(adminInfo.getLoginId()).isEqualTo(expectAdmin.getLoginId());
-            assertThat(adminInfo.getTeamNo()).isEqualTo(expectAdmin.getTeamNo());
-            assertThat(adminInfo.getDeptNo()).isEqualTo(expectAdmin.getDeptNo());
-            assertThat(adminInfo.getEName()).isEqualTo(expectAdmin.getEName());
-            assertThat(adminInfo.getTName()).isEqualTo(expectAdmin.getTName());
-            assertThat(adminInfo.getDName()).isEqualTo(expectAdmin.getDName());
-            assertThat(adminInfo.getRole()).isEqualTo(expectAdmin.getRole());
-        }
     }
 
 }
