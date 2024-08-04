@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.checkmate.common.dto.request.ReqLoginIdAndPassword;
 import org.checkmate.common.dto.response.UserInfo;
 import org.checkmate.common.exception.DatabaseException;
+import org.checkmate.common.util.LoginSession;
 import org.checkmate.user.mapper.MemberMapper;
 
 @RequiredArgsConstructor
@@ -22,6 +23,11 @@ public class LoginServiceImpl implements LoginService {
         if (userInfo.isEmpty()) {
             throw new DatabaseException("조회된 회원이 없습니다.");
         }
+
+        // Session 등록
+        System.out.println("Session Register");
+        LoginSession.getInstance(userInfo.get());
+        System.out.println("Register Success! -> " + userInfo.get());
 
         UserInfo user = userInfo.get();
 

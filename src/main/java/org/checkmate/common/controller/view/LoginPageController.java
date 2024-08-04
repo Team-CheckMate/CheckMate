@@ -47,7 +47,8 @@ public class LoginPageController {
                     PasswordEncoder.encrypt(loginPwField.getText())
             );
 
-            LoginSession instance = LoginSession.getInstance(userInfo);
+            System.out.println("Session Call");
+            LoginSession instance = LoginSession.getInstance();
 
             if (Objects.equals(userInfo.getRole(), "ADMIN")) {
                 System.out.println("관리자 로그인");
@@ -59,7 +60,6 @@ public class LoginPageController {
                 sm.moveScene(MAIN_FX.getFilePath());
             }
             assert instance != null;
-            System.out.println(instance.getUserInfo().toString());
         } catch (DatabaseException | ValidationException e) {
             showAlert(e.getMessage());
         }

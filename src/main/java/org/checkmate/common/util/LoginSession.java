@@ -1,6 +1,7 @@
 package org.checkmate.common.util;
 
 import lombok.Getter;
+import lombok.ToString;
 import org.checkmate.common.dto.response.UserInfo;
 
 /**
@@ -8,6 +9,7 @@ import org.checkmate.common.dto.response.UserInfo;
  * HISTORY1: 최초 생성                              [송헌욱  2024.07.24]
  */
 @Getter
+@ToString
 public class LoginSession {
 
     private static LoginSession instance;
@@ -15,7 +17,7 @@ public class LoginSession {
 
     public LoginSession(UserInfo userInfo) {
         this.userInfo = userInfo;
-        System.out.println("[생성자] Session created: " + userInfo.toString());
+        System.out.println("[Session created]");
     }
 
     public static synchronized LoginSession getInstance(UserInfo userInfo) {
