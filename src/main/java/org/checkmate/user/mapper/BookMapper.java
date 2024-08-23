@@ -11,6 +11,7 @@ import java.util.Properties;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.CheckBox;
+import lombok.extern.log4j.Log4j2;
 import org.checkmate.common.database.DBConnector;
 import org.checkmate.common.exception.DatabaseException;
 import org.checkmate.user.dto.request.CreateBookLoanRequestDto;
@@ -19,15 +20,18 @@ import org.checkmate.user.dto.response.ReadLoanStatusResponseDto;
 import org.checkmate.common.util.TypeFormatter;
 import org.checkmate.user.dto.response.TeamMemberLoanStatusDegree;
 
+@Log4j2
 public class BookMapper {
 
     private final Properties prop = new Properties();
 
     public BookMapper() {
         try {
+            log.info(" <<< [ 🤖 Try to Import Query file from XML Path ]");
             InputStream input = new FileInputStream(
                     "target/classes/org/checkmate/sql/userQuery.xml");
             prop.loadFromXML(input);
+            log.info(" >>> [ ✅ Query file loaded Successfully ]");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -268,16 +272,22 @@ public class BookMapper {
      */
     public List<TeamMemberLoanStatusDegree> findTeamMemberLoanStatus(Long teamNo) {
         List<TeamMemberLoanStatusDegree> list = new ArrayList<>();
+        log.info(" <<< [ 🤖 팀 번호 {}의 팀 멤버 대출 상태를 찾기 위한 쿼리 준비 중 ]", teamNo);
         String query = prop.getProperty("findTeamMemberLoanStatus");
 
         try (
                 Connection connection = DBConnector.getInstance().getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(query)
         ) {
+            log.info(" >>> [ ✅ 데이터베이스 연결이 성공적으로 설정되었습니다. ]");
             preparedStatement.setLong(1, teamNo);
-            System.out.println(" >>> ? ");
+            log.info(" <<< [ 🤖 파라미터 설정: teamNo = {} ]", teamNo);
             ResultSet rs = preparedStatement.executeQuery();
+            log.info(" >>> [ ✅ 쿼리가 성공적으로 실행되었습니다. ]");
+
             while (rs.next()) {
+                log.debug(" <<< [ 🤖 결과 처리 중... ]");
+
                 TeamMemberLoanStatusDegree dto = TeamMemberLoanStatusDegree.builder()
                         .loginId(rs.getString("login_id"))
                         .eName(rs.getString("e_name"))
@@ -286,9 +296,14 @@ public class BookMapper {
                         .lastMonthCount(rs.getInt("last_month_count"))
                         .lastYearCount(rs.getInt("last_year_count"))
                         .build();
+
+                log.debug(" >>> [ ✅ TeamMemberLoanStatusDegree 객체 생성: {} ]", dto);
+
                 list.add(dto);
             }
+            log.info(" >>> [ ✅ 모든 행 처리 완료. 목록이 성공적으로 작성되었습니다. 총 항목 수: {} ]", list.size());
         } catch (SQLException e) {
+            log.error(" <<< [ ❌ SQLException 발생: {} ]", e.getMessage(), e);
             throw new DatabaseException(e.getMessage());
         }
         return list;

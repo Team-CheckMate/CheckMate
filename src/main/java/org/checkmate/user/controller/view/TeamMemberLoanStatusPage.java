@@ -1,7 +1,6 @@
 package org.checkmate.user.controller.view;
 
 import static org.checkmate.user.util.FilePath.BOOK_LOAN;
-import static org.checkmate.user.util.FilePath.LOAN_MANAGE;
 import static org.checkmate.user.util.FilePath.MAIN_FX;
 import static org.checkmate.user.util.FilePath.READ_NOT_RENT_LOAN_BOOK_FX;
 import static org.checkmate.user.util.FilePath.READ_REQUEST_BOOK_FX;
@@ -24,12 +23,15 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.checkmate.common.controller.view.SceneManager;
+import org.checkmate.common.dto.response.CommonResponse;
 import org.checkmate.common.util.LoginSession;
 import org.checkmate.user.controller.server.BookController;
 import org.checkmate.user.dto.response.TeamMemberLoanStatusDegree;
 import org.checkmate.user.dto.response.TeamMemberLoanStatusForView;
 
+@Log4j2
 @RequiredArgsConstructor
 public class TeamMemberLoanStatusPage implements Initializable {
 
@@ -86,8 +88,10 @@ public class TeamMemberLoanStatusPage implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        log.info(" <<< [ 📢 LoginSession Call ]");
         LoginSession session = LoginSession.getInstance();
         var userInfo = session.getUserInfo();
+        log.info(" >>> [ ✅ LoginSession Successfully called! Get \"UserInfo\" ]");
         userNameLink.setText(userInfo.getEName());
         deptNameText.setText(userInfo.getTName() + " 도서 대여 분석");
         tdName.setText(userInfo.getDName() + "\n" + userInfo.getTName());
@@ -124,20 +128,33 @@ public class TeamMemberLoanStatusPage implements Initializable {
     }
 
     private void loadData(String loginId, Long teamNo) {
-        TeamMemberLoanStatusForView dataResponse = server.teamMemberLoanStatus(loginId, teamNo);
+        log.info(" <<< [ 📢 BookController를 호출하여 데이터를 로드: loginId = \"{}\", teamNo = \"{}\" ]", loginId, teamNo);
 
-        int totalLoanBook = dataResponse.getTotalLoanBook(); // 총 빌린 도서 수
-        int totalLastMonthLoanBook = dataResponse.getTotalLastMonthLoanBook(); // 지난달 대여 도서 수
-        int totalLastYearBook = dataResponse.getTotalLastYearBook(); // 작년 대여 도서 수
+        CommonResponse<TeamMemberLoanStatusForView> response = server.teamMemberLoanStatus(loginId, teamNo);
+        log.info(" >>> [ ✅ 서버로부터 응답 수신 완료. ]");
+
+        TeamMemberLoanStatusForView resData = response.getData();
+        log.info(" >>> [ ✅ 응답 데이터 처리 시작. ]");
+
+        int totalLoanBook = resData.getTotalLoanBook(); // 총 빌린 도서 수
+        int totalLastMonthLoanBook = resData.getTotalLastMonthLoanBook(); // 지난달 대여 도서 수
+        int totalLastYearBook = resData.getTotalLastYearBook(); // 작년 대여 도서 수
+        log.info(" >>> [ 📊 대출 도서 데이터: 총 대출 = {}, 지난달 대출 = {}, 작년 대출 = {} ]", totalLoanBook, totalLastMonthLoanBook, totalLastYearBook);
 
         String[] analysis = readAnalysis(totalLoanBook, totalLastMonthLoanBook, totalLastYearBook);
+        log.info(" >>> [ 🔍 분석 결과 생성 ]" );
 
-        List<TeamMemberLoanStatusDegree> dataList = dataResponse.getList();
+        List<TeamMemberLoanStatusDegree> dataList = resData.getList();
+        log.info(" >>> [ 📋 데이터 리스트 크기: {} ]", dataList.size());
+
         ObservableList<TeamMemberLoanStatusDegree> data = FXCollections.observableArrayList(
                 dataList);
         tableView.setItems(data);
+        log.info(" >>> [ ✅ TableView에 데이터 설정 완료. ]");
+
         infoText.setText(analysis[0]);
         anaMsg.setText(analysis[1]);
+        log.info(" >>> [ ✅ UI 업데이트 완료 ]");
     }
 
     private String[] readAnalysis(int totalLoanBook, int totalLastMonthLoanBook, int totalLastYearBook) {

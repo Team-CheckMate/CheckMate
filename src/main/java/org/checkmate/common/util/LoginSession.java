@@ -1,13 +1,16 @@
 package org.checkmate.common.util;
 
 import lombok.Getter;
+import lombok.ToString;
+import lombok.extern.log4j.Log4j2;
 import org.checkmate.common.dto.response.UserInfo;
 
 /**
- * 로그인 회원의 상태를 저장할 세션 생성
- * HISTORY1: 최초 생성                              [송헌욱  2024.07.24]
+ * 로그인 회원의 상태를 저장할 세션 객체
  */
 @Getter
+@ToString
+@Log4j2
 public class LoginSession {
 
     private static LoginSession instance;
@@ -15,7 +18,7 @@ public class LoginSession {
 
     public LoginSession(UserInfo userInfo) {
         this.userInfo = userInfo;
-        System.out.println("[생성자] Session created: " + userInfo.toString());
+        log.info(" >>> [ ✨ LoginSession created]");
     }
 
     public static synchronized LoginSession getInstance(UserInfo userInfo) {

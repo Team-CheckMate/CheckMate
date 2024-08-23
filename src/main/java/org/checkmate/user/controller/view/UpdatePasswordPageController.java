@@ -1,8 +1,7 @@
 package org.checkmate.user.controller.view;
 
+import static javafx.scene.control.Alert.AlertType.INFORMATION;
 import static org.checkmate.user.util.FilePath.BOOK_LOAN;
-import static org.checkmate.user.util.FilePath.CREATE_REQUEST_BOOK_FX;
-import static org.checkmate.user.util.FilePath.LOAN_MANAGE;
 import static org.checkmate.user.util.FilePath.MAIN_FX;
 import static org.checkmate.user.util.FilePath.READ_MY_INFO_FX;
 import static org.checkmate.user.util.FilePath.READ_NOT_RENT_LOAN_BOOK_FX;
@@ -11,7 +10,6 @@ import static org.checkmate.user.util.FilePath.READ_TM_LOAN_STATUS_FX;
 
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -24,23 +22,35 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import lombok.RequiredArgsConstructor;
 import org.checkmate.common.controller.view.SceneManager;
-import org.checkmate.common.service.LoginService;
-import org.checkmate.common.service.LoginServiceImpl;
+import org.checkmate.common.dto.response.CommonResponse;
+import org.checkmate.common.exception.ValidationException;
 import org.checkmate.common.util.LoginSession;
 import org.checkmate.common.util.PasswordEncoder;
-import org.checkmate.user.dto.request.UpdatePasswordRequestDto;
-import org.checkmate.user.dto.response.UpdatePasswordResponseDto;
+import org.checkmate.user.controller.server.UserController;
 
 @RequiredArgsConstructor
 public class UpdatePasswordPageController implements Initializable {
 
-    private final LoginService loginService = new LoginServiceImpl();
+    private final UserController server = new UserController();
 
-    @FXML private Hyperlink userNameLink;
-    @FXML private Text dtName;
-    @FXML private TextField nowPw;
-    @FXML private PasswordField changePw;
-    @FXML private PasswordField checkChangePw;
+    @FXML
+    private Hyperlink userNameLink;
+    @FXML
+    private Text dtName;
+    @FXML
+    private TextField nowPw;
+    @FXML
+    private PasswordField changePw;
+    @FXML
+    private PasswordField checkChangePw;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        var instance = LoginSession.getInstance();
+        var userInfo = instance.getUserInfo();
+        userNameLink.setText(userInfo.getEName());
+        dtName.setText(userInfo.getDName() + "\n" + userInfo.getTName());
+    }
 
     @FXML
     private void exit(ActionEvent event) {
@@ -77,67 +87,55 @@ public class UpdatePasswordPageController implements Initializable {
         sm.moveScene(READ_REQUEST_BOOK_FX.getFilePath());
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        var instance = LoginSession.getInstance();
-        var userInfo = instance.getUserInfo();
-        userNameLink.setText(userInfo.getEName());
-        dtName.setText(userInfo.getDName() + "\n" + userInfo.getTName());
+    @FXML
+    public void changePw_btn(javafx.event.ActionEvent actionEvent) throws NoSuchAlgorithmException {
+        validateUserFields();
+
+        CommonResponse<Boolean> changeResult = server.updatePassword(
+                LoginSession.getInstance().getUserInfo().getLoginId(),
+                PasswordEncoder.encrypt(nowPw.getText()),
+                PasswordEncoder.encrypt(changePw.getText())
+        );
+
+        if (changeResult.getStatus()) {
+            showAlert(changeResult.getMessage());
+            SceneManager sm = SceneManager.getInstance();
+            sm.moveScene(READ_MY_INFO_FX.getFilePath());
+        } else {
+            showAlert(changeResult.getMessage());
+        }
     }
 
-    public boolean userField(TextField nowPw, PasswordField changePw, PasswordField checkChangePw) {
-        if (nowPw.getText().isEmpty()) {
-            Msg("현재 PW를 입력해주세요.");
-            nowPw.requestFocus();
-            nowPw.clear();
-            return false;
-        }
-        if (changePw.getText().isEmpty()) {
-            Msg("변경하실 PW를 입력해주세요.");
-            changePw.requestFocus();
-            return false;
-        }
-        if (checkChangePw.getText().isEmpty()) {
-            Msg("변경할 PW를 재입력해주세요.");
-            checkChangePw.requestFocus();
-            return false;
-        }
-        if (!checkChangePw.getText().equals(changePw.getText())) {
-            Msg("입력하신 비밀번호가 다릅니다.");
-            checkChangePw.requestFocus();
-            return false;
-        }
-        return true;
-    }
-
-    public void Msg(String msg) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    public void showAlert(String msg) {
+        Alert alert = new Alert(INFORMATION);
         alert.setTitle("알림");
         alert.setHeaderText("마이페이지");
         alert.setContentText(msg);
         alert.show();
     }
 
-    @FXML
-    public void changePw_btn(javafx.event.ActionEvent actionEvent) throws NoSuchAlgorithmException, SQLException {
-        System.out.println("버튼실행됨");
-        if(!userField(nowPw,changePw,checkChangePw)){
-            return;
-        }
-        String loginId= LoginSession.getInstance().getUserInfo().getLoginId();
-        String nowPw =  PasswordEncoder.encrypt(this.nowPw.getText());
-        String changePw = PasswordEncoder.encrypt(this.changePw.getText());
+    public void validateUserFields() {
+        isNotEmpty(nowPw, "현재 PW를 입력해주세요.");
+        isNotEmpty(changePw, "변경하실 PW를 입력해주세요.");
+        isNotEmpty(checkChangePw, "변경할 PW를 재입력해주세요.");
+        isNotEquals(changePw, checkChangePw, "입력하신 비밀번호가 다릅니다.");
+    }
 
-        UpdatePasswordResponseDto changeResult = loginService.changePw(
-            UpdatePasswordRequestDto.builder().loginId(loginId).nowPw(nowPw).changePw(changePw)
-                .build());
-        if(changeResult.isSuccess()){
-            Msg("비밀번호가 변경되었습니다!");
-            SceneManager sm = SceneManager.getInstance();
-            sm.moveScene(READ_MY_INFO_FX.getFilePath());
-            System.out.println(changeResult.getMessage());
-        }else{
-            Msg(changeResult.getMessage());
+    private void isNotEquals(TextField changePw, TextField checkChangePw, String message) {
+        if (!checkChangePw.getText().equals(changePw.getText())) {
+            showAlert(message);
+            checkChangePw.requestFocus();
+            checkChangePw.clear();
+            throw new ValidationException(message);
+        }
+    }
+
+    private void isNotEmpty(TextField field, String message) {
+        if (field.getText().trim().isEmpty()) {
+            showAlert(message);
+            field.requestFocus();
+            field.clear();
+            throw new ValidationException(message);
         }
     }
 }

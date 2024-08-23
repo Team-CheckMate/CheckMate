@@ -6,7 +6,6 @@ import static org.checkmate.user.util.FilePath.MAIN_FX;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
-
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +13,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import lombok.NoArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.checkmate.common.controller.server.LoginController;
 import org.checkmate.common.dto.response.UserInfo;
 import org.checkmate.common.exception.DatabaseException;
@@ -21,15 +21,8 @@ import org.checkmate.common.exception.ValidationException;
 import org.checkmate.common.util.LoginSession;
 import org.checkmate.common.util.PasswordEncoder;
 
-
-/**
- * 로그인 요청 객체
- * HISTORY1: 최초 생성                              [송헌욱  2024.07.22]
- * HISTORY2: JavaFX 조작 메서드 생성                  [권혁규  2024.07.24]
- * HISTORY3: 로그인, pw 암호화 기능 생성               [송헌욱, 이준희  2024.07.24]
- * HISTORY4: Dto, lombok, optional 변경 병합        [송헌욱  2024.07.25]
- */
-@NoArgsConstructor(force = true)
+@Log4j2
+@NoArgsConstructor
 public class LoginPageController {
 
     private final LoginController loginController = new LoginController();
@@ -48,26 +41,30 @@ public class LoginPageController {
     public void loginBtnClick(ActionEvent actionEvent) throws NoSuchAlgorithmException {
         validateUserFields();
 
-        UserInfo userInfo = null;
+        UserInfo userInfo;
         try {
-            userInfo = loginController.getUserInfo(
+            log.info(" <<< [ 📢 Call LoginController to \"{}\", \"{}\" ]",
+                    loginIdField.getText(),
+                    loginPwField.getText()
+            );
+            loginController.login(
                     loginIdField.getText(),
                     PasswordEncoder.encrypt(loginPwField.getText())
             );
-
-            LoginSession instance = LoginSession.getInstance(userInfo);
+            log.info(" <<< [ 📢 LoginSession Call ]");
+            LoginSession instance = LoginSession.getInstance();
+            log.info(" >>> [ ✅ LoginSession Successfully called! Get \"UserInfo\" ]");
+            userInfo = instance.getUserInfo();
 
             if (Objects.equals(userInfo.getRole(), "ADMIN")) {
-                System.out.println("관리자 로그인");
+                log.info(" >>> [ 🪪 Role is \"{}\" ]", userInfo.getRole());
                 SceneManager sm = SceneManager.getInstance();
                 sm.moveScene(MANAGEMENT_FX.getFilePath());
             } else {
-                System.out.println("유저 로그인");
+                log.info(" >>> [ 🪪 Role is \"{}\" ]", userInfo.getRole());
                 SceneManager sm = SceneManager.getInstance();
                 sm.moveScene(MAIN_FX.getFilePath());
             }
-            assert instance != null;
-            System.out.println(instance.getUserInfo().toString());
         } catch (DatabaseException | ValidationException e) {
             showAlert(e.getMessage());
         }
